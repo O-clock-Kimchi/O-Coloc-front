@@ -1,25 +1,18 @@
-import logo from '../../assets/logo.svg';
-
-import './App.scss';
+import { ArrowRightIcon } from '@radix-ui/react-icons';
+import { Button } from '../ui/button';
 
 function App() {
   return (
-    <div className="App">
+    <div className=" md:container md:mx-auto  border-2">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <p>
-          Edit <code>src/components/App/App.tsx</code> and save to reload.
-        </p>
-
-        <a
-          className="App-link"
-          href="https://react.dev/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 className=" text-red-500 text-5xl">Hello World!</h1>
+        <Button>
+          TESTEZ MOI <ArrowRightIcon />
+        </Button>
+        <Button variant="outline" size="lg">
+          ENCORE 1
+        </Button>
+        <Button variant="secondary">ENCORE</Button>
       </header>
     </div>
   );
