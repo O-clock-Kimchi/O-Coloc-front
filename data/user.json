@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "firstname": "Florian",
+    "email": "test@ocoloc.com",
+    "password": "blablabla",
+    "color": "#BDE8B3",
+    "id_coloc": 1
+  },
+  {
+    "id": 2,
+    "firstname": "Noellie",
+    "email": "nono@ocoloc.com",
+    "password": "bliblibli",
+    "color": "#981B64",
+    "id_coloc": 1
+  }
+]
