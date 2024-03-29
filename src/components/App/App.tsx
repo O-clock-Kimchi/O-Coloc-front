@@ -76,7 +76,7 @@ function App() {
         {/* Tagline section with CTA and illustration */}
         <section className="h-[50%] mb-5">
           <div className="grid grid-rows-1 md:grid-cols-2 sm:grid-cols-1">
-            <div className="box-left flex flex-col gap-y-4 justify-between">
+            <div className="box-left flex flex-col gap-y-4 justify-between sm:items-center">
               <div>
                 <h1 className="text-5xl uppercase">
                   Gérez votre coloc au même endroit
@@ -89,7 +89,7 @@ function App() {
                 voluptatibus dolor. Voluptatum voluptate repellendus voluptatem.
               </p>
 
-              <Button className="w-2/5 p-6" variant="secondary">
+              <Button className="w-2/5 p-6 sm:w-100" variant="secondary">
                 Créer une coloc
               </Button>
             </div>
