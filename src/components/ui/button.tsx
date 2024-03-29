@@ -14,9 +14,9 @@ const buttonVariants = cva(
         destructive:
           'bg-red-500 text-jet-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-jet-50 dark:hover:bg-red-900/90',
         outline:
-          'border border-jet-200 bg-white hover:bg-jet-100 hover:text-jet-900 dark:border-jet-800 dark:bg-jet-950 dark:hover:bg-jet-800 dark:hover:text-jet-50',
+          'border border-jet-400 bg-white hover:bg-jet-100 hover:text-jet-900 dark:border-jet-800 dark:bg-jet-950 dark:hover:bg-jet-800 dark:hover:text-jet-50',
         secondary:
-          'bg-tainoi-100 text-tainoi-900 hover:bg-tainoi-100/80 dark:bg-tainoi-800 dark:text-tainoi-50 dark:hover:bg-tainoi-800/80',
+          'bg-eden-800 text-floral-white hover:bg-eden-700/80 dark:bg-eden-800 dark:text-eden-50 dark:hover:bg-eden-800/80',
         ghost:
           'hover:bg-jet-100 hover:text-jet-900 dark:hover:bg-jet-800 dark:hover:text-jet-50',
         link: 'text-jet-900 underline-offset-4 hover:underline dark:text-jet-50',
