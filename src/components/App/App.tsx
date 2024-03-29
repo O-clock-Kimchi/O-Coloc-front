@@ -8,20 +8,21 @@ import {
 } from '../ui/accordion';
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from '../ui/navigation-menu';
+
+import { Card, CardContent, CardTitle, CardHeader } from '../ui/card';
+
+// AvatarFallback in case the image isn't loading
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 function App() {
   return (
     <div className=" container mx-auto  min-h-screen flex flex-col">
-      <header className="flex items-center justify-between py-4 mb-6 px-6">
+      <header className="flex items-center flex-wrap justify-between py-4 mb-6 px-6 w-full">
         <div>
           <img
             className="w-14 md:w-28 lg:w-40"
@@ -75,8 +76,8 @@ function App() {
       <main className="px-6 grow">
         {/* Tagline section with CTA and illustration */}
         <section className="h-[50%] mb-5">
-          <div className="grid grid-rows-1 md:grid-cols-2 sm:grid-cols-1">
-            <div className="box-left flex flex-col gap-y-4 justify-between sm:items-center">
+          <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2">
+            <div className="box-left flex flex-col gap-y-4 justify-between text-center md:text-left">
               <div>
                 <h1 className="text-5xl uppercase">
                   Gérez votre coloc au même endroit
@@ -89,14 +90,14 @@ function App() {
                 voluptatibus dolor. Voluptatum voluptate repellendus voluptatem.
               </p>
 
-              <Button className="w-2/5 p-6 sm:w-100" variant="secondary">
+              <Button className="p-6 w-100 md:w-2/5" variant="secondary">
                 Créer une coloc
               </Button>
             </div>
 
             <div className="box-right">
               <img
-                src="../../../public/MeditatingDoodle.svg"
+                src="/MeditatingDoodle.svg"
                 alt="meditating doodle"
                 className="justify-self-center"
               />
@@ -106,10 +107,52 @@ function App() {
 
         {/* Fake testimonials */}
 
-        <section>
+        <section className="w-100">
           <h2>Ils ne parlent (pas) de nous !</h2>
-          <ScrollArea id="about-menu" className="w-96 whitespace-nowrap">
+          <ScrollArea id="about-menu" className="w-100 whitespace-nowrap">
             <section className="flex w-max space-x-4 p-4 overflow-hidden rounded-md">
+              <Card className="w-[300px] h-[200px]">
+                <CardHeader className="flex">
+                  <Avatar>
+                    <AvatarImage src="" />
+                    <AvatarFallback>FR</AvatarFallback>
+                  </Avatar>
+                  <CardTitle>Florian</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>
+                    Cette appli ma changé la vie. Je vous la recommande les yeux
+                    fermés.
+                  </p>
+                </CardContent>
+              </Card>
+              <div className="shrink-0">
+                <img
+                  src="https://picsum.photos/200"
+                  alt=""
+                  className="aspect-[3/4] h-fit w-fit object-cover"
+                />
+                <p className="pt-2 text-xs text-muted-foreground">Prénom</p>
+              </div>
+
+              <div className="shrink-0">
+                <img
+                  src="https://picsum.photos/200"
+                  alt=""
+                  className="aspect-[3/4] h-fit w-fit object-cover"
+                />
+                <p className="pt-2 text-xs text-muted-foreground">Prénom</p>
+              </div>
+
+              <div className="shrink-0">
+                <img
+                  src="https://picsum.photos/200"
+                  alt=""
+                  className="aspect-[3/4] h-fit w-fit object-cover"
+                />
+                <p className="pt-2 text-xs text-muted-foreground">Prénom</p>
+              </div>
+
               <div className="shrink-0">
                 <img
                   src="https://picsum.photos/200"
@@ -210,7 +253,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="py-5 bg-jet-900 text-center text-floral-white relative mt-auto bottom-0">
+      <footer className="py-5 bg-jet-900 text-center text-floral-white w-screen">
         <p>CoHabit 2024 - Kimchi</p>
       </footer>
     </div>
