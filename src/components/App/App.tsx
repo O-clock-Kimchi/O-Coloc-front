@@ -25,11 +25,13 @@ function App() {
     <div className=" container mx-auto  min-h-screen flex flex-col">
       <header className="flex items-center flex-wrap justify-between py-4 mb-6 px-6 w-full">
         <div>
-          <img
-            className="w-14 md:w-28 lg:w-40"
-            src="/logo_cropped.png"
-            alt="Logo de CoHabit"
-          />
+          <a href="##" title="">
+            <img
+              className="w-14 md:w-28 lg:w-40"
+              src="/logo_cropped.png"
+              alt="Logo de CoHabit"
+            />
+          </a>
         </div>
 
         <div>
@@ -319,7 +321,7 @@ function App() {
         <p className="section-subtitle text-lg text-center mb-12">
           Des passionnés comme on n&rsquo;en trouve pas partout&nbsp;!
         </p>
-        <div className="grid grid-cols-5 grid-rows-1 gap-5">
+        <div className="grid grid-cols-5 grid-rows-1 gap-5 flex-wrap">
           <div className="team-member-card shrink-0">
             <img
               src="https://picsum.photos/200"
