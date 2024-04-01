@@ -321,7 +321,7 @@ function App() {
         <p className="section-subtitle text-lg text-center mb-12">
           Des passionnés comme on n&rsquo;en trouve pas partout&nbsp;!
         </p>
-        <div className="grid grid-cols-5 grid-rows-1 gap-5 flex-wrap">
+        <div className="grid grid-cols-1 grid-rows-1 gap-5 md:grid-cols-5 content-center place-items-center">
           <div className="team-member-card shrink-0">
             <img
               src="https://picsum.photos/200"
