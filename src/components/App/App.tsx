@@ -319,40 +319,6 @@ function App() {
         <p className="section-subtitle text-lg text-center mb-12">
           Des passionnés comme on n&rsquo;en trouve pas partout&nbsp;!
         </p>
-        {/* <ScrollArea
-          id="about-menu"
-          className="w-96 whitespace-nowrap rounded-md border"
-        >
-          <section className="flex w-max space-x-4 p-4 overflow-hidden rounded-md">
-            <div className="shrink-0">
-              <img
-                src="https://picsum.photos/200"
-                alt=""
-                className="aspect-[3/4] h-fit w-fit object-cover"
-              />
-              <p className="pt-2 text-xs text-muted-foreground">Prénom</p>
-            </div>
-
-            <div className="shrink-0">
-              <img
-                src="https://picsum.photos/200"
-                alt=""
-                className="aspect-[3/4] h-fit w-fit object-cover"
-              />
-              <p className="pt-2 text-xs text-muted-foreground">Prénom</p>
-            </div>
-
-            <div className="shrink-0">
-              <img
-                src="https://picsum.photos/200"
-                alt=""
-                className="aspect-[3/4] h-fit w-fit object-cover"
-              />
-              <p className="pt-2 text-xs text-muted-foreground">Prénom</p>
-            </div>
-          </section>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea> */}
         <div className="grid grid-cols-5 grid-rows-1 gap-5">
           <div className="team-member-card shrink-0">
             <img
