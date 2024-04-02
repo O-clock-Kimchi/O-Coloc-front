@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
 
 import NavDesktop from './Header_NavDesktop';
+import NavMobile from './Header_NavMobile';
 
 function Header() {
   return (
@@ -16,13 +17,16 @@ function Header() {
         </NavLink>
       </div>
 
-      <div>
+      <div className="hidden lg:block">
         <NavDesktop />
       </div>
 
-      <NavLink to="/connexion">
-        <Button variant="outline">Se connecter</Button>
-      </NavLink>
+      <div className="flex gap-4">
+        <NavLink to="/connexion">
+          <Button variant="outline">Se connecter</Button>
+        </NavLink>
+        <NavMobile />
+      </div>
     </header>
   );
 }
