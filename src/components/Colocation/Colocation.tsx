@@ -26,7 +26,7 @@ function Colocation() {
       <p className="text-center text-lg">
         Vous ne faites actuellement partie d&rsquo;aucune colocation.
       </p>
-      <div className="grid grid-cols-2 grid-rows-1 gap-8 grow">
+      <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-2 gap-8 grow">
         <div className="flex flex-col justify-center">
           {isCreationFormOpen ? (
             <CreationForm />
