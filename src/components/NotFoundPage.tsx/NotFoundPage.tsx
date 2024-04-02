@@ -24,7 +24,7 @@ function NotFoundPage() {
         <div className="flex box-right">
           <img
             src="/DumpingDoodle.svg"
-            alt="meditating doodle"
+            alt="dumping doodle"
             className="justify-self-center self-center"
           />
         </div>
