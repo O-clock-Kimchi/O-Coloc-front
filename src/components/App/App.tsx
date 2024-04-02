@@ -7,10 +7,7 @@ function App() {
     <div className=" container mx-auto  min-h-screen flex flex-col">
       <Header />
 
-      <main className="px-6 grow">
-        <HomePage />
-      </main>
-
+      <HomePage />
       <Footer />
     </div>
   );

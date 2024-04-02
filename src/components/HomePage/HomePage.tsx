@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 function HomePage() {
   return (
-    <>
+    <main className="px-6 grow">
       {/* Tagline section with CTA and illustration */}
       <section className="h-[50%] mb-5">
         <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2">
@@ -350,7 +350,7 @@ function HomePage() {
           </a>
         </p>
       </section>
-    </>
+    </main>
   );
 }
 
