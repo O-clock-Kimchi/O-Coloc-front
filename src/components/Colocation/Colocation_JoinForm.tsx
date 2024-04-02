@@ -12,8 +12,6 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '../ui/input-otp';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
 
 function JoinForm() {
   return (
