@@ -1,12 +1,6 @@
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from '../ui/navigation-menu';
-
 import { Button } from '../ui/button';
+
+import NavDesktop from './Header_NavDesktop';
 
 function Header() {
   return (
@@ -22,42 +16,7 @@ function Header() {
       </div>
 
       <div>
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                className={navigationMenuTriggerStyle()}
-                href="#"
-              >
-                Accueil
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                className={navigationMenuTriggerStyle()}
-                href="#faq-menu"
-              >
-                FAQ
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                className={navigationMenuTriggerStyle()}
-                href="#about-menu"
-              >
-                À propos de nous
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                className={navigationMenuTriggerStyle()}
-                href="#contact-menu"
-              >
-                Contact
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+        <NavDesktop />
       </div>
 
       <Button variant="outline">Se connecter</Button>
