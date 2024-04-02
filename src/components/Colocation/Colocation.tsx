@@ -10,6 +10,16 @@ function Colocation() {
   const [isCreationFormOpen, setIsCreationFormOpen] = useState(false);
   const [isJoinFormOpen, setIsJoinFormOpen] = useState(false);
 
+  const openCreationForm = () => {
+    setIsCreationFormOpen(true);
+    setIsJoinFormOpen(false);
+  };
+
+  const openJoinForm = () => {
+    setIsJoinFormOpen(true);
+    setIsCreationFormOpen(false);
+  };
+
   return (
     <main className="flex flex-col px-6 grow h-full">
       <h2 className="text-center text-4xl">Ma colocation</h2>
@@ -29,7 +39,7 @@ function Colocation() {
                 <Button
                   type="submit"
                   className="w-full"
-                  onClick={() => setIsCreationFormOpen(true)}
+                  onClick={() => openCreationForm()}
                 >
                   Je crée ma colocation
                 </Button>
@@ -52,7 +62,7 @@ function Colocation() {
                   <Button
                     type="submit"
                     className="w-full"
-                    onClick={() => setIsJoinFormOpen(true)}
+                    onClick={() => openJoinForm()}
                   >
                     Je rejoins une colocation
                   </Button>
