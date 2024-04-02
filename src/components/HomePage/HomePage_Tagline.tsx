@@ -1,6 +1,7 @@
+import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
 
-function TaglineSection() {
+function Tagline() {
   return (
     <section className="h-[50%] mb-5">
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2">
@@ -18,10 +19,11 @@ function TaglineSection() {
             quas animi! Corrupti exercitationem cumque porro iste voluptatibus
             dolor. Voluptatum voluptate repellendus voluptatem.
           </p>
-
-          <Button className="p-6 w-100 md:w-2/5" variant="secondary">
-            Créer une coloc
-          </Button>
+          <NavLink to="/inscription">
+            <Button className="p-6 w-100 md:w-2/5" variant="secondary">
+              Créer une coloc
+            </Button>
+          </NavLink>
         </div>
         <div className="box-right">
           <img
@@ -35,4 +37,4 @@ function TaglineSection() {
   );
 }
 
-export default TaglineSection;
+export default Tagline;

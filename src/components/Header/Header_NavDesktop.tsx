@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -12,7 +13,7 @@ function NavDesktop() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink className={navigationMenuTriggerStyle()} href="#">
-            Accueil
+            <NavLink to="/">Accueil</NavLink>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
