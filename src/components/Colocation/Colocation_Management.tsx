@@ -44,6 +44,7 @@ function ColocationManagement() {
                 <Button
                   className="flex space-x-3 w-auto bg-cardinal-600 hover:bg-cardinal-400"
                   variant="default"
+                  onClick={() => setIsModalOpen(false)}
                 >
                   <DoorOpen />
                   <p>Quitter la colocation</p>
