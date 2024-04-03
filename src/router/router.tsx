@@ -7,6 +7,7 @@ import Signup from '../components/Signup/Signup';
 import NotFoundPage from '../components/NotFoundPage.tsx/NotFoundPage';
 import ResetPasswordForm from '../components/ResetPassword/ResetPasswordForm';
 import Colocation from '../components/Colocation/Colocation';
+import Profil from '../components/Profil/Profil';
 
 const router = createBrowserRouter([
   {
@@ -16,8 +17,9 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: '/connexion', element: <Login /> },
       { path: '/inscription', element: <Signup /> },
-      { path: '/reinitilisation', element: <ResetPasswordForm /> },
+      { path: '/reinitialisation', element: <ResetPasswordForm /> },
       { path: '/acces-coloc', element: <Colocation /> },
+      { path: '/mon-profil', element: <Profil /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

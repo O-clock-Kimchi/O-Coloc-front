@@ -29,7 +29,7 @@ function Login() {
               <div className="flex items-center">
                 <Label htmlFor="password">Mot de passe</Label>
                 <NavLink
-                  to="/reinitilisation"
+                  to="/reinitialisation"
                   className="ml-auto inline-block text-sm underline"
                 >
                   Mot de passe oublié ?
