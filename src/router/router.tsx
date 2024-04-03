@@ -4,6 +4,9 @@ import App from '../components/App/App';
 import HomePage from '../components/HomePage/HomePage';
 import Login from '../components/Login/Login';
 import Signup from '../components/Signup/Signup';
+import NotFoundPage from '../components/NotFoundPage.tsx/NotFoundPage';
+import ResetPasswordForm from '../components/ResetPassword/ResetPasswordForm';
+import Colocation from '../components/Colocation/Colocation';
 
 const router = createBrowserRouter([
   {
@@ -13,7 +16,9 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: '/connexion', element: <Login /> },
       { path: '/inscription', element: <Signup /> },
-      // { path: '*'},
+      { path: '/reinitilisation', element: <ResetPasswordForm /> },
+      { path: '/acces-coloc', element: <Colocation /> },
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
 ]);
