@@ -64,20 +64,22 @@ function ColocationManagement() {
                     dans le champ ci-dessous
                   </DialogDescription>
                 </DialogHeader>
-                <Input
-                  type="text"
-                  placeholder=""
-                  className="w-full flex self-center"
-                  required
-                />
-                <div className="button-container flex w-full justify-center">
-                  <Button
-                    className="flex space-x-3 w-40 bg-cardinal-600 hover:bg-cardinal-400 self-center"
-                    variant="default"
-                  >
-                    <p>Confirmer</p>
-                  </Button>
-                </div>
+                <form className="flex flex-col space-y-6">
+                  <Input
+                    type="text"
+                    placeholder=""
+                    className="w-full flex self-center"
+                    required
+                  />
+                  <div className="button-container flex w-full justify-center">
+                    <Button
+                      className="flex space-x-3 w-40 bg-cardinal-600 hover:bg-cardinal-400 self-center"
+                      variant="default"
+                    >
+                      <p>Confirmer</p>
+                    </Button>
+                  </div>
+                </form>
               </DialogContent>
             </Dialog>
           </div>
