@@ -13,10 +13,9 @@ function Tagline() {
               au même endroit
             </h1>
             <p className="md:w-[80%]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-              facere voluptates, blanditiis dolore aliquid distinctio aperiam in
-              quas animi! Corrupti exercitationem cumque porro iste voluptatibus
-              dolor. Voluptatum voluptate repellendus voluptatem.
+              Comme vous, on en avait marre de gérer notre coloc avec 5 applis.
+              On a créé CoHabit pour gérer tout au même endroit. Un jeu
+              d&apos;enfant même pour Baptiste qui ne fait jamais la vaisselle.
             </p>
           </div>
           <NavLink to="/inscription">
