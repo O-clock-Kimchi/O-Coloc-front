@@ -6,7 +6,7 @@ import NavMobile from './Header_NavMobile';
 
 function Header() {
   return (
-    <header className="flex items-center flex-wrap justify-between py-4 mb-6 px-6 w-full">
+    <header className="flex items-center flex-wrap justify-between py-4 mb-4 px-6 w-full">
       <div>
         <NavLink to="/">
           <img
