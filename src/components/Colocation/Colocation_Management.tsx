@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 
+import FlatmatesListElement from './Colocation_FlatmatesListElement';
 import AddFlatmateModal from './Colocation_AddFlatmateModal';
 
 function ColocationManagement() {
@@ -94,111 +95,12 @@ function ColocationManagement() {
             </CardHeader>
             <CardContent className="grid gap-8 max-h-full overflow-auto">
               <div className="flatmates-list flex flex-col space-y-6 h-full overflow-scroll p-3">
-                <div className="flex items-center gap-4">
-                  <Avatar className="hidden h-12 w-12 sm:flex">
-                    <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-                    <AvatarFallback>NC</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-lg font-small leading-none">
-                      Moi (Noëllie)
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis le 01.04.2024
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <Avatar className="hidden h-12 w-12 sm:flex">
-                    <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-                    <AvatarFallback>FR</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-lg font-small leading-none">Florian</p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis le 01.04.2024
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <Avatar className="hidden h-12 w-12 sm:flex">
-                    <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-                    <AvatarFallback>CB</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-lg font-small leading-none">Caitlyne</p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis le 01.04.2024
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <Avatar className="hidden h-12 w-12 sm:flex">
-                    <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-                    <AvatarFallback>AA</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-lg font-small leading-none">Aude</p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis le 01.04.2024
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <Avatar className="hidden h-12 w-12 sm:flex">
-                    <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-                    <AvatarFallback>MS</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-lg font-small leading-none">Mickaël</p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis le 01.04.2024
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <Avatar className="hidden h-12 w-12 sm:flex">
-                    <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-                    <AvatarFallback>MS</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-lg font-small leading-none">Mickaël</p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis le 01.04.2024
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <Avatar className="hidden h-12 w-12 sm:flex">
-                    <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-                    <AvatarFallback>MS</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-lg font-small leading-none">Mickaël</p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis le 01.04.2024
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <Avatar className="hidden h-12 w-12 sm:flex">
-                    <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-                    <AvatarFallback>MS</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-lg font-small leading-none">Mickaël</p>
-                    <p className="text-sm text-muted-foreground">
-                      Membre depuis le 01.04.2024
-                    </p>
-                  </div>
-                </div>
+                <FlatmatesListElement />
+                <FlatmatesListElement />
+                <FlatmatesListElement />
+                <FlatmatesListElement />
+                <FlatmatesListElement />
+                <FlatmatesListElement />
               </div>
             </CardContent>
           </Card>
