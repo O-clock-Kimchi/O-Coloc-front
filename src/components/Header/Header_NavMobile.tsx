@@ -37,7 +37,7 @@ function NavMobile({ isConnected }: NavMobileProps) {
               <nav className="flex flex-col gap-5 py-6 items-center sm:items-start">
                 <NavLink to="/mon-profil">Mon profil</NavLink>
                 <Separator />
-                <NavLink to="/">Gérer ma coloc</NavLink>
+                <NavLink to="/">Ma coloc</NavLink>
                 <Separator />
                 <NavLink to="/">Dashboard</NavLink>
                 <Separator />

@@ -54,14 +54,6 @@ function NavDesktop({ isConnected }: NavDesktopProps) {
         ) : (
           <>
             <NavigationMenuItem>
-              <NavigationMenuLink
-                className={navigationMenuTriggerStyle()}
-                href="#"
-              >
-                <NavLink to="/">Accueil</NavLink>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 <NavLink to="/mon-profil">Mon profil</NavLink>
               </NavigationMenuLink>
