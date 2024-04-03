@@ -11,8 +11,8 @@ function Profil() {
         Mon profil
       </h1>
 
-      <div className="grid grid-cols-2 grid-rows-1 gap-10">
-        <div className="flex flex-col gap-5">
+      <div className="grid content-center sm:grid-cols-2 grid-rows-1 gap-10">
+        <div className="flex flex-col gap-5 items-center text-center sm:items-start sm:text-left">
           <div>
             <Label htmlFor="prenom" className=" text-xl">
               Prénom
@@ -48,7 +48,7 @@ function Profil() {
           </div>
         </div>
 
-        <div>
+        <div className=" hidden sm:block">
           <img src="/SitReadingDoodle.svg" alt="" />
         </div>
       </div>
