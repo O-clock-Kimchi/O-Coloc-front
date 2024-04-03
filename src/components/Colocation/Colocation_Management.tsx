@@ -19,6 +19,7 @@ import {
 import AddFlatmateModal from './Colocation_AddFlatmateModal';
 
 function ColocationManagement() {
+  const secretCode = parseInt('12345678', 10);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -29,7 +30,7 @@ function ColocationManagement() {
             <p className="flex text-3xl text-eden-800">
               Code secret de la coloc
             </p>
-            <p className="code flex text-2xl tracking-widest">00000000</p>
+            <p className="code flex text-2xl tracking-widest">{secretCode}</p>
             <div className="button-container flex">
               <Button className="flex space-x-3 w-auto " variant="ghost">
                 <RefreshCcw />
@@ -48,20 +49,25 @@ function ColocationManagement() {
                   <p>Quitter la colocation</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="flex flex-col border-none">
+              <DialogContent className="flex flex-col border-none bg-jet-100">
                 <DialogHeader>
                   <DialogTitle>
                     Voulez-vous vraiment quitter la colocation ?
                   </DialogTitle>
                   <DialogDescription>
-                    Pour confirmer votre action, saisissez CONFIRMER dans le
-                    champ ci-dessous
+                    En quittant la colocation, vous ne pourrez plus accéder à
+                    certaines fonctionnalités. Pour confirmer votre action,
+                    saisissez{' '}
+                    <span className="confirmation-word text-cardinal-600">
+                      CONFIRMER
+                    </span>{' '}
+                    dans le champ ci-dessous
                   </DialogDescription>
                 </DialogHeader>
                 <Input
                   type="text"
                   placeholder=""
-                  className="w-full flex self-center "
+                  className="w-full flex self-center"
                   required
                 />
                 <div className="button-container flex w-full justify-center">
@@ -195,7 +201,10 @@ function ColocationManagement() {
           </Card>
           <Separator className="w-[90%] mx-auto" />
           {isModalOpen ? (
-            <AddFlatmateModal onClose={() => setIsModalOpen(false)} />
+            <AddFlatmateModal
+              onClose={() => setIsModalOpen(false)}
+              secretCode={secretCode}
+            />
           ) : (
             <div className="button-container w-4/5 mx-auto">
               <Button

@@ -19,9 +19,10 @@ import {
 
 interface AddFlatmateModalProps {
   onClose: () => void;
+  secretCode: number;
 }
 
-function AddFlatmateModal({ onClose }: AddFlatmateModalProps) {
+function AddFlatmateModal({ onClose, secretCode }: AddFlatmateModalProps) {
   const [codeIsCopied, setCodeIsCopied] = useState(false);
   const { toast } = useToast();
 
@@ -47,12 +48,12 @@ function AddFlatmateModal({ onClose }: AddFlatmateModalProps) {
           <div className="copy-to-clipboard-container flex space-x-3">
             <Input
               type="text"
-              value="00000000"
+              value={String(secretCode)}
               id="code"
               className="flex w-3/5"
               disabled
             />
-            <CopyToClipboard text="00000000" onCopy={onCopyCode}>
+            <CopyToClipboard text={String(secretCode)} onCopy={onCopyCode}>
               <Button
                 className=""
                 variant="ghost"
