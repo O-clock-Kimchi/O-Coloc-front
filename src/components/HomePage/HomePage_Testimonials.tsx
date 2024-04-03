@@ -9,10 +9,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 function Testimonials() {
   return (
     <section className="w-100">
-      <h2 className="section-title text-center text-4xl mt-12 mb-6 text-eden-800">
+      <h2 className="section-title text-center text-4xl  mb-4 text-eden-800">
         Ils (ne) parlent (pas) de nous !
       </h2>
-      <p className="section-subtitle text-lg text-center mb-12">
+      <p className="section-subtitle text-lg text-center mb-5">
         ... et ne le feront jamais ;)
       </p>
       <ScrollArea id="about-menu" className="w-100 whitespace-nowrap">
@@ -104,7 +104,7 @@ function Testimonials() {
               <Quote className="mt-3" size={35} color="#026d65" />
             </CardContent>
           </Card>
-          <Card className="w-[300px] h-[300px]">
+          <Card className="w-[300px] h-[300px] ">
             <CardHeader className="flex-row">
               <Avatar className="mr-3">
                 <AvatarImage src="https://picsum.photos/200" alt="" />
