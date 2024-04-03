@@ -17,7 +17,11 @@ import {
   CardTitle,
 } from '../ui/card';
 
-function AddFlatmateModal({ onClose }) {
+interface AddFlatmateModalProps {
+  onClose: () => void;
+}
+
+function AddFlatmateModal({ onClose }: AddFlatmateModalProps) {
   const [codeIsCopied, setCodeIsCopied] = useState(false);
   const { toast } = useToast();
 
