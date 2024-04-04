@@ -9,12 +9,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 function NavConnected() {
+  const { firstname } = useAppSelector((state) => state.userReducer.user);
+
   return (
     <div className="flex gap-4 items-center">
       <p>
-        Bonjour, <span className=" text-tainoi-200">Florian</span>
+        Bonjour, <span className=" text-tainoi-200">{firstname}</span>
       </p>
       <DropdownMenu>
         <DropdownMenuTrigger>

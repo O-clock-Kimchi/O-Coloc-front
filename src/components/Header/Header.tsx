@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+
 import { Button } from '../ui/button';
 
 import NavDesktop from './Header_NavDesktop';
@@ -7,7 +9,7 @@ import NavMobile from './Header_NavMobile';
 import NavConnected from './Header_NavConnected';
 
 function Header() {
-  const [isConnected, setIsConnected] = useState<boolean>(true);
+  const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
   return (
     <header className="flex items-center flex-wrap justify-between py-4 mb-4 px-6 w-full">
@@ -21,10 +23,10 @@ function Header() {
         </NavLink>
       </div>
 
-      {!isConnected ? (
+      {!isLogged ? (
         <>
           <div className="hidden lg:block">
-            <NavDesktop isConnected={isConnected} />
+            <NavDesktop />
           </div>
 
           <div className="flex gap-4">
@@ -32,7 +34,7 @@ function Header() {
               <Button variant="outline">Se connecter</Button>
             </NavLink>
 
-            <NavMobile isConnected={isConnected} />
+            <NavMobile />
           </div>
         </>
       ) : (
