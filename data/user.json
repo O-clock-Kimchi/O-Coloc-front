@@ -14,5 +14,13 @@
     "password": "bliblibli",
     "color": "#981B64",
     "id_coloc": 1
+  },
+  {
+    "id": 3,
+    "firstname": "bob",
+    "email": "bob@ocoloc.com",
+    "password": "bobi",
+    "color": "#FF0000",
+    "id_coloc": 2
   }
 ]
