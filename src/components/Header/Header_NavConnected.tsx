@@ -11,8 +11,16 @@ import {
 } from '../ui/dropdown-menu';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
+import { logout } from '../../store/action/userAction';
+
 function NavConnected() {
   const { firstname } = useAppSelector((state) => state.userReducer.user);
+
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <div className="flex gap-4 items-center">
@@ -34,7 +42,7 @@ function NavConnected() {
             <NavLink to="/mon-profil">Ma coloc</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Button className=" bg-tainoi-200">
+            <Button className=" bg-tainoi-200" onClick={() => handleLogout()}>
               <SquareArrowRight className=" pr-2" />
               Se déconnecter
             </Button>
