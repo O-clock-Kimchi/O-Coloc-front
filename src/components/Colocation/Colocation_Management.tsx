@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { CirclePlus, RefreshCcw, DoorOpen } from 'lucide-react';
 
 import { Button } from '../ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Card, CardContent, CardTitle, CardHeader } from '../ui/card';
 import { Separator } from '../ui/separator';
 import { Input } from '../ui/input';
