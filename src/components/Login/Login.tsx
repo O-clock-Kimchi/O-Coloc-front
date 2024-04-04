@@ -4,7 +4,17 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+
+import { login } from '../../store/action/userAction';
+
 function Login() {
+  const dispatch = useAppDispatch();
+
+  const handleConnect = () => {
+    dispatch(login());
+  };
+
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
       <div className="flex items-center justify-center py-12">
@@ -42,7 +52,11 @@ function Login() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full"
+              onClick={() => handleConnect()}
+            >
               Se connecter
             </Button>
           </div>
