@@ -8,9 +8,9 @@ export interface IUser {
 }
 
 export interface IColoc {
-  id: number;
+  id: null | number;
   name: string;
   code_validation: number;
-  created_at: string;
+  created_at: number;
   link: string;
 }
