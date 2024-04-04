@@ -16,3 +16,21 @@ body {
 h2 {
   @apply text-xl;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .debug {
+    @apply border border-red-500;
+  }
+
+  .horizontal {
+    @apply flex flex-row;
+  }
+
+  .vertical {
+    @apply flex flex-col;
+  }
+}
