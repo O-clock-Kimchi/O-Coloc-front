@@ -1,5 +1,5 @@
 import { ChevronDown, SquareArrowRight } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import {
@@ -10,22 +10,26 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-
-import { logout } from '../../store/action/userAction';
+import { logout } from '../../store/action/actions';
 
 function NavConnected() {
-  const { firstname } = useAppSelector((state) => state.userReducer.user);
-
+  const userFirstname = useAppSelector((state) => state.userReducer.firstname);
   const dispatch = useAppDispatch();
+  const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
+  if (!isLogged) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div className="flex gap-4 items-center">
       <p>
-        Bonjour, <span className=" text-tainoi-200">{firstname}</span>
+        Bonjour,{' '}
+        <span className=" text-tainoi-200 capitalize">{userFirstname}</span>
       </p>
       <DropdownMenu>
         <DropdownMenuTrigger>
@@ -42,7 +46,7 @@ function NavConnected() {
             <NavLink to="/mon-profil">Ma coloc</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Button className=" bg-tainoi-200" onClick={() => handleLogout()}>
+            <Button className=" bg-tainoi-200" onClick={handleLogout}>
               <SquareArrowRight className=" pr-2" />
               Se déconnecter
             </Button>
