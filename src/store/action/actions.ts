@@ -18,6 +18,7 @@ export const login = createAsyncThunk<
     firstname: string;
     isLogged: boolean;
     current_coloc_id: number;
+    color: string;
   },
   FormData
 >(LOGIN, async (formData) => {
@@ -27,4 +28,4 @@ export const login = createAsyncThunk<
 });
 
 const LOGOUT = 'LOGOUT';
-export const logout = createAction(LOGIN);
+export const logout = createAction(LOGOUT);

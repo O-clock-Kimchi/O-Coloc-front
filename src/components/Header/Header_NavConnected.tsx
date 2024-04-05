@@ -14,6 +14,7 @@ import { logout } from '../../store/action/actions';
 
 function NavConnected() {
   const userFirstname = useAppSelector((state) => state.userReducer.firstname);
+  const color = useAppSelector((state) => state.userReducer.color);
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
@@ -55,7 +56,7 @@ function NavConnected() {
       </DropdownMenu>
       <Avatar>
         <AvatarImage src="" />
-        <AvatarFallback className="bg-[#000]" />
+        <AvatarFallback style={{ backgroundColor: color }} />
       </Avatar>
     </div>
   );

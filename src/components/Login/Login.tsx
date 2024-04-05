@@ -16,8 +16,8 @@ function Login() {
   // Pour envoyer mail et password au back
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const colocID = useAppSelector((state) => state.userReducer.colocId);
-  const [email, setEmail] = useState<string>('nonono@gmail.com');
-  const [password, setPassword] = useState<string>('Nonoellie321');
+  const [email, setEmail] = useState<string>('umu@ocoloc.com');
+  const [password, setPassword] = useState<string>('Umute2465');
 
   const dispatch = useAppDispatch();
 
