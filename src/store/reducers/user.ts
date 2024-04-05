@@ -6,6 +6,7 @@ interface UserState {
   firstname: string;
   colocId: null | number;
   color: string;
+  email: string;
 }
 
 export const initialState: UserState = {
@@ -13,6 +14,7 @@ export const initialState: UserState = {
   firstname: '',
   colocId: null,
   color: '',
+  email: '',
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -22,12 +24,14 @@ const userReducer = createReducer(initialState, (builder) => {
       state.firstname = action.payload.firstname;
       state.colocId = action.payload.current_coloc_id;
       state.color = action.payload.color;
+      state.email = action.payload.email;
     })
     .addCase(logout, (state) => {
       state.isLogged = false;
       state.firstname = '';
       state.colocId = null;
       state.color = '';
+      state.email = '';
     });
 });
 

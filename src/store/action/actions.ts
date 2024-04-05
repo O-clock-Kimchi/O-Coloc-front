@@ -19,6 +19,7 @@ export const login = createAsyncThunk<
     isLogged: boolean;
     current_coloc_id: number;
     color: string;
+    email: string;
   },
   FormData
 >(LOGIN, async (formData) => {

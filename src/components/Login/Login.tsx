@@ -27,7 +27,7 @@ function Login() {
   };
 
   if (isLogged) {
-    return <Navigate to={colocID ? '/' : '/acces-coloc'} replace />;
+    return <Navigate to={colocID ? '/mon-profil' : '/acces-coloc'} replace />;
   }
 
   return (

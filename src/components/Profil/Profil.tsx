@@ -3,8 +3,12 @@ import { Button } from '../ui/button';
 
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { useAppSelector } from '../../hooks/redux';
 
 function Profil() {
+  const firstname = useAppSelector((state) => state.userReducer.firstname);
+  const email = useAppSelector((state) => state.userReducer.email);
+
   return (
     <div className="h-screen">
       <h1 className=" text-center p-4 mb-10 text-2xl bg-jet-100 rounded">
@@ -20,7 +24,7 @@ function Profil() {
             <Input
               id="prenom"
               type="text"
-              placeholder="Florian"
+              placeholder={firstname}
               disabled
               className=" placeholder-jet-900 w-fit"
             />
@@ -33,7 +37,7 @@ function Profil() {
             <Input
               id="prenom"
               type="email"
-              placeholder="test@ocoloc.com"
+              placeholder={email}
               disabled
               className=" placeholder-jet-900 w-fit"
             />
