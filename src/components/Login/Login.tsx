@@ -1,19 +1,34 @@
-import { NavLink } from 'react-router-dom';
-import { Button } from '../ui/button';
+import { NavLink, useNavigate, Navigate } from 'react-router-dom';
+import { FormEvent, useState } from 'react';
 
+// Element UI de Shadcn
+import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { Toaster } from '../ui/toaster';
+import { useToast } from '../ui/use-toast';
 
+// Function de redux pour utiliser action et state
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-
-import { login } from '../../store/action/userAction';
+import { login } from '../../store/action/actions';
 
 function Login() {
+  // Pour envoyer mail et password au back
+  const isLogged = useAppSelector((state) => state.userReducer.isLogged);
+  const colocID = useAppSelector((state) => state.userReducer.colocId);
+  const [email, setEmail] = useState<string>('nonono@gmail.com');
+  const [password, setPassword] = useState<string>('Nonoellie321');
+
   const dispatch = useAppDispatch();
 
-  const handleConnect = () => {
-    dispatch(login());
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(login({ email, password }));
   };
+
+  if (isLogged) {
+    return <Navigate to={colocID ? '/' : '/acces-coloc'} replace />;
+  }
 
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
@@ -25,12 +40,14 @@ function Login() {
               Entrez votre e-mail pour vous connecter dès maintenant.
             </p>
           </div>
-          <div className="grid gap-4">
+          <form className="grid gap-4" onSubmit={handleSubmit}>
             <div className="grid gap-2">
               <Label htmlFor="email">E-mail</Label>
               <Input
                 id="email"
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="E-mail (obligatoire)"
                 required
               />
@@ -49,17 +66,15 @@ function Login() {
                 id="password"
                 type="password"
                 placeholder="8 caractères minimum"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-            <Button
-              type="submit"
-              className="w-full"
-              onClick={() => handleConnect()}
-            >
+            <Button type="submit" className="w-full">
               Se connecter
             </Button>
-          </div>
+          </form>
           <div className="mt-4 text-center text-sm">
             Vous n&apos;avez pas de compte?{' '}
             <NavLink to="/inscription" className="underline">
