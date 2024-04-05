@@ -1,37 +1,29 @@
 import { createReducer } from '@reduxjs/toolkit';
-
-import { IUser } from '../../@types/coloc';
-
-import { login, logout } from '../action/userAction';
+import { login, logout } from '../action/actions';
 
 interface UserState {
-  user: IUser;
   isLogged: boolean;
-  loggedMessage: null | string;
+  firstname: string;
+  colocId: null | number;
 }
 
 export const initialState: UserState = {
-  user: {
-    id: 3,
-    firstname: 'bob',
-    email: 'bob@ocoloc.com',
-    password: 'bobi',
-    color: '#FF0000',
-    id_coloc: 2,
-  },
   isLogged: false,
-  loggedMessage: null,
+  firstname: '',
+  colocId: null,
 };
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(login, (state) => {
+    .addCase(login.fulfilled, (state, action) => {
       state.isLogged = true;
-      state.loggedMessage = `${state.user.firstname}`;
+      state.firstname = action.payload.firstname;
+      state.colocId = action.payload.current_coloc_id;
     })
     .addCase(logout, (state) => {
       state.isLogged = false;
-      state.loggedMessage = null;
+      state.firstname = '';
+      state.colocId = null;
     });
 });
 
