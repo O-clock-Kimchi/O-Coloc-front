@@ -35,6 +35,7 @@ function Login() {
     if (isLogged) {
       toast({
         description: 'Connexion réussie',
+        className: 'bg-jet-50 text-eden-800',
       });
     }
   }, [isLogged, toast]);
