@@ -19,6 +19,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: '/connexion', element: <Login /> },
       { path: '/inscription', element: <Signup /> },
+      { path: '*', element: <NotFoundPage /> },
       {
         element: <PrivatesRoutes />,
         children: [
@@ -26,7 +27,6 @@ const router = createBrowserRouter([
           { path: '/reinitialisation', element: <ResetPasswordForm /> },
           { path: '/acces-coloc', element: <Colocation /> },
           { path: '/mon-profil', element: <Profil /> },
-          { path: '*', element: <NotFoundPage /> },
         ],
       },
     ],
