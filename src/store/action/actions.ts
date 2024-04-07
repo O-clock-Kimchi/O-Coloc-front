@@ -29,3 +29,25 @@ export const login = createAsyncThunk<
 // Logout action
 const LOGOUT = 'LOGOUT';
 export const logout = createAction(LOGOUT);
+
+// Register action
+const REGISTER = 'REGISTER';
+
+interface RegisterFormData {
+  firstname: string;
+  email: string;
+  password: string;
+}
+
+export const register = createAsyncThunk<
+  {
+    firstname: string;
+    isLogged: boolean;
+    email: string;
+  },
+  RegisterFormData
+>(REGISTER, async (registerFormData) => {
+  const response = await axiosInstance.post('/signup', registerFormData);
+  console.log(response.data);
+  return response.data;
+});
