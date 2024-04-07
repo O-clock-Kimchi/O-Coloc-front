@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 
+import { Avatar } from '@radix-ui/react-avatar';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
 
@@ -57,8 +58,13 @@ function Signup() {
           </div>
           <form className="grid gap-4" onSubmit={handleRegisterFormSubmit}>
             <div className="grid gap-2">
-              <Label htmlFor="prenom">Prénom</Label>
-              <Input id="prenom" type="text" placeholder="Florian" required />
+              <Label htmlFor="firstname">Prénom</Label>
+              <Input
+                id="firstname"
+                type="text"
+                placeholder="Florian"
+                required
+              />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">E-mail</Label>
@@ -117,9 +123,6 @@ function Signup() {
               Connectez-vous
             </NavLink>
           </div>
-          <p className="text-xs">
-            Les champs marqués d&rsquo;un * sont obligatoires
-          </p>
         </div>
       </div>
       <div className="hidden bg-muted lg:block place-items-center">
