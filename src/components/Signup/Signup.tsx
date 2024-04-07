@@ -79,8 +79,8 @@ function Signup() {
                 id="password"
                 type="password"
                 placeholder="8 caractères minimum"
-                value={password}
-                onChange={handlePasswordChange}
+                value={formData.password}
+                onChange={handleInputChange}
                 required
               />
               {passwordError && (
@@ -119,6 +119,9 @@ function Signup() {
               Connectez-vous
             </NavLink>
           </div>
+          <p className="text-xs">
+            Les champs marqués d&rsquo;un * sont obligatoires
+          </p>
         </div>
       </div>
       <div className="hidden bg-muted lg:block place-items-center">
