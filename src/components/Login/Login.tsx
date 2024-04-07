@@ -1,5 +1,5 @@
 import { NavLink, useNavigate, Navigate } from 'react-router-dom';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 
 // Element UI de Shadcn
 import { Button } from '../ui/button';
@@ -20,6 +20,7 @@ function Login() {
   const [password, setPassword] = useState<string>('Sian2465');
 
   const dispatch = useAppDispatch();
+  const { toast } = useToast();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,6 +30,14 @@ function Login() {
     }
     return null;
   };
+
+  useEffect(() => {
+    if (isLogged) {
+      toast({
+        description: 'Connexion réussie',
+      });
+    }
+  }, [isLogged, toast]);
 
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
