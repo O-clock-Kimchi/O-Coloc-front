@@ -3,10 +3,8 @@ import axiosInstance from '../axiosconfig';
 
 // USER-RELATED ACTIONS
 
-// Interface pour login
-
+// Login action
 const LOGIN = 'LOGIN';
-// export const login = createAsyncThunk<dataType>('actionTyp', callbackfunction;
 
 interface FormData {
   email: string;
@@ -28,5 +26,6 @@ export const login = createAsyncThunk<
   return response.data;
 });
 
+// Logout action
 const LOGOUT = 'LOGOUT';
 export const logout = createAction(LOGOUT);
