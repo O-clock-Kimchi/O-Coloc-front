@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { login, logout } from '../action/actions';
+import { login, logout, register } from '../action/actions';
 
 interface UserState {
   isLogged: boolean;
@@ -25,7 +25,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.colocId = action.payload.current_coloc_id;
       state.color = action.payload.color;
       state.email = action.payload.email;
-      localStorage.setItem('firstname', action.payload.firstname);
+      // localStorage.setItem('firstname', action.payload.firstname);
     })
     .addCase(login.rejected, (state) => {
       state.isLogged = false;
@@ -41,6 +41,16 @@ const userReducer = createReducer(initialState, (builder) => {
       state.color = '';
       state.email = '';
       localStorage.clear();
+    })
+    .addCase(register.fulfilled, (state, action) => {
+      state.isLogged = true;
+      state.firstname = action.payload.firstname;
+      state.email = action.payload.email;
+    })
+    .addCase(register.rejected, (state) => {
+      state.isLogged = false;
+      state.firstname = '';
+      state.email = '';
     });
 });
 
