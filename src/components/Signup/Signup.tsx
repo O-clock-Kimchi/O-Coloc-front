@@ -42,6 +42,10 @@ function Signup() {
     setConfirmPasswordError('');
   };
 
+  const handleCopyPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
       <div className="flex items-center justify-center">
@@ -95,6 +99,8 @@ function Signup() {
                 placeholder="Confirmation obligatoire"
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
+                onCopy={handleCopyPaste}
+                onPaste={handleCopyPaste}
                 required
               />
             </div>
