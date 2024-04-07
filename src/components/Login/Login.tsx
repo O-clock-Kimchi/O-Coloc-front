@@ -24,11 +24,11 @@ function Login() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login({ email, password }));
+    if (isLogged) {
+      return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
+    }
+    return null;
   };
-
-  if (isLogged) {
-    return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
-  }
 
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
@@ -92,6 +92,7 @@ function Login() {
           className=" max-h-screen w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
+      {isLogged && <Toaster />}
     </div>
   );
 }
