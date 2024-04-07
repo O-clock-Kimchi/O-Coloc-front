@@ -6,7 +6,7 @@ import axiosInstance from '../axiosconfig';
 // Login action
 const LOGIN = 'LOGIN';
 
-interface FormData {
+interface LoginFormData {
   email: string;
   password: string;
 }
@@ -19,9 +19,9 @@ export const login = createAsyncThunk<
     color: string;
     email: string;
   },
-  FormData
->(LOGIN, async (formData) => {
-  const response = await axiosInstance.post('/login', formData);
+  LoginFormData
+>(LOGIN, async (loginformData) => {
+  const response = await axiosInstance.post('/login', loginformData);
   console.log(response.data);
   return response.data;
 });
