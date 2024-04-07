@@ -44,7 +44,7 @@ function NavConnected() {
             <NavLink to="/mon-profil">Mon profil</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <NavLink to="/mon-profil">Ma coloc</NavLink>
+            <NavLink to="/dashboard">Ma coloc</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Button className=" bg-tainoi-200" onClick={handleLogout}>
