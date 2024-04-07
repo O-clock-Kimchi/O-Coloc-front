@@ -8,7 +8,9 @@ import { Label } from '../ui/label';
 
 function Signup() {
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const handleRegisterFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,6 +18,12 @@ function Signup() {
       setPasswordError(
         'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
       );
+      if (confirmPassword !== password) {
+        setConfirmPasswordError(
+          'Les deux mots de passe ne correspondent pas !'
+        );
+        return;
+      }
     }
     // TO DO
     // useDispatch(register)
@@ -24,6 +32,11 @@ function Signup() {
   const handlePasswordChange = (e: FormEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
     setPasswordError('');
+  };
+
+  const handleConfirmPasswordChange = (e: FormEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.currentTarget.value);
+    setConfirmPasswordError('');
   };
 
   return (
@@ -77,9 +90,16 @@ function Signup() {
                 id="password-confirm"
                 type="password"
                 placeholder="Confirmation obligatoire"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
                 required
               />
             </div>
+            {confirmPasswordError && (
+              <p className="text-cardinal-600 text-xs">
+                {confirmPasswordError}
+              </p>
+            )}
             <Button type="submit" className="w-full">
               Se connecter
             </Button>
