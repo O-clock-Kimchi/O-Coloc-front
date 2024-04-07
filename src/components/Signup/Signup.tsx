@@ -14,7 +14,11 @@ function Signup() {
 
   const handleRegisterFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) {
+    if (
+      !password.match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()-_+=]{8,}$/
+      )
+    ) {
       setPasswordError(
         'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
       );
@@ -22,7 +26,6 @@ function Signup() {
         setConfirmPasswordError(
           'Les deux mots de passe ne correspondent pas !'
         );
-        return;
       }
     }
     // TO DO
