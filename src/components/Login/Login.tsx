@@ -16,8 +16,8 @@ function Login() {
   // Pour envoyer mail et password au back
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const colocID = useAppSelector((state) => state.userReducer.colocId);
-  const [email, setEmail] = useState<string>('umu@ocoloc.com');
-  const [password, setPassword] = useState<string>('Umute2465');
+  const [email, setEmail] = useState<string>('sian@ocoloc.com');
+  const [password, setPassword] = useState<string>('Sian2465');
 
   const dispatch = useAppDispatch();
 
@@ -27,7 +27,7 @@ function Login() {
   };
 
   if (isLogged) {
-    return <Navigate to={colocID ? '/mon-profil' : '/acces-coloc'} replace />;
+    return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
   }
 
   return (
