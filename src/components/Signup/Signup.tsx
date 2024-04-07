@@ -22,11 +22,9 @@ function Signup() {
       setPasswordError(
         'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
       );
-      if (confirmPassword !== password) {
-        setConfirmPasswordError(
-          'Les deux mots de passe ne correspondent pas !'
-        );
-      }
+    }
+    if (confirmPassword !== password) {
+      setConfirmPasswordError('Les deux mots de passe ne correspondent pas !');
     }
     // TO DO
     // useDispatch(register)
@@ -79,8 +77,8 @@ function Signup() {
                 id="password"
                 type="password"
                 placeholder="8 caractères minimum"
-                value={formData.password}
-                onChange={handleInputChange}
+                value={password}
+                onChange={handlePasswordChange}
                 required
               />
               {passwordError && (
