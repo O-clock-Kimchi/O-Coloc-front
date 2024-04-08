@@ -15,6 +15,8 @@ import {
 } from '../ui/tooltip';
 
 import randomHexColor from '../../utils/generateRandomColor';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { signup } from '../../store/action/actions';
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -24,14 +26,29 @@ function Signup() {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
+  const [data, setData] = useState({
+    firstname: '',
+    email: '',
+    color: randomHexColor(),
+    password: '',
+    confirmPassword: '',
+  });
+
+  const dispatch = useAppDispatch();
+
   const handleFirstNameChange = (e: FormEvent<HTMLInputElement>) => {
     setFirstName(e.currentTarget.value);
+  };
+
+  const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    setData({ ...data, [name]: value });
   };
 
   const handleRefreshColor = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const newColor = randomHexColor();
-    setAvatarColor(newColor);
+    setData({ ...data, color: newColor });
   };
 
   const handleRegisterFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -44,26 +61,15 @@ function Signup() {
       setPasswordError(
         'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
       );
+    } else {
+      setPasswordError('');
     }
-    if (confirmPassword !== password) {
+    if (data.confirmPassword !== data.password) {
       setConfirmPasswordError('Les deux mots de passe ne correspondent pas !');
+    } else {
+      setConfirmPasswordError('');
     }
-    // TO DO
-    // useDispatch(register)
-  };
-
-  const handlePasswordChange = (e: FormEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value);
-    setPasswordError('');
-  };
-
-  const handleConfirmPasswordChange = (e: FormEvent<HTMLInputElement>) => {
-    setConfirmPassword(e.currentTarget.value);
-    setConfirmPasswordError('');
-  };
-
-  const handleCopyPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
+    dispatch(signup(data));
   };
 
   return (
@@ -77,14 +83,21 @@ function Signup() {
               colocation.
             </p>
           </div>
-          <form className="grid gap-4" onSubmit={handleRegisterFormSubmit}>
+          <form
+            className="grid gap-4"
+            action="http://localhost:5000/signup"
+            method="POST"
+            onSubmit={handleRegisterFormSubmit}
+          >
             <div className="grid gap-2">
               <Label htmlFor="firstname">Prénom</Label>
               <Input
                 id="firstname"
+                name="firstname"
                 type="text"
                 placeholder="John"
-                onChange={handleFirstNameChange}
+                value={data.firstname}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -92,30 +105,27 @@ function Signup() {
               <Label htmlFor="email">E-mail</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="email@example.com"
+                value={data.email}
+                onChange={handleInputChange}
                 required
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="profile-color">Couleur d&rsquo;avatar</Label>
+              <Label htmlFor="color">Couleur d&rsquo;avatar</Label>
               <div className="flex items-center space-x-3">
                 <Avatar
                   className="flex h-9 w-9 sm:flex align rounded-3xl justify-center items-center"
-                  style={{ backgroundColor: avatarColor }}
-                >
-                  {firstName && (
-                    <AvatarFallback className="text-xs self-center">
-                      {firstName[0].toUpperCase()}
-                    </AvatarFallback>
-                  )}
-                </Avatar>
+                  style={{ backgroundColor: data.color }}
+                />
                 <Input
-                  className="text-sm"
-                  id="profile-color"
-                  name="profile-color"
+                  className="text-sm w-15"
+                  id="color"
+                  name="color"
                   type="text"
-                  value={avatarColor}
+                  value={data.color}
                   disabled
                 />
                 <TooltipProvider>
@@ -142,10 +152,11 @@ function Signup() {
               </div>
               <Input
                 id="password"
+                name="password"
                 type="password"
                 placeholder="8 caractères minimum"
-                value={password}
-                onChange={handlePasswordChange}
+                value={data.password}
+                onChange={handleInputChange}
                 required
               />
               {passwordError && (
@@ -154,18 +165,17 @@ function Signup() {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password-confirm">
+                <Label htmlFor="confirmPassword">
                   Confirmation de mot de passe
                 </Label>
               </div>
               <Input
-                id="password-confirm"
+                id="confirmPassword"
+                name="confirmPassword"
                 type="password"
                 placeholder="Confirmation obligatoire"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                onCopy={handleCopyPaste}
-                onPaste={handleCopyPaste}
+                value={data.confirmPassword}
+                onChange={handleInputChange}
                 required
               />
             </div>
