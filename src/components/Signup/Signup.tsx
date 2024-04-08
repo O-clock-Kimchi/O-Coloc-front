@@ -36,6 +36,10 @@ function Signup() {
 
   const dispatch = useAppDispatch();
 
+  const handleCopyPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  };
+
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setErrorMessage(null);
@@ -213,6 +217,8 @@ function Signup() {
                 type="password"
                 placeholder="Confirmation obligatoire"
                 value={data.confirmPassword}
+                onCopy={handleCopyPaste}
+                onPaste={handleCopyPaste}
                 onChange={handleInputChange}
                 required
               />
