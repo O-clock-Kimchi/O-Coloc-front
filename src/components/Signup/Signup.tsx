@@ -250,7 +250,7 @@ function Signup() {
               )}
 
               <Button type="submit" className="w-full">
-                Se connecter
+                S&rsquo;inscrire
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">
