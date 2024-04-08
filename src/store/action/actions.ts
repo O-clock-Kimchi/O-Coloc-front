@@ -11,19 +11,30 @@ interface LoginFormData {
   password: string;
 }
 
-export const login = createAsyncThunk<
-  {
+interface LoginResponseData {
+  message: string;
+  user: {
     firstname: string;
-    isLogged: boolean;
     current_coloc_id: number;
     color: string;
     email: string;
-  },
-  LoginFormData
->(LOGIN, async (loginformData) => {
-  const response = await axiosInstance.post('/login', loginformData);
-  console.log(response.data);
-  return response.data;
+  };
+}
+
+export const login = createAsyncThunk<
+  LoginResponseData,
+  LoginFormData,
+  {
+    rejectValue: { message: string };
+  }
+>(LOGIN, async (loginFormData: LoginFormData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post('/login', loginFormData);
+    console.log(response.data);
+    return response.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
 });
 
 // Logout action
