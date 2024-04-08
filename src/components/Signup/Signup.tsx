@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
 
-import { Avatar } from '@radix-ui/react-avatar';
+import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import { NavLink } from 'react-router-dom';
 
 import { RefreshCcw } from 'lucide-react';
@@ -17,11 +17,16 @@ import {
 import randomHexColor from '../../utils/generateRandomColor';
 
 function Signup() {
+  const [firstName, setFirstName] = useState('');
   const [avatarColor, setAvatarColor] = useState<string>(randomHexColor());
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const handleFirstNameChange = (e: FormEvent<HTMLInputElement>) => {
+    setFirstName(e.currentTarget.value);
+  };
 
   const handleRefreshColor = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -78,7 +83,8 @@ function Signup() {
               <Input
                 id="firstname"
                 type="text"
-                placeholder="Florian"
+                placeholder="John"
+                onChange={handleFirstNameChange}
                 required
               />
             </div>
@@ -87,7 +93,7 @@ function Signup() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="email@example.com"
                 required
               />
             </div>
@@ -95,9 +101,15 @@ function Signup() {
               <Label>Couleur d&rsquo;avatar</Label>
               <div className="flex items-center space-x-3">
                 <Avatar
-                  className="h-9 w-9 sm:flex align rounded-3xl"
+                  className="flex h-9 w-9 sm:flex align rounded-3xl justify-center items-center"
                   style={{ backgroundColor: avatarColor }}
-                />
+                >
+                  {firstName && (
+                    <AvatarFallback className="text-xs self-center">
+                      {firstName[0].toUpperCase()}
+                    </AvatarFallback>
+                  )}
+                </Avatar>
                 <p className="text-sm">{avatarColor}</p>
                 <TooltipProvider>
                   <Tooltip>
