@@ -14,11 +14,19 @@ import {
   TooltipTrigger,
 } from '../ui/tooltip';
 
+import randomHexColor from '../../utils/generateRandomColor';
+
 function Signup() {
+  const [avatarColor, setAvatarColor] = useState<string>(randomHexColor());
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const handleRefreshColor = () => {
+    const newColor = randomHexColor();
+    setAvatarColor(newColor);
+  };
 
   const handleRegisterFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -85,12 +93,19 @@ function Signup() {
             <div className="grid gap-2">
               <Label>Couleur d&rsquo;avatar</Label>
               <div className="flex items-center space-x-3">
-                <Avatar className="h-9 w-9 sm:flex align bg-jet-900 rounded-3xl" />
-                <p className="text-sm">Color</p>
+                <Avatar
+                  className="h-9 w-9 sm:flex align rounded-3xl"
+                  style={{ backgroundColor: avatarColor }}
+                />
+                <p className="text-sm">{avatarColor}</p>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
-                      <Button className="flex self-end" variant="ghost">
+                      <Button
+                        className="flex self-end"
+                        variant="ghost"
+                        onClick={handleRefreshColor}
+                      >
                         <RefreshCcw />
                       </Button>
                     </TooltipTrigger>
