@@ -11,19 +11,58 @@ import { useToast } from '../ui/use-toast';
 // Function de redux pour utiliser action et state
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/action/actions';
+import axiosInstance from '../../store/axiosconfig';
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 function Login() {
   // Pour envoyer mail et password au back
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
-  const colocID = useAppSelector((state) => state.userReducer.colocId);
-  const [email, setEmail] = useState<string>('sian@ocoloc.com');
-  const [password, setPassword] = useState<string>('Sian2465');
+  const colocID = useAppSelector((state) => state.userReducer.user.colocId);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  // const [email, setEmail] = useState<string>('sian@ocoloc.com');
+  // const [password, setPassword] = useState<string>('Sian2465');
+
+  const [loginData, setLoginData] = useState<LoginFormData>({
+    email: '',
+    password: '',
+  });
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
+    setErrorMessage(null);
+    const { name, value } = e.currentTarget;
+    setLoginData({ ...loginData, [name]: value });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
+    setErrorMessage(null);
+    try {
+      const response = await axiosInstance.post('/login', loginData);
+      console.log('Login successful:', response.data);
+      dispatch(login(loginData));
+      setLoginData({
+        email: '',
+        password: '',
+      });
+    } catch (error: any) {
+      if (error.response) {
+        setErrorMessage('Veuillez vérifier vos identifiants.');
+        setLoginData({
+          email: '',
+          password: '',
+        });
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+      } else {
+        console.error('Error setting up the request:', error.message);
+      }
+    }
   };
 
   if (isLogged) {
@@ -39,15 +78,19 @@ function Login() {
             <p className="text-balance text-muted-foreground">
               Entrez votre e-mail pour vous connecter dès maintenant.
             </p>
+            {errorMessage && (
+              <p className="text-cardinal-600 text-xs">{errorMessage}</p>
+            )}
           </div>
           <form className="grid gap-4" onSubmit={handleSubmit}>
             <div className="grid gap-2">
               <Label htmlFor="email">E-mail</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={loginData.email}
+                onChange={handleInputChange}
                 placeholder="E-mail (obligatoire)"
                 required
               />
@@ -64,10 +107,11 @@ function Login() {
               </div>
               <Input
                 id="password"
+                name="password"
                 type="password"
                 placeholder="8 caractères minimum"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={loginData.password}
+                onChange={handleInputChange}
                 required
               />
             </div>
