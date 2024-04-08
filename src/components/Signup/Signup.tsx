@@ -148,7 +148,7 @@ function Signup() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="color">Couleur d&rsquo;avatar</Label>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 justify-between">
                 <Avatar
                   className="flex h-9 w-9 sm:flex align rounded-3xl
                   justify-center items-center"
@@ -159,7 +159,7 @@ function Signup() {
                   </AvatarFallback>
                 </Avatar>
                 <Input
-                  className="text-sm w-15"
+                  className="text-sm w-60"
                   id="color"
                   name="color"
                   type="text"
