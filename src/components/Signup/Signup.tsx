@@ -83,6 +83,25 @@ function Signup() {
               />
             </div>
             <div className="grid gap-2">
+              <Label>Couleur d&rsquo;avatar</Label>
+              <div className="flex items-center space-x-3">
+                <Avatar className="h-9 w-9 sm:flex align bg-jet-900 rounded-3xl" />
+                <p className="text-sm">Color</p>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button className="flex self-end" variant="ghost">
+                        <RefreshCcw />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-jet-50 text-xs border-none">
+                      Cliquez pour générer une nouvelle couleur
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </div>
+            <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Mot de passe</Label>
               </div>
@@ -120,25 +139,6 @@ function Signup() {
                 {confirmPasswordError}
               </p>
             )}
-            <div className="grid gap-2">
-              <Label>Couleur d&rsquo;avatar</Label>
-              <div className="flex items-center space-x-3">
-                <Avatar className="h-9 w-9 sm:flex align bg-jet-900 rounded-3xl" />
-                <p className="text-sm">Color</p>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button className="flex self-end" variant="ghost">
-                        <RefreshCcw />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="bg-jet-50 text-xs border-none">
-                      Cliquez pour générer une nouvelle couleur
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </div>
 
             <Button type="submit" className="w-full">
               Se connecter
