@@ -43,7 +43,7 @@ const userReducer = createReducer(initialState, (builder) => {
       localStorage.clear();
     })
     .addCase(signup.fulfilled, (state, action) => {
-      state.isLogged = true;
+      state.isLogged = false;
       state.firstname = action.payload.firstname;
       state.colocId = action.payload.current_coloc_id;
       state.color = action.payload.color;
