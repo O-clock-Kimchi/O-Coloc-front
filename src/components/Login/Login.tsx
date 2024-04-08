@@ -22,16 +22,6 @@ function Login() {
   const dispatch = useAppDispatch();
   const { toast } = useToast();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(login({ email, password }));
-
-    if (isLogged) {
-      return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
-    }
-    return null;
-  };
-
   useEffect(() => {
     if (isLogged) {
       toast({
@@ -40,6 +30,16 @@ function Login() {
       });
     }
   }, [isLogged, toast]);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(login({ email, password }));
+  };
+
+  // TODO: régler problème de toast avec navigate
+
+  if (isLogged) {
+    return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
+  }
 
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">

@@ -114,7 +114,7 @@ function Signup() {
               </p>
             )}
             <Button type="submit" className="w-full">
-              Se connecter
+              S&apoinscrire
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
