@@ -30,24 +30,24 @@ export const login = createAsyncThunk<
 const LOGOUT = 'LOGOUT';
 export const logout = createAction(LOGOUT);
 
-// Register action
-const REGISTER = 'REGISTER';
+// Signup action
+const SIGNUP = 'SIGNUP';
 
-interface RegisterFormData {
+interface SignupData {
   firstname: string;
   email: string;
   password: string;
+  color: string;
 }
 
-export const register = createAsyncThunk<
-  {
-    firstname: string;
-    isLogged: boolean;
-    email: string;
-  },
-  RegisterFormData
->(REGISTER, async (registerFormData) => {
-  const response = await axiosInstance.post('/signup', registerFormData);
-  console.log(response.data);
-  return response.data;
-});
+export const signup = createAsyncThunk(
+  SIGNUP,
+  async (signupData: SignupData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post('/signup', signupData);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
