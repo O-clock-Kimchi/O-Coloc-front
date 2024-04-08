@@ -3,58 +3,62 @@ import { login, logout, signup } from '../action/actions';
 
 interface UserState {
   isLogged: boolean;
-  firstname: string;
-  colocId: null | number;
-  color: string;
-  email: string;
+  user: {
+    firstname: string;
+    colocId: null | number;
+    color: string;
+    email: string;
+  };
 }
 
 export const initialState: UserState = {
   isLogged: false,
-  firstname: '',
-  colocId: null,
-  color: '',
-  email: '',
+  user: {
+    firstname: '',
+    colocId: null,
+    color: '',
+    email: '',
+  },
 };
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(login.fulfilled, (state, action) => {
+      const { firstname, current_coloc_id, color, email } = action.payload.user;
       state.isLogged = true;
-      state.firstname = action.payload.firstname;
-      state.colocId = action.payload.current_coloc_id;
-      state.color = action.payload.color;
-      state.email = action.payload.email;
-      // localStorage.setItem('firstname', action.payload.firstname);
+      state.user.firstname = firstname;
+      state.user.colocId = current_coloc_id;
+      state.user.color = color;
+      state.user.email = email;
     })
     .addCase(login.rejected, (state) => {
       state.isLogged = false;
-      state.firstname = '';
-      state.colocId = null;
-      state.color = '';
-      state.email = '';
+      state.user.firstname = '';
+      state.user.colocId = null;
+      state.user.color = '';
+      state.user.email = '';
     })
     .addCase(logout, (state) => {
       state.isLogged = false;
-      state.firstname = '';
-      state.colocId = null;
-      state.color = '';
-      state.email = '';
+      state.user.firstname = '';
+      state.user.colocId = null;
+      state.user.color = '';
+      state.user.email = '';
       localStorage.clear();
     })
     .addCase(signup.fulfilled, (state, action) => {
       state.isLogged = false;
-      state.firstname = action.payload.firstname;
-      state.colocId = action.payload.current_coloc_id;
-      state.color = action.payload.color;
-      state.email = action.payload.email;
+      state.user.firstname = action.payload.firstname;
+      state.user.colocId = action.payload.current_coloc_id;
+      state.user.color = action.payload.color;
+      state.user.email = action.payload.email;
     })
     .addCase(signup.rejected, (state) => {
       state.isLogged = false;
-      state.firstname = '';
-      state.colocId = null;
-      state.color = '';
-      state.email = '';
+      state.user.firstname = '';
+      state.user.colocId = null;
+      state.user.color = '';
+      state.user.email = '';
     });
 });
 
