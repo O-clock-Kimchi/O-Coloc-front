@@ -71,6 +71,7 @@ function Login() {
     if (isLogged) {
       toast({
         description: 'Connexion réussie !',
+        className: 'bg-jet-100',
       });
       setTimeout(() => {
         setRedirect(true);
