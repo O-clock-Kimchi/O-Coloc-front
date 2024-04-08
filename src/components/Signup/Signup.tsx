@@ -7,6 +7,12 @@ import { RefreshCcw } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip';
 
 function Signup() {
   const [password, setPassword] = useState('');
@@ -119,9 +125,18 @@ function Signup() {
               <div className="flex items-center space-x-3">
                 <Avatar className="h-9 w-9 sm:flex align bg-jet-900 rounded-3xl" />
                 <p className="text-sm">Color</p>
-                <Button className="flex self-end" variant="ghost">
-                  <RefreshCcw />
-                </Button>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button className="flex self-end" variant="ghost">
+                        <RefreshCcw />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-jet-50 text-xs border-none">
+                      Cliquez pour générer une nouvelle couleur
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
 
