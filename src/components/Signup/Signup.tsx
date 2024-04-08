@@ -23,7 +23,8 @@ function Signup() {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-  const handleRefreshColor = () => {
+  const handleRefreshColor = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const newColor = randomHexColor();
     setAvatarColor(newColor);
   };
