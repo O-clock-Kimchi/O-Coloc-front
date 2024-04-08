@@ -20,9 +20,6 @@ import { signup } from '../../store/action/actions';
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
-  const [avatarColor, setAvatarColor] = useState<string>(randomHexColor());
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -36,10 +33,6 @@ function Signup() {
   });
 
   const dispatch = useAppDispatch();
-
-  const handleFirstNameChange = (e: FormEvent<HTMLInputElement>) => {
-    setFirstName(e.currentTarget.value);
-  };
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -62,6 +55,8 @@ function Signup() {
       } else {
         setConfirmPasswordError('');
       }
+    } else if (name === 'firstname') {
+      setFirstName(value);
     }
   };
 
@@ -121,9 +116,14 @@ function Signup() {
               <Label htmlFor="color">Couleur d&rsquo;avatar</Label>
               <div className="flex items-center space-x-3">
                 <Avatar
-                  className="flex h-9 w-9 sm:flex align rounded-3xl justify-center items-center"
+                  className="flex h-9 w-9 sm:flex align rounded-3xl
+                  justify-center items-center"
                   style={{ backgroundColor: data.color }}
-                />
+                >
+                  <AvatarFallback>
+                    {data.firstname.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
                 <Input
                   className="text-sm w-15"
                   id="color"
