@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { login, logout, register } from '../action/actions';
+import { login, logout, register, updateUser } from '../action/actions';
 
 interface UserState {
   isLogged: boolean;
@@ -7,6 +7,8 @@ interface UserState {
   colocId: null | number;
   color: string;
   email: string;
+  userId: null | number;
+  isUpdated: boolean;
 }
 
 export const initialState: UserState = {
@@ -15,6 +17,8 @@ export const initialState: UserState = {
   colocId: null,
   color: '',
   email: '',
+  userId: null,
+  isUpdated: false,
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -25,6 +29,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.colocId = action.payload.current_coloc_id;
       state.color = action.payload.color;
       state.email = action.payload.email;
+      state.userId = action.payload.user_id;
       // localStorage.setItem('firstname', action.payload.firstname);
     })
     .addCase(login.rejected, (state) => {
@@ -33,6 +38,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.colocId = null;
       state.color = '';
       state.email = '';
+      state.userId = null;
     })
     .addCase(logout, (state) => {
       state.isLogged = false;
@@ -40,6 +46,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.colocId = null;
       state.color = '';
       state.email = '';
+      state.userId = null;
       localStorage.clear();
     })
     .addCase(register.fulfilled, (state, action) => {
@@ -51,6 +58,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isLogged = false;
       state.firstname = '';
       state.email = '';
+    })
+    .addCase(updateUser.fulfilled, (state) => {
+      state.isUpdated = true;
     });
 });
 

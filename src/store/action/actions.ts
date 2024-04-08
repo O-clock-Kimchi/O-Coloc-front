@@ -18,6 +18,7 @@ export const login = createAsyncThunk<
     current_coloc_id: number;
     color: string;
     email: string;
+    user_id: number;
   },
   LoginFormData
 >(LOGIN, async (loginformData) => {
@@ -51,3 +52,30 @@ export const register = createAsyncThunk<
   console.log(response.data);
   return response.data;
 });
+
+// Update user action
+
+const UPDATE_USER = 'UPDATE_USER';
+
+interface UpdateDataUser {
+  firstname: string;
+  email: string;
+  color: string;
+}
+
+interface UpdateUserWithId {
+  userId: number;
+  updateDataUser: UpdateDataUser;
+}
+
+export const updateUser = createAsyncThunk(
+  UPDATE_USER,
+  async ({ userId, updateDataUser }: UpdateUserWithId) => {
+    const response = await axiosInstance.put(
+      `/user/${userId}/profile`,
+      updateDataUser
+    );
+    console.log(response.data);
+    return response.data;
+  }
+);
