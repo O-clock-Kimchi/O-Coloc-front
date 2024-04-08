@@ -15,11 +15,13 @@ import {
 } from '../ui/tooltip';
 
 import randomHexColor from '../../utils/generateRandomColor';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import axiosInstance from '../../store/axiosconfig';
+import { useAppDispatch } from '../../hooks/redux';
 import { signup } from '../../store/action/actions';
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -36,6 +38,7 @@ function Signup() {
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
+    setErrorMessage(null);
     setData({ ...data, [name]: value });
     if (name === 'password') {
       // check if value in password meets regex requirements (formerly handlePasswordChange)
@@ -66,9 +69,38 @@ function Signup() {
     setData({ ...data, color: newColor });
   };
 
-  const handleRegisterFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleRegisterFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(signup(data));
+    setErrorMessage(null);
+    try {
+      const response = await axiosInstance.post('/signup', data);
+      // To DO : set isRegistrationSuccessful = true > change view
+      console.log('Signup successful:', response.data);
+      dispatch(signup(data));
+      setData({
+        firstname: '',
+        email: '',
+        color: randomHexColor(),
+        password: '',
+        confirmPassword: '',
+      });
+      return;
+    } catch (error: any) {
+      if (error.response) {
+        setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+        setData({
+          firstname: '',
+          email: '',
+          color: randomHexColor(),
+          password: '',
+          confirmPassword: '',
+        });
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+      } else {
+        console.error('Error setting up the request:', error.message);
+      }
+    }
   };
 
   return (
@@ -81,10 +113,12 @@ function Signup() {
               Inscrivez-vous maintenant pour créer ou rejoindre votre future
               colocation.
             </p>
+            {errorMessage && (
+              <p className="text-cardinal-600 text-xs">{errorMessage}</p>
+            )}
           </div>
           <form
             className="grid gap-4"
-            action="http://localhost:5000/signup"
             method="POST"
             onSubmit={handleRegisterFormSubmit}
           >
