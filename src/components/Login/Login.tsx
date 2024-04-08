@@ -1,5 +1,5 @@
 import { NavLink, useNavigate, Navigate } from 'react-router-dom';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 
 // Element UI de Shadcn
 import { Button } from '../ui/button';
@@ -23,6 +23,7 @@ function Login() {
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const colocID = useAppSelector((state) => state.userReducer.user.colocId);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [redirect, setRedirect] = useState<boolean>(false);
   // const [email, setEmail] = useState<string>('sian@ocoloc.com');
   // const [password, setPassword] = useState<string>('Sian2465');
 
@@ -32,6 +33,7 @@ function Login() {
   });
 
   const dispatch = useAppDispatch();
+  const { toast } = useToast();
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     setErrorMessage(null);
@@ -65,7 +67,18 @@ function Login() {
     }
   };
 
-  if (isLogged) {
+  useEffect(() => {
+    if (isLogged) {
+      toast({
+        description: 'Connexion réussie !',
+      });
+      setTimeout(() => {
+        setRedirect(true);
+      }, 900);
+    }
+  }, [isLogged, toast]);
+
+  if (redirect) {
     return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
   }
 
@@ -136,6 +149,7 @@ function Login() {
           className=" max-h-screen w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
+      <Toaster />
     </div>
   );
 }
