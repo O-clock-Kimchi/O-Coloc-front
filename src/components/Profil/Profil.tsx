@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Check, PipetteIcon, SquarePenIcon } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
@@ -14,23 +14,34 @@ import {
   CardTitle,
 } from '../ui/card';
 import { updateUser } from '../../store/action/actions';
+import { Avatar, AvatarFallback } from '../ui/avatar';
+import randomHexColor from '../../utils/randomHex';
 
 function Profil() {
   const dispatch = useAppDispatch();
+  const randomColor = randomHexColor();
 
   const firstname = useAppSelector((state) => state.userReducer.firstname);
   const email = useAppSelector((state) => state.userReducer.email);
   const color = useAppSelector((state) => state.userReducer.color);
   const userId = useAppSelector((state) => state.userReducer.userId);
+  const isUpdated = useAppSelector((state) => state.userReducer.isUpdated);
 
   const [isUpdatingFirstname, setIsUpdatingFirstname] =
     useState<boolean>(false);
   const [isUpdatingEmail, setIsUpdatingEmail] = useState<boolean>(false);
-  const [isUpdatingColor, setIsUpdatingColor] = useState<boolean>(false);
 
   const [firstnameUpdated, setFirstnameUpdated] = useState<string>(firstname);
   const [emailUpdated, setEmailUpdated] = useState<string>(email);
   const [colorUpdated, setColorUpdated] = useState<string>(color);
+
+  useEffect(() => {
+    if (isUpdated) {
+      setFirstnameUpdated(firstname);
+      setEmailUpdated(email);
+      setColorUpdated(color);
+    }
+  }, [firstname, email, color, isUpdated]);
 
   // To switch for each button and not all the button at once
 
@@ -47,7 +58,7 @@ function Profil() {
         setIsUpdatingEmail(!isUpdatingEmail);
         break;
       case 'color':
-        setIsUpdatingColor(!isUpdatingColor);
+        setColorUpdated(randomColor);
         break;
       default:
         throw new Error(`Invalid fieldname: ${fieldname}`);
@@ -67,6 +78,10 @@ function Profil() {
           },
         })
       );
+
+      // Close edit mode for all fields
+      setIsUpdatingFirstname(false);
+      setIsUpdatingEmail(false);
     } else {
       throw new Error('Une erreur est survenue');
     }
@@ -163,32 +178,22 @@ function Profil() {
                   Color
                 </Label>
                 <form className="horizontal gap-3" onSubmit={handleFormUpdate}>
-                  {!isUpdatingColor ? (
-                    <>
-                      <Input
-                        id="color"
-                        type="text"
-                        placeholder={color}
-                        disabled
-                        className=" placeholder-jet-900 flex-auto"
-                      />
-                      <Button onClick={(e) => handleUpdate(e, 'color')}>
-                        <PipetteIcon size={15} />
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Input
-                        id="color"
-                        type="text"
-                        value={color}
-                        className=" placeholder-jet-900 flex-auto border border-tainoi-800"
-                      />
-                      <Button type="submit">
-                        <Check size={15} />
-                      </Button>
-                    </>
-                  )}
+                  <Avatar>
+                    <AvatarFallback style={{ backgroundColor: colorUpdated }} />
+                  </Avatar>
+                  <Input
+                    id="color"
+                    type="text"
+                    value={colorUpdated}
+                    disabled
+                    className=" placeholder-jet-900 flex-auto"
+                  />
+                  <Button
+                    type="submit"
+                    onClick={(e) => handleUpdate(e, 'color')}
+                  >
+                    <PipetteIcon size={15} />
+                  </Button>
                 </form>
               </div>
 
