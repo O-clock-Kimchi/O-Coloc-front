@@ -25,6 +25,7 @@ function Login() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login({ email, password }));
+
     if (isLogged) {
       return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
     }
