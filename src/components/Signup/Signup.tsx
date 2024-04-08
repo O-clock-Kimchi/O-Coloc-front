@@ -1,3 +1,6 @@
+import { useState, FormEvent } from 'react';
+
+import { Avatar } from '@radix-ui/react-avatar';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
 
@@ -5,6 +8,43 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
 function Signup() {
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const handleRegisterFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (
+      !password.match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()-_+=]{8,}$/
+      )
+    ) {
+      setPasswordError(
+        'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
+      );
+    }
+    if (confirmPassword !== password) {
+      setConfirmPasswordError('Les deux mots de passe ne correspondent pas !');
+    }
+    // TO DO
+    // useDispatch(register)
+  };
+
+  const handlePasswordChange = (e: FormEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value);
+    setPasswordError('');
+  };
+
+  const handleConfirmPasswordChange = (e: FormEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.currentTarget.value);
+    setConfirmPasswordError('');
+  };
+
+  const handleCopyPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
       <div className="flex items-center justify-center">
@@ -16,10 +56,15 @@ function Signup() {
               colocation.
             </p>
           </div>
-          <div className="grid gap-4">
+          <form className="grid gap-4" onSubmit={handleRegisterFormSubmit}>
             <div className="grid gap-2">
-              <Label htmlFor="prenom">Prénom</Label>
-              <Input id="prenom" type="text" placeholder="Florian" required />
+              <Label htmlFor="firstname">Prénom</Label>
+              <Input
+                id="firstname"
+                type="text"
+                placeholder="Florian"
+                required
+              />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">E-mail</Label>
@@ -38,8 +83,13 @@ function Signup() {
                 id="password"
                 type="password"
                 placeholder="8 caractères minimum"
+                value={password}
+                onChange={handlePasswordChange}
                 required
               />
+              {passwordError && (
+                <p className="text-cardinal-600 text-xs">{passwordError}</p>
+              )}
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
@@ -51,15 +101,24 @@ function Signup() {
                 id="password-confirm"
                 type="password"
                 placeholder="Confirmation obligatoire"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                onCopy={handleCopyPaste}
+                onPaste={handleCopyPaste}
                 required
               />
             </div>
+            {confirmPasswordError && (
+              <p className="text-cardinal-600 text-xs">
+                {confirmPasswordError}
+              </p>
+            )}
             <Button type="submit" className="w-full">
               Se connecter
             </Button>
-          </div>
+          </form>
           <div className="mt-4 text-center text-sm">
-            Vous avez déjà un compte?{' '}
+            Vous avez déjà un compte ?{' '}
             <NavLink to="/connexion" className="underline">
               Connectez-vous
             </NavLink>
