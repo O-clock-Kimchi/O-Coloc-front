@@ -13,8 +13,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/action/actions';
 
 function NavConnected() {
-  const userFirstname = useAppSelector((state) => state.userReducer.firstname);
-  const color = useAppSelector((state) => state.userReducer.color);
+  const userFirstname = useAppSelector(
+    (state) => state.userReducer.user.firstname
+  );
+  const color = useAppSelector((state) => state.userReducer.user.color);
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
@@ -54,9 +56,14 @@ function NavConnected() {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <Avatar>
+      <Avatar
+        className="flex sm:flex align rounded-3xl
+                  justify-center items-center"
+      >
         <AvatarImage src="" />
-        <AvatarFallback style={{ backgroundColor: color }} />
+        <AvatarFallback style={{ backgroundColor: color }}>
+          {userFirstname.charAt(0).toUpperCase()}
+        </AvatarFallback>
       </Avatar>
     </div>
   );
