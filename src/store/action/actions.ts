@@ -23,7 +23,7 @@ export const login = createAsyncThunk<
 >(LOGIN, async (loginformData) => {
   const response = await axiosInstance.post('/login', loginformData);
   console.log(response.data);
-  return response.data;
+  return response.data.user;
 });
 
 // Logout action
