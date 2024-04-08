@@ -98,7 +98,7 @@ function Signup() {
               />
             </div>
             <div className="grid gap-2">
-              <Label>Couleur d&rsquo;avatar</Label>
+              <Label htmlFor="profile-color">Couleur d&rsquo;avatar</Label>
               <div className="flex items-center space-x-3">
                 <Avatar
                   className="flex h-9 w-9 sm:flex align rounded-3xl justify-center items-center"
@@ -110,7 +110,14 @@ function Signup() {
                     </AvatarFallback>
                   )}
                 </Avatar>
-                <p className="text-sm">{avatarColor}</p>
+                <Input
+                  className="text-sm"
+                  id="profile-color"
+                  name="profile-color"
+                  type="text"
+                  value={avatarColor}
+                  disabled
+                />
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
