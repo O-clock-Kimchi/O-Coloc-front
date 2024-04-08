@@ -2,8 +2,9 @@ import { useState, FormEvent } from 'react';
 
 import { Avatar } from '@radix-ui/react-avatar';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../ui/button';
 
+import { RefreshCcw } from 'lucide-react';
+import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
@@ -113,6 +114,17 @@ function Signup() {
                 {confirmPasswordError}
               </p>
             )}
+            <div className="grid gap-2">
+              <Label>Couleur d&rsquo;avatar</Label>
+              <div className="flex items-center space-x-3">
+                <Avatar className="h-9 w-9 sm:flex align bg-jet-900 rounded-3xl" />
+                <p className="text-sm">Color</p>
+                <Button className="flex self-end" variant="ghost">
+                  <RefreshCcw />
+                </Button>
+              </div>
+            </div>
+
             <Button type="submit" className="w-full">
               Se connecter
             </Button>
