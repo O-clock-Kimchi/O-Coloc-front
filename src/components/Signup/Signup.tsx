@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 
 import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import { NavLink } from 'react-router-dom';
@@ -13,6 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../ui/tooltip';
+import RegistrationSuccessful from './Signup_RegistrationSuccessful';
 
 import randomHexColor from '../../utils/generateRandomColor';
 import axiosInstance from '../../store/axiosconfig';
@@ -25,6 +26,9 @@ function Signup() {
 
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [registrationIsSuccessful, setRgistrationIsSuccessful] = useState<
+    boolean | null
+  >(null);
 
   const [data, setData] = useState({
     firstname: '',
@@ -78,7 +82,7 @@ function Signup() {
     setErrorMessage(null);
     try {
       const response = await axiosInstance.post('/signup', data);
-      // To DO : set isRegistrationSuccessful = true > change view
+      setRgistrationIsSuccessful(true);
       console.log('Signup successful:', response.data);
       dispatch(signup(data));
       setData({
@@ -107,139 +111,156 @@ function Signup() {
     }
   };
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+
+    if (registrationIsSuccessful) {
+      timer = setTimeout(() => {
+        setRgistrationIsSuccessful(null);
+      }, 3000);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [registrationIsSuccessful]);
+
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
       <div className="flex items-center justify-center">
-        <div className="mx-auto grid w-[350px] gap-6">
-          <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">S&apos;inscrire</h1>
-            <p className="text-balance text-muted-foreground">
-              Inscrivez-vous maintenant pour créer ou rejoindre votre future
-              colocation.
-            </p>
-            {errorMessage && (
-              <p className="text-cardinal-600 text-xs">{errorMessage}</p>
-            )}
-          </div>
-          <form
-            className="grid gap-4"
-            method="POST"
-            onSubmit={handleRegisterFormSubmit}
-          >
-            <div className="grid gap-2">
-              <Label htmlFor="firstname">Prénom</Label>
-              <Input
-                id="firstname"
-                name="firstname"
-                type="text"
-                placeholder="John"
-                value={data.firstname}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">E-mail</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="email@example.com"
-                value={data.email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="color">Couleur d&rsquo;avatar</Label>
-              <div className="flex items-center space-x-2 justify-between">
-                <Avatar
-                  className="flex h-9 w-9 sm:flex align rounded-3xl
-                  justify-center items-center"
-                  style={{ backgroundColor: data.color }}
-                >
-                  <AvatarFallback>
-                    {data.firstname.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <Input
-                  className="text-sm w-60"
-                  id="color"
-                  name="color"
-                  type="text"
-                  value={data.color}
-                  disabled
-                />
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button
-                        className="flex self-end"
-                        variant="ghost"
-                        onClick={handleRefreshColor}
-                      >
-                        <RefreshCcw />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="bg-jet-50 text-xs border-none">
-                      Cliquez pour générer une nouvelle couleur
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Mot de passe</Label>
-              </div>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="8 caractères minimum"
-                value={data.password}
-                onChange={handleInputChange}
-                required
-              />
-              {passwordError && (
-                <p className="text-cardinal-600 text-xs">{passwordError}</p>
+        {registrationIsSuccessful ? (
+          <RegistrationSuccessful />
+        ) : (
+          <div className="mx-auto grid w-[350px] gap-6">
+            <div className="grid gap-2 text-center">
+              <h1 className="text-3xl font-bold">S&apos;inscrire</h1>
+              <p className="text-balance text-muted-foreground">
+                Inscrivez-vous maintenant pour créer ou rejoindre votre future
+                colocation.
+              </p>
+              {errorMessage && (
+                <p className="text-cardinal-600 text-xs">{errorMessage}</p>
               )}
             </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="confirmPassword">
-                  Confirmation de mot de passe
-                </Label>
+            <form
+              className="grid gap-4"
+              method="POST"
+              onSubmit={handleRegisterFormSubmit}
+            >
+              <div className="grid gap-2">
+                <Label htmlFor="firstname">Prénom</Label>
+                <Input
+                  id="firstname"
+                  name="firstname"
+                  type="text"
+                  placeholder="John"
+                  value={data.firstname}
+                  onChange={handleInputChange}
+                  required
+                />
               </div>
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirmation obligatoire"
-                value={data.confirmPassword}
-                onCopy={handleCopyPaste}
-                onPaste={handleCopyPaste}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            {confirmPasswordError && (
-              <p className="text-cardinal-600 text-xs">
-                {confirmPasswordError}
-              </p>
-            )}
+              <div className="grid gap-2">
+                <Label htmlFor="email">E-mail</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="email@example.com"
+                  value={data.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="color">Couleur d&rsquo;avatar</Label>
+                <div className="flex items-center space-x-2 justify-between">
+                  <Avatar
+                    className="flex h-9 w-9 sm:flex align rounded-3xl
+                  justify-center items-center"
+                    style={{ backgroundColor: data.color }}
+                  >
+                    <AvatarFallback>
+                      {data.firstname.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <Input
+                    className="text-sm w-60"
+                    id="color"
+                    name="color"
+                    type="text"
+                    value={data.color}
+                    disabled
+                  />
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button
+                          className="flex self-end"
+                          variant="ghost"
+                          onClick={handleRefreshColor}
+                        >
+                          <RefreshCcw />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className="bg-jet-50 text-xs border-none">
+                        Cliquez pour générer une nouvelle couleur
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </div>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Mot de passe</Label>
+                </div>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="8 caractères minimum"
+                  value={data.password}
+                  onChange={handleInputChange}
+                  required
+                />
+                {passwordError && (
+                  <p className="text-cardinal-600 text-xs">{passwordError}</p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="confirmPassword">
+                    Confirmation de mot de passe
+                  </Label>
+                </div>
+                <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirmation obligatoire"
+                  value={data.confirmPassword}
+                  onCopy={handleCopyPaste}
+                  onPaste={handleCopyPaste}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              {confirmPasswordError && (
+                <p className="text-cardinal-600 text-xs">
+                  {confirmPasswordError}
+                </p>
+              )}
 
-            <Button type="submit" className="w-full">
-              Se connecter
-            </Button>
-          </form>
-          <div className="mt-4 text-center text-sm">
-            Vous avez déjà un compte ?{' '}
-            <NavLink to="/connexion" className="underline">
-              Connectez-vous
-            </NavLink>
+              <Button type="submit" className="w-full">
+                Se connecter
+              </Button>
+            </form>
+            <div className="mt-4 text-center text-sm">
+              Vous avez déjà un compte ?{' '}
+              <NavLink to="/connexion" className="underline">
+                Connectez-vous
+              </NavLink>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="hidden bg-muted lg:block place-items-center">
         <img
