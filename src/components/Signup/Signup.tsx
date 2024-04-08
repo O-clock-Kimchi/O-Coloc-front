@@ -23,6 +23,7 @@ function Signup() {
   const [avatarColor, setAvatarColor] = useState<string>(randomHexColor());
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
@@ -43,6 +44,25 @@ function Signup() {
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setData({ ...data, [name]: value });
+    if (name === 'password') {
+      // check if value in password meets regex requirements (formerly handlePasswordChange)
+      if (!value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)) {
+        setPasswordError(
+          'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
+        );
+      } else {
+        setPasswordError('');
+      }
+    } else if (name === 'confirmPassword') {
+      // check if value in confirmPassword === password (formerly handleConfirmPasswordChange)
+      if (value !== data.password) {
+        setConfirmPasswordError(
+          'Les deux mots de passe ne correspondent pas !'
+        );
+      } else {
+        setConfirmPasswordError('');
+      }
+    }
   };
 
   const handleRefreshColor = (e: FormEvent<HTMLButtonElement>) => {
@@ -53,22 +73,6 @@ function Signup() {
 
   const handleRegisterFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      !password.match(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()-_+=]{8,}$/
-      )
-    ) {
-      setPasswordError(
-        'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
-      );
-    } else {
-      setPasswordError('');
-    }
-    if (data.confirmPassword !== data.password) {
-      setConfirmPasswordError('Les deux mots de passe ne correspondent pas !');
-    } else {
-      setConfirmPasswordError('');
-    }
     dispatch(signup(data));
   };
 
