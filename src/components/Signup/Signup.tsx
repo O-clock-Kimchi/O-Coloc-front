@@ -81,12 +81,8 @@ function Signup() {
     setErrorMessage(null);
     try {
       const response = await dispatch(signup(data));
-<<<<<<< HEAD
-      setRgistrationIsSuccessful(true);
-=======
       setRegistrationIsSuccessful(true);
->>>>>>> bugfix_footer
-      console.log('Signup successful:', response);
+      console.log('Signup successful:', response.payload);
       setData({
         firstname: '',
         email: '',
