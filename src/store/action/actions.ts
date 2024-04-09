@@ -22,6 +22,25 @@ interface LoginResponseData {
   };
 }
 
+// export const login = createAsyncThunk<
+//   {
+//     firstname: string;
+//     isLogged: boolean;
+//     current_coloc_id: number;
+//     color: string;
+//     email: string;
+//   },
+//   FormData
+// >(LOGIN, async (formData) => {
+//   const response = await axiosInstance.post('/login', formData);
+//   console.log(response.data);
+//   // if (typeof response.headers['set-cookie'] === 'string') {
+//   //   const cookie = response.headers['set-cookie'];
+//   //   localStorage.setItem('authCookie', cookie);
+//   // }
+//   return response.data;
+// });
+
 export const login = createAsyncThunk<
   LoginResponseData,
   LoginFormData,
