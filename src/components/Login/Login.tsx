@@ -22,6 +22,7 @@ function Login() {
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const colocID = useAppSelector((state) => state.userReducer.user.colocId);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [redirect, setRedirect] = useState<boolean>(false);
   // const [email, setEmail] = useState<string>('sian@ocoloc.com');
   // const [password, setPassword] = useState<string>('Sian2465');
 
@@ -31,6 +32,7 @@ function Login() {
   });
 
   const dispatch = useAppDispatch();
+  const { toast } = useToast();
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     setErrorMessage(null);
@@ -63,7 +65,19 @@ function Login() {
     }
   };
 
-  if (isLogged) {
+  useEffect(() => {
+    if (isLogged) {
+      toast({
+        description: 'Connexion réussie !',
+        className: 'bg-jet-100',
+      });
+      setTimeout(() => {
+        setRedirect(true);
+      }, 900);
+    }
+  }, [isLogged, toast]);
+
+  if (redirect) {
     return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
   }
 
@@ -134,7 +148,7 @@ function Login() {
           className=" max-h-screen w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
-      {isLogged && <Toaster />}
+      <Toaster />
     </div>
   );
 }
