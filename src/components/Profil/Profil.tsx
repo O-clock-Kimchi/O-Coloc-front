@@ -16,12 +16,18 @@ import {
 import { changeField, updateUser } from '../../store/action/actions';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import randomHexColor from '../../utils/randomHex';
+import { useToast } from '../ui/use-toast';
+import { Toaster } from '../ui/toaster';
 
 function Profil() {
   const dispatch = useAppDispatch();
 
   // Utils function to generate random color
   const randomColor = randomHexColor();
+
+  // To add a toast for success
+
+  const { toast } = useToast();
 
   // State from redux
 
@@ -81,6 +87,12 @@ function Profil() {
       // Close edit mode for all fields
       setIsUpdatingFirstname(false);
       setIsUpdatingEmail(false);
+
+      toast({
+        description: 'Mise à jour réussie',
+        className: 'bg-jet-50 text-eden-800',
+        duration: 1000,
+      });
     } else {
       throw new Error('Une erreur est survenue');
     }
@@ -231,6 +243,7 @@ function Profil() {
           <img src="/SitReadingDoodle.svg" alt="" />
         </div>
       </div>
+      {isUpdated && <Toaster />}
     </div>
   );
 }

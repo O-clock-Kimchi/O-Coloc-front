@@ -69,9 +69,8 @@ const userReducer = createReducer(initialState, (builder) => {
       state.firstname = '';
       state.email = '';
     })
-    .addCase(updateUser.fulfilled, (state, action) => {
+    .addCase(updateUser.fulfilled, (state) => {
       state.isUpdated = true;
-      state.color = action.payload.updateDataUser.color;
     });
 });
 
