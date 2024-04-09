@@ -100,7 +100,7 @@ function Login() {
                   to="/reinitialisation"
                   className="ml-auto inline-block text-sm underline"
                 >
-                  Mot de passe oublié ?
+                  Mot de passe oublié&nbsp;?
                 </NavLink>
               </div>
               <Input
@@ -118,7 +118,7 @@ function Login() {
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
-            Vous n&apos;avez pas de compte?{' '}
+            Vous n&apos;avez pas de compte&nbsp;?{' '}
             <NavLink to="/inscription" className="underline">
               Inscrivez-vous
             </NavLink>
