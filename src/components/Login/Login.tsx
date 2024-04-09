@@ -30,6 +30,7 @@ function Login() {
   });
 
   const dispatch = useAppDispatch();
+  const { toast } = useToast();
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     setErrorMessage(null);
@@ -65,7 +66,19 @@ function Login() {
 
   // TODO: régler problème de toast avec navigate
 
-  if (isLogged) {
+  useEffect(() => {
+    if (isLogged) {
+      toast({
+        description: 'Connexion réussie !',
+        className: 'bg-jet-100',
+      });
+      setTimeout(() => {
+        setRedirect(true);
+      }, 900);
+    }
+  }, [isLogged, toast]);
+
+  if (redirect) {
     return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
   }
 
@@ -136,7 +149,7 @@ function Login() {
           className=" max-h-screen w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
-      {isLogged && <Toaster />}
+      <Toaster />
     </div>
   );
 }
