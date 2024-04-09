@@ -11,21 +11,25 @@ import randomHexColor from '../../utils/randomHex';
 
 interface UserState {
   isLogged: boolean;
-  firstname: string;
-  colocId: null | number;
-  color: string;
-  email: string;
-  userId: null | number;
+  user: {
+    userId: number | null;
+    firstname: string;
+    colocId: null | number;
+    color: string;
+    email: string;
+  };
   isUpdated: boolean;
 }
 
 export const initialState: UserState = {
   isLogged: false,
-  firstname: '',
-  colocId: null,
-  color: '',
-  email: '',
-  userId: null,
+  user: {
+    userId: null,
+    firstname: '',
+    colocId: null,
+    color: '',
+    email: '',
+  },
   isUpdated: false,
 };
 
@@ -35,55 +39,57 @@ const userReducer = createReducer(initialState, (builder) => {
       state[action.payload.name] = action.payload.value;
     })
     .addCase(login.fulfilled, (state, action) => {
+      const { user_id, firstname, current_coloc_id, color, email } =
+        action.payload.user;
       state.isLogged = true;
-      state.firstname = action.payload.firstname;
-      state.colocId = action.payload.current_coloc_id;
-      state.color = action.payload.color;
-      state.email = action.payload.email;
-      state.userId = action.payload.user_id;
-      // localStorage.setItem('firstname', action.payload.firstname);
+      state.user.userId = user_id;
+      state.user.firstname = firstname;
+      state.user.colocId = current_coloc_id;
+      state.user.color = color;
+      state.user.email = email;
     })
     .addCase(login.rejected, (state) => {
       state.isLogged = false;
-      state.firstname = '';
-      state.colocId = null;
-      state.color = '';
-      state.email = '';
-      state.userId = null;
+      state.user.userId = null;
+      state.user.firstname = '';
+      state.user.colocId = null;
+      state.user.color = '';
+      state.user.email = '';
     })
     .addCase(logout, (state) => {
       state.isLogged = false;
-      state.firstname = '';
-      state.colocId = null;
-      state.color = '';
-      state.email = '';
-      state.userId = null;
+      state.isLogged = false;
+      state.user.userId = null;
+      state.user.firstname = '';
+      state.user.colocId = null;
+      state.user.color = '';
+      state.user.email = '';
       localStorage.clear();
     })
     .addCase(signup.fulfilled, (state, action) => {
       state.isLogged = false;
-      state.firstname = action.payload.firstname;
-      state.colocId = action.payload.current_coloc_id;
-      state.color = action.payload.color;
-      state.email = action.payload.email;
+      state.user.firstname = action.payload.firstname;
+      state.user.colocId = action.payload.current_coloc_id;
+      state.user.color = action.payload.color;
+      state.user.email = action.payload.email;
     })
     .addCase(signup.rejected, (state) => {
       state.isLogged = false;
-      state.firstname = '';
-      state.colocId = null;
-      state.color = '';
-      state.email = '';
+      state.user.firstname = '';
+      state.user.colocId = null;
+      state.user.color = '';
+      state.user.email = '';
     })
     .addCase(updateUser.fulfilled, (state) => {
       state.isUpdated = true;
     })
     .addCase(destroyUser.fulfilled, (state) => {
       state.isLogged = false;
-      state.firstname = '';
-      state.colocId = null;
-      state.color = '';
-      state.email = '';
-      state.userId = null;
+      state.user.userId = null;
+      state.user.firstname = '';
+      state.user.colocId = null;
+      state.user.color = '';
+      state.user.email = '';
     });
 });
 

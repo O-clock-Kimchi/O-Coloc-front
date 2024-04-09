@@ -11,16 +11,23 @@ interface LoginFormData {
   password: string;
 }
 
-export const login = createAsyncThunk<
-  {
+interface LoginResponseData {
+  message: string;
+  user: {
+    user_id: number;
     firstname: string;
-    isLogged: boolean;
     current_coloc_id: number;
     color: string;
     email: string;
-    user_id: number;
-  },
-  LoginFormData
+  };
+}
+
+export const login = createAsyncThunk<
+  LoginResponseData,
+  LoginFormData,
+  {
+    rejectValue: { message: string };
+  }
 >(LOGIN, async (loginformData) => {
   const response = await axiosInstance.post('/login', loginformData);
   console.log(response.data);
