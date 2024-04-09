@@ -79,6 +79,10 @@ function Signup() {
   const handleRegisterFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage(null);
+    if (data.password !== data.confirmPassword) {
+      setConfirmPasswordError('Les deux mots de passe ne correspondent pas !');
+      return;
+    }
     try {
       const response = await dispatch(signup(data));
       setRegistrationIsSuccessful(true);
