@@ -6,7 +6,7 @@ function Dashboard() {
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
   if (isLogged && !hasColoc) {
-    return <Navigate to="/mon-profil" replace />;
+    return <Navigate to="/acces-coloc" replace />;
   }
 
   return <h1>Dashboard</h1>;
