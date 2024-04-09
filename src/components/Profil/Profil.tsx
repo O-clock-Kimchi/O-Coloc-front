@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import {
   Check,
   UserRoundX,
@@ -24,6 +24,14 @@ import {
   destroyUser,
   updateUser,
 } from '../../store/action/actions';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import randomHexColor from '../../utils/randomHex';
 import { useToast } from '../ui/use-toast';
@@ -31,6 +39,10 @@ import { Toaster } from '../ui/toaster';
 
 function Profil() {
   const dispatch = useAppDispatch();
+
+  // To confirm delete user
+
+  const [confirmDelete, setConfirmDelete] = useState('');
 
   // Utils function to generate random color
   const randomColor = randomHexColor();
@@ -110,7 +122,12 @@ function Profil() {
 
   // To delete the account for the DB
 
-  const handleDestroy = () => {
+  const handleDestroy = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (confirmDelete !== 'SQITCH') {
+      return;
+    }
+
     if (userId) {
       dispatch(destroyUser(userId));
     }
@@ -255,14 +272,47 @@ function Profil() {
                 </Button>
               </div>
               <div>
-                <Button
-                  variant="urgent"
-                  className="w-full"
-                  onClick={handleDestroy}
-                >
-                  <UserRoundX size={15} className=" mr-2" />
-                  <p>Supprimer mon compte</p>
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="urgent" className="w-full">
+                      <UserRoundX size={15} className=" mr-2" />
+                      <p>Supprimer mon compte</p>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="flex flex-col border-none bg-jet-100">
+                    <DialogHeader>
+                      <DialogTitle>
+                        Voulez-vous vraiment supprimer votre compte ?
+                      </DialogTitle>
+                      <DialogDescription>
+                        En supprimant votre compte, vous ne pourrez plus accéder
+                        au site et vos données seront supprimées. Pour confirmer
+                        votre action saissiez{' '}
+                        <span className=" text-tainoi-800">SQITCH</span> dans le
+                        champ ci-dessous.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <form className="flex flex-col space-y-6">
+                      <Input
+                        type="text"
+                        placeholder=""
+                        value={confirmDelete}
+                        onChange={(e) => setConfirmDelete(e.target.value)}
+                        className="w-full flex self-center"
+                        required
+                      />
+                      <div className="button-container flex w-full justify-center">
+                        <Button
+                          className="flex space-x-3 w-40"
+                          variant="urgent"
+                          onClick={handleDestroy}
+                        >
+                          <p>Confirmer</p>
+                        </Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </div>
             </CardContent>
           </Card>

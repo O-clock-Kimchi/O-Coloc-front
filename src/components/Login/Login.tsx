@@ -17,7 +17,7 @@ function Login() {
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const colocID = useAppSelector((state) => state.userReducer.colocId);
   const [email, setEmail] = useState<string>('sian@ocoloc.com');
-  const [password, setPassword] = useState<string>('Sian2465');
+  const [password, setPassword] = useState<string>('Sian123456');
 
   const dispatch = useAppDispatch();
   const { toast } = useToast();
