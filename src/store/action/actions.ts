@@ -28,10 +28,14 @@ export const login = createAsyncThunk<
   {
     rejectValue: { message: string };
   }
->(LOGIN, async (loginformData) => {
-  const response = await axiosInstance.post('/login', loginformData);
-  console.log(response.data);
-  return response.data.user;
+>(LOGIN, async (loginFormData: LoginFormData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post('/login', loginFormData);
+    console.log(response.data);
+    return response.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
 });
 
 // Logout action

@@ -36,7 +36,7 @@ export const initialState: UserState = {
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeField, (state, action) => {
-      state[action.payload.name] = action.payload.value;
+      (state.user as any)[action.payload.name] = action.payload.value;
     })
     .addCase(login.fulfilled, (state, action) => {
       const { user_id, firstname, current_coloc_id, color, email } =

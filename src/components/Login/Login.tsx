@@ -12,20 +12,19 @@ import { useToast } from '../ui/use-toast';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/action/actions';
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+// interface LoginFormData {
+//   email: string;
+//   password: string;
+// }
 
 function Login() {
   // Pour envoyer mail et password au back
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const colocID = useAppSelector((state) => state.userReducer.user.colocId);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  // const [email, setEmail] = useState<string>('sian@ocoloc.com');
-  // const [password, setPassword] = useState<string>('Sian2465');
+  const [redirect, setRedirect] = useState<boolean>(false);
 
-  const [loginData, setLoginData] = useState<LoginFormData>({
+  const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
@@ -43,11 +42,12 @@ function Login() {
     setErrorMessage(null);
     try {
       const response = await dispatch(login(loginData));
-      console.log('Login successful:', response);
+      console.log('Login successful:', response.payload);
       setLoginData({
         email: '',
         password: '',
       });
+      return;
     } catch (error: any) {
       if (error.response) {
         setErrorMessage('Veuillez vérifier vos identifiants.');

@@ -53,10 +53,10 @@ function Profil() {
 
   // State from redux
 
-  const firstname = useAppSelector((state) => state.userReducer.firstname);
-  const email = useAppSelector((state) => state.userReducer.email);
-  const color = useAppSelector((state) => state.userReducer.color);
-  const userId = useAppSelector((state) => state.userReducer.userId);
+  const firstname = useAppSelector((state) => state.userReducer.user.firstname);
+  const email = useAppSelector((state) => state.userReducer.user.email);
+  const color = useAppSelector((state) => state.userReducer.user.color);
+  const userId = useAppSelector((state) => state.userReducer.user.userId);
   const isUpdated = useAppSelector((state) => state.userReducer.isUpdated);
 
   // To switch for each button and not all the button at once
