@@ -13,13 +13,17 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import { updateUser } from '../../store/action/actions';
+import { changeField, updateUser } from '../../store/action/actions';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import randomHexColor from '../../utils/randomHex';
 
 function Profil() {
   const dispatch = useAppDispatch();
+
+  // Utils function to generate random color
   const randomColor = randomHexColor();
+
+  // State from redux
 
   const firstname = useAppSelector((state) => state.userReducer.firstname);
   const email = useAppSelector((state) => state.userReducer.email);
@@ -27,23 +31,10 @@ function Profil() {
   const userId = useAppSelector((state) => state.userReducer.userId);
   const isUpdated = useAppSelector((state) => state.userReducer.isUpdated);
 
+  // To switch for each button and not all the button at once
   const [isUpdatingFirstname, setIsUpdatingFirstname] =
     useState<boolean>(false);
   const [isUpdatingEmail, setIsUpdatingEmail] = useState<boolean>(false);
-
-  const [firstnameUpdated, setFirstnameUpdated] = useState<string>(firstname);
-  const [emailUpdated, setEmailUpdated] = useState<string>(email);
-  const [colorUpdated, setColorUpdated] = useState<string>(color);
-
-  useEffect(() => {
-    if (isUpdated) {
-      setFirstnameUpdated(firstname);
-      setEmailUpdated(email);
-      setColorUpdated(color);
-    }
-  }, [firstname, email, color, isUpdated]);
-
-  // To switch for each button and not all the button at once
 
   const handleUpdate = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -57,13 +48,19 @@ function Profil() {
       case 'email':
         setIsUpdatingEmail(!isUpdatingEmail);
         break;
-      case 'color':
-        setColorUpdated(randomColor);
-        break;
       default:
         throw new Error(`Invalid fieldname: ${fieldname}`);
     }
   };
+
+  // To handle change field with redux
+
+  const handleChangeField =
+    (name: 'email' | 'firstname' | 'color') => (value: string) => {
+      dispatch(changeField({ value, name }));
+    };
+
+  // To valide change field with submit
 
   const handleFormUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,7 +104,11 @@ function Profil() {
                 <Label htmlFor="prenom" className=" text-xl">
                   Prénom
                 </Label>
-                <form className="horizontal gap-2" onSubmit={handleFormUpdate}>
+                <form
+                  className="horizontal gap-2"
+                  onSubmit={handleFormUpdate}
+                  autoComplete="off"
+                >
                   {!isUpdatingFirstname ? (
                     <>
                       <Input
@@ -126,8 +127,8 @@ function Profil() {
                       <Input
                         id="prenom"
                         type="text"
-                        value={firstnameUpdated}
-                        onChange={(e) => setFirstnameUpdated(e.target.value)}
+                        value={firstname}
+                        onChange={() => handleChangeField('firstname')}
                         className=" placeholder-jet-900 flex-auto border border-tainoi-800"
                       />
                       <Button type="submit">
@@ -142,7 +143,11 @@ function Profil() {
                 <Label htmlFor="email" className=" text-xl">
                   Mail
                 </Label>
-                <form className="horizontal gap-3" onSubmit={handleFormUpdate}>
+                <form
+                  className="horizontal gap-3"
+                  onSubmit={handleFormUpdate}
+                  autoComplete="off"
+                >
                   {!isUpdatingEmail ? (
                     <>
                       <Input
@@ -161,8 +166,8 @@ function Profil() {
                       <Input
                         id="email"
                         type="email"
-                        value={emailUpdated}
-                        onChange={(e) => setEmailUpdated(e.target.value)}
+                        value={email}
+                        onChange={() => handleChangeField('email')}
                         className=" placeholder-jet-900 flex-auto border border-tainoi-900"
                       />
                       <Button type="submit">
@@ -177,20 +182,24 @@ function Profil() {
                 <Label htmlFor="color" className=" text-xl">
                   Color
                 </Label>
-                <form className="horizontal gap-3" onSubmit={handleFormUpdate}>
+                <form
+                  className="horizontal gap-3"
+                  onSubmit={handleFormUpdate}
+                  autoComplete="off"
+                >
                   <Avatar>
-                    <AvatarFallback style={{ backgroundColor: colorUpdated }} />
+                    <AvatarFallback style={{ backgroundColor: color }} />
                   </Avatar>
                   <Input
                     id="color"
                     type="text"
-                    value={colorUpdated}
+                    value={color}
                     disabled
                     className=" placeholder-jet-900 flex-auto"
                   />
                   <Button
                     type="submit"
-                    onClick={(e) => handleUpdate(e, 'color')}
+                    onClick={() => handleChangeField('color')}
                   >
                     <PipetteIcon size={15} />
                   </Button>

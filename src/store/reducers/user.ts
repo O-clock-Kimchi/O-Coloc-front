@@ -1,5 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { login, logout, register, updateUser } from '../action/actions';
+import {
+  changeField,
+  login,
+  logout,
+  register,
+  updateUser,
+} from '../action/actions';
 
 interface UserState {
   isLogged: boolean;
@@ -23,6 +29,9 @@ export const initialState: UserState = {
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(changeField, (state, action) => {
+      state[action.payload.name] = action.payload.value;
+    })
     .addCase(login.fulfilled, (state, action) => {
       state.isLogged = true;
       state.firstname = action.payload.firstname;

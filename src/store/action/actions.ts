@@ -79,3 +79,12 @@ export const updateUser = createAsyncThunk(
     return response.data;
   }
 );
+
+interface FormField {
+  value: string;
+  name: 'email' | 'firstname' | 'color';
+}
+
+const CHANGE_FIELD = 'CHANGE_FIELD';
+
+export const changeField = createAction<FormField>(CHANGE_FIELD);
