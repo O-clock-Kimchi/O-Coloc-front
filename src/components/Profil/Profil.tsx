@@ -186,7 +186,7 @@ function Profil() {
 
               <div>
                 <Label htmlFor="color" className=" text-xl">
-                  Color
+                  Couleur
                 </Label>
                 <form
                   className="horizontal gap-3"
