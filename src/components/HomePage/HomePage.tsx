@@ -6,7 +6,7 @@ import Contact from './HomePage_Contact';
 
 function HomePage() {
   return (
-    <main className="px-6 grow">
+    <main className="flex flex-col px-6 grow">
       {/* Tagline section with CTA and illustration */}
       <Tagline />
 

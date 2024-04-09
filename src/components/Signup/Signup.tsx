@@ -25,7 +25,7 @@ function Signup() {
 
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  const [registrationIsSuccessful, setRgistrationIsSuccessful] = useState<
+  const [registrationIsSuccessful, setRegistrationIsSuccessful] = useState<
     boolean | null
   >(null);
 
@@ -81,7 +81,11 @@ function Signup() {
     setErrorMessage(null);
     try {
       const response = await dispatch(signup(data));
+<<<<<<< HEAD
       setRgistrationIsSuccessful(true);
+=======
+      setRegistrationIsSuccessful(true);
+>>>>>>> bugfix_footer
       console.log('Signup successful:', response);
       setData({
         firstname: '',
@@ -114,8 +118,8 @@ function Signup() {
 
     if (registrationIsSuccessful) {
       timer = setTimeout(() => {
-        setRgistrationIsSuccessful(null);
-      }, 3000);
+        setRegistrationIsSuccessful(null);
+      }, 6000);
     }
     return () => {
       if (timer) clearTimeout(timer);
