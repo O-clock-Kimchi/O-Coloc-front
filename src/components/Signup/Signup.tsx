@@ -16,7 +16,6 @@ import {
 import RegistrationSuccessful from './Signup_RegistrationSuccessful';
 
 import randomHexColor from '../../utils/randomHex';
-import axiosInstance from '../../store/axiosconfig';
 import { useAppDispatch } from '../../hooks/redux';
 import { signup } from '../../store/action/actions';
 
@@ -81,10 +80,9 @@ function Signup() {
     e.preventDefault();
     setErrorMessage(null);
     try {
-      const response = await axiosInstance.post('/signup', data);
+      const response = await dispatch(signup(data));
       setRgistrationIsSuccessful(true);
-      console.log('Signup successful:', response.data);
-      dispatch(signup(data));
+      console.log('Signup successful:', response);
       setData({
         firstname: '',
         email: '',
@@ -110,19 +108,6 @@ function Signup() {
       }
     }
   };
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
-
-    if (registrationIsSuccessful) {
-      timer = setTimeout(() => {
-        setRgistrationIsSuccessful(null);
-      }, 3000);
-    }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [registrationIsSuccessful]);
 
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
