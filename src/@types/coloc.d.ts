@@ -4,7 +4,7 @@ export interface IUser {
   email: string;
   password: string;
   color: string;
-  id_coloc: number;
+  id_coloc: number | null;
 }
 
 export interface IColoc {
