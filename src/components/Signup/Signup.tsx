@@ -116,7 +116,7 @@ function Signup() {
     if (registrationIsSuccessful) {
       timer = setTimeout(() => {
         setRegistrationIsSuccessful(null);
-      }, 3000);
+      }, 6000);
     }
     return () => {
       if (timer) clearTimeout(timer);
