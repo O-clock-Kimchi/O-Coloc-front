@@ -11,7 +11,6 @@ import { useToast } from '../ui/use-toast';
 // Function de redux pour utiliser action et state
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/action/actions';
-import axiosInstance from '../../store/axiosconfig';
 
 interface LoginFormData {
   email: string;
@@ -43,9 +42,8 @@ function Login() {
     e.preventDefault();
     setErrorMessage(null);
     try {
-      const response = await axiosInstance.post('/login', loginData);
-      console.log('Login successful:', response.data);
-      dispatch(login(loginData));
+      const response = await dispatch(login(loginData));
+      console.log('Login successful:', response);
       setLoginData({
         email: '',
         password: '',
