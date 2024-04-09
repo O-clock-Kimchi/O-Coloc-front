@@ -12,9 +12,18 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/action/actions';
 
+// display first two letters of username with capital letter
+const getFormattedFallback = (string: string) => {
+  const firstLetter = string.charAt(0).toUpperCase();
+  const secondLetter = string.charAt(1);
+  return firstLetter + secondLetter;
+};
+
 function NavConnected() {
-  const userFirstname = useAppSelector((state) => state.userReducer.firstname);
-  const color = useAppSelector((state) => state.userReducer.color);
+  const userFirstname = useAppSelector(
+    (state) => state.userReducer.user.firstname
+  );
+  const color = useAppSelector((state) => state.userReducer.user.color);
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
@@ -54,9 +63,14 @@ function NavConnected() {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <Avatar>
+      <Avatar
+        className="flex sm:flex align rounded-3xl
+                  justify-center items-center"
+      >
         <AvatarImage src="" />
-        <AvatarFallback style={{ backgroundColor: color }} />
+        <AvatarFallback className="text-xs" style={{ backgroundColor: color }}>
+          {getFormattedFallback(userFirstname)}
+        </AvatarFallback>
       </Avatar>
     </div>
   );
