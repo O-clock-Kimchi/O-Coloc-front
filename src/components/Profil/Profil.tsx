@@ -55,10 +55,12 @@ function Profil() {
 
   // To handle change field with redux
 
-  const handleChangeField =
-    (name: 'email' | 'firstname' | 'color') => (value: string) => {
-      dispatch(changeField({ value, name }));
-    };
+  const handleChangeField = (
+    name: 'email' | 'firstname' | 'color',
+    value: string
+  ) => {
+    dispatch(changeField({ value, name }));
+  };
 
   // To valide change field with submit
 
@@ -69,9 +71,9 @@ function Profil() {
         updateUser({
           userId,
           updateDataUser: {
-            firstname: firstnameUpdated,
-            email: emailUpdated,
-            color: colorUpdated,
+            firstname,
+            email,
+            color,
           },
         })
       );
@@ -128,7 +130,9 @@ function Profil() {
                         id="prenom"
                         type="text"
                         value={firstname}
-                        onChange={() => handleChangeField('firstname')}
+                        onChange={(e) =>
+                          handleChangeField('firstname', e.target.value)
+                        }
                         className=" placeholder-jet-900 flex-auto border border-tainoi-800"
                       />
                       <Button type="submit">
@@ -167,7 +171,9 @@ function Profil() {
                         id="email"
                         type="email"
                         value={email}
-                        onChange={() => handleChangeField('email')}
+                        onChange={(e) =>
+                          handleChangeField('email', e.target.value)
+                        }
                         className=" placeholder-jet-900 flex-auto border border-tainoi-900"
                       />
                       <Button type="submit">
@@ -188,18 +194,22 @@ function Profil() {
                   autoComplete="off"
                 >
                   <Avatar>
-                    <AvatarFallback style={{ backgroundColor: color }} />
+                    <AvatarFallback
+                      style={{
+                        backgroundColor: isUpdated ? randomColor : color,
+                      }}
+                    />
                   </Avatar>
                   <Input
                     id="color"
                     type="text"
-                    value={color}
+                    value={isUpdated ? randomColor : color}
                     disabled
                     className=" placeholder-jet-900 flex-auto"
                   />
                   <Button
                     type="submit"
-                    onClick={() => handleChangeField('color')}
+                    onClick={() => handleChangeField('color', randomColor)}
                   >
                     <PipetteIcon size={15} />
                   </Button>
