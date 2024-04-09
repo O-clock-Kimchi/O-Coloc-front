@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   changeField,
+  destroyUser,
   login,
   logout,
   register,
@@ -71,6 +72,14 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateUser.fulfilled, (state) => {
       state.isUpdated = true;
+    })
+    .addCase(destroyUser.fulfilled, (state) => {
+      state.isLogged = false;
+      state.firstname = '';
+      state.colocId = null;
+      state.color = '';
+      state.email = '';
+      state.userId = null;
     });
 });
 

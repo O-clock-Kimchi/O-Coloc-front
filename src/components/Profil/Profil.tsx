@@ -19,7 +19,11 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import { changeField, updateUser } from '../../store/action/actions';
+import {
+  changeField,
+  destroyUser,
+  updateUser,
+} from '../../store/action/actions';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import randomHexColor from '../../utils/randomHex';
 import { useToast } from '../ui/use-toast';
@@ -104,6 +108,14 @@ function Profil() {
     }
   };
 
+  // To delete the account for the DB
+
+  const handleDestroy = () => {
+    if (userId) {
+      dispatch(destroyUser(userId));
+    }
+  };
+
   return (
     <div className="h-screen py-4 mb-4 px-6">
       <h1 className=" text-center p-4 mb-10 text-2xl bg-jet-100 rounded">
@@ -111,7 +123,7 @@ function Profil() {
       </h1>
 
       <div className="grid content-center sm:grid-cols-2 grid-rows-1 gap-10">
-        <div className="flex flex-col gap-5 items-center text-center sm:items-start sm:text-left justify-center">
+        <div className="flex flex-col gap-5 items-center text-center sm:text-left justify-center">
           <Card className="w-[350px] border border-jet-100 p-5">
             <CardHeader>
               <CardTitle>Votre profil</CardTitle>
@@ -243,9 +255,13 @@ function Profil() {
                 </Button>
               </div>
               <div>
-                <Button variant="urgent" className="w-full">
+                <Button
+                  variant="urgent"
+                  className="w-full"
+                  onClick={handleDestroy}
+                >
                   <UserRoundX size={15} className=" mr-2" />
-                  <NavLink to="/reinitialisation">Supprimer mon compte</NavLink>
+                  <p>Supprimer mon compte</p>
                 </Button>
               </div>
             </CardContent>
