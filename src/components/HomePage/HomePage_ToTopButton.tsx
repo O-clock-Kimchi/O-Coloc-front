@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { MoveUp } from 'lucide-react';
 import { Button } from '../ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip';
 
 function ToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,12 +41,21 @@ function ToTopButton() {
         right: '0%',
       }}
     >
-      <Button
-        className="flex flex-col w-15 bg-tainoi-300 hover:bg-tainoi-100"
-        onClick={scrollBackToTop}
-      >
-        <MoveUp />
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              className="flex flex-col w-15 bg-tainoi-300 hover:bg-tainoi-100"
+              onClick={scrollBackToTop}
+            >
+              <MoveUp />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent className="border-none bg-jet-50">
+            <p>Retour en haut</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   );
 }
