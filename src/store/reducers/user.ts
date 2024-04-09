@@ -4,7 +4,7 @@ import {
   destroyUser,
   login,
   logout,
-  register,
+  signup,
   updateUser,
 } from '../action/actions';
 import randomHexColor from '../../utils/randomHex';
@@ -60,14 +60,18 @@ const userReducer = createReducer(initialState, (builder) => {
       state.userId = null;
       localStorage.clear();
     })
-    .addCase(register.fulfilled, (state, action) => {
-      state.isLogged = true;
+    .addCase(signup.fulfilled, (state, action) => {
+      state.isLogged = false;
       state.firstname = action.payload.firstname;
+      state.colocId = action.payload.current_coloc_id;
+      state.color = action.payload.color;
       state.email = action.payload.email;
     })
-    .addCase(register.rejected, (state) => {
+    .addCase(signup.rejected, (state) => {
       state.isLogged = false;
       state.firstname = '';
+      state.colocId = null;
+      state.color = '';
       state.email = '';
     })
     .addCase(updateUser.fulfilled, (state) => {
