@@ -1,5 +1,11 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { Check, PipetteIcon, SquarePenIcon } from 'lucide-react';
+import {
+  Check,
+  UserRoundX,
+  PipetteIcon,
+  SquarePenIcon,
+  RotateCcw,
+} from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
 
@@ -228,11 +234,18 @@ function Profil() {
                 </form>
               </div>
 
-              <div>
+              <div className=" mt-5">
                 <Button variant="secondary" className="w-full">
+                  <RotateCcw size={15} className=" mr-2" />
                   <NavLink to="/reinitialisation">
-                    Réinitialiser votre mot de passe
+                    Réinitialiser mon mot de passe
                   </NavLink>
+                </Button>
+              </div>
+              <div>
+                <Button variant="urgent" className="w-full">
+                  <UserRoundX size={15} className=" mr-2" />
+                  <NavLink to="/reinitialisation">Supprimer mon compte</NavLink>
                 </Button>
               </div>
             </CardContent>
