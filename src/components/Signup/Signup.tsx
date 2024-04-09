@@ -26,7 +26,7 @@ function Signup() {
 
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  const [registrationIsSuccessful, setRgistrationIsSuccessful] = useState<
+  const [registrationIsSuccessful, setRegistrationIsSuccessful] = useState<
     boolean | null
   >(null);
 
@@ -81,10 +81,9 @@ function Signup() {
     e.preventDefault();
     setErrorMessage(null);
     try {
-      const response = await axiosInstance.post('/signup', data);
-      setRgistrationIsSuccessful(true);
-      console.log('Signup successful:', response.data);
-      dispatch(signup(data));
+      const response = await dispatch(signup(data));
+      setRegistrationIsSuccessful(true);
+      console.log('Signup successful:', response);
       setData({
         firstname: '',
         email: '',
@@ -116,7 +115,7 @@ function Signup() {
 
     if (registrationIsSuccessful) {
       timer = setTimeout(() => {
-        setRgistrationIsSuccessful(null);
+        setRegistrationIsSuccessful(null);
       }, 3000);
     }
     return () => {
