@@ -26,6 +26,10 @@ function NavConnected() {
   const color = useAppSelector((state) => state.userReducer.user.color);
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
+  // const userFirstname = useAppSelector((state) => state.userReducer.firstname);
+  // const color = useAppSelector((state) => state.userReducer.color);
+  // const dispatch = useAppDispatch();
+  // const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
   const handleLogout = () => {
     dispatch(logout());

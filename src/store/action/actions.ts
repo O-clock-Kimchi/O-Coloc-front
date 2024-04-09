@@ -14,11 +14,11 @@ interface LoginFormData {
 interface LoginResponseData {
   message: string;
   user: {
+    user_id: number;
     firstname: string;
     current_coloc_id: number;
     color: string;
     email: string;
-    user_id: number;
   };
 }
 
@@ -63,7 +63,6 @@ export const signup = createAsyncThunk(
     }
   }
 );
-
 // Update user action
 
 const UPDATE_USER = 'UPDATE_USER';

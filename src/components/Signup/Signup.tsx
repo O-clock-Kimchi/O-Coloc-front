@@ -16,7 +16,7 @@ import {
 import RegistrationSuccessful from './Signup_RegistrationSuccessful';
 
 import randomHexColor from '../../utils/generateRandomColor';
-import axiosInstance from '../../store/axiosconfig';
+
 import { useAppDispatch } from '../../hooks/redux';
 import { signup } from '../../store/action/actions';
 

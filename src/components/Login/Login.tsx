@@ -27,8 +27,8 @@ function Login() {
   // const [password, setPassword] = useState<string>('Sian2465');
 
   const [loginData, setLoginData] = useState<LoginFormData>({
-    email: '',
-    password: '',
+    email: 'sian@ocoloc.com',
+    password: 'Sian123456',
   });
 
   const dispatch = useAppDispatch();
