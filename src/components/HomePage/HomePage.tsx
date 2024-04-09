@@ -3,6 +3,7 @@ import Testimonials from './HomePage_Testimonials';
 import QuestionsSection from './HomePage_Questions';
 import AboutUs from './Homepage_AboutUs';
 import Contact from './HomePage_Contact';
+import ToTopButton from './HomePage_ToTopButton';
 
 function HomePage() {
   return (
@@ -21,6 +22,7 @@ function HomePage() {
 
       {/* Contact */}
       <Contact />
+      <ToTopButton />
     </main>
   );
 }
