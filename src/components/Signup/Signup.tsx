@@ -109,6 +109,19 @@ function Signup() {
     }
   };
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+
+    if (registrationIsSuccessful) {
+      timer = setTimeout(() => {
+        setRgistrationIsSuccessful(null);
+      }, 3000);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [registrationIsSuccessful]);
+
   return (
     <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
       <div className="flex items-center justify-center">
