@@ -196,14 +196,14 @@ function Profil() {
                   <Avatar>
                     <AvatarFallback
                       style={{
-                        backgroundColor: isUpdated ? randomColor : color,
+                        backgroundColor: color,
                       }}
                     />
                   </Avatar>
                   <Input
                     id="color"
                     type="text"
-                    value={isUpdated ? randomColor : color}
+                    value={color}
                     disabled
                     className=" placeholder-jet-900 flex-auto"
                   />

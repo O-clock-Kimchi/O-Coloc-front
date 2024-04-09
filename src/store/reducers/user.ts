@@ -6,6 +6,7 @@ import {
   register,
   updateUser,
 } from '../action/actions';
+import randomHexColor from '../../utils/randomHex';
 
 interface UserState {
   isLogged: boolean;
@@ -68,8 +69,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.firstname = '';
       state.email = '';
     })
-    .addCase(updateUser.fulfilled, (state) => {
+    .addCase(updateUser.fulfilled, (state, action) => {
       state.isUpdated = true;
+      state.color = action.payload.updateDataUser.color;
     });
 });
 
