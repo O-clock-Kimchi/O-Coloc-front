@@ -99,3 +99,18 @@ interface FormField {
 const CHANGE_FIELD = 'CHANGE_FIELD';
 
 export const changeField = createAction<FormField>(CHANGE_FIELD);
+
+// DESTROY ACCOUNT
+
+// /user/5/delete
+
+const DESTROY_USER = 'DESTROY_USER';
+
+export const destroyUser = createAsyncThunk(
+  DESTROY_USER,
+  async (userId: number) => {
+    const response = await axiosInstance.delete(`user/${userId}/delete`);
+    console.log(response.data);
+    return response.data;
+  }
+);

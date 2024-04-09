@@ -1,5 +1,11 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { Check, PipetteIcon, SquarePenIcon } from 'lucide-react';
+import { FormEvent, useState } from 'react';
+import {
+  Check,
+  UserRoundX,
+  PipetteIcon,
+  SquarePenIcon,
+  RotateCcw,
+} from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
 
@@ -13,7 +19,19 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import { changeField, updateUser } from '../../store/action/actions';
+import {
+  changeField,
+  destroyUser,
+  updateUser,
+} from '../../store/action/actions';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import randomHexColor from '../../utils/randomHex';
 import { useToast } from '../ui/use-toast';
@@ -21,6 +39,10 @@ import { Toaster } from '../ui/toaster';
 
 function Profil() {
   const dispatch = useAppDispatch();
+
+  // To confirm delete user
+
+  const [confirmDelete, setConfirmDelete] = useState('');
 
   // Utils function to generate random color
   const randomColor = randomHexColor();
@@ -98,6 +120,19 @@ function Profil() {
     }
   };
 
+  // To delete the account for the DB
+
+  const handleDestroy = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (confirmDelete !== 'SQITCH') {
+      return;
+    }
+
+    if (userId) {
+      dispatch(destroyUser(userId));
+    }
+  };
+
   return (
     <div className="h-screen py-4 mb-4 px-6">
       <h1 className=" text-center p-4 mb-10 text-2xl bg-jet-100 rounded">
@@ -105,7 +140,7 @@ function Profil() {
       </h1>
 
       <div className="grid content-center sm:grid-cols-2 grid-rows-1 gap-10">
-        <div className="flex flex-col gap-5 items-center text-center sm:items-start sm:text-left justify-center">
+        <div className="flex flex-col gap-5 items-center text-center sm:text-left justify-center">
           <Card className="w-[350px] border border-jet-100 p-5">
             <CardHeader>
               <CardTitle>Votre profil</CardTitle>
@@ -228,12 +263,56 @@ function Profil() {
                 </form>
               </div>
 
-              <div>
+              <div className=" mt-5">
                 <Button variant="secondary" className="w-full">
+                  <RotateCcw size={15} className=" mr-2" />
                   <NavLink to="/reinitialisation">
-                    Réinitialiser votre mot de passe
+                    Réinitialiser mon mot de passe
                   </NavLink>
                 </Button>
+              </div>
+              <div>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="urgent" className="w-full">
+                      <UserRoundX size={15} className=" mr-2" />
+                      <p>Supprimer mon compte</p>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="flex flex-col border-none bg-jet-100">
+                    <DialogHeader>
+                      <DialogTitle>
+                        Voulez-vous vraiment supprimer votre compte ?
+                      </DialogTitle>
+                      <DialogDescription>
+                        En supprimant votre compte, vous ne pourrez plus accéder
+                        au site et vos données seront supprimées. Pour confirmer
+                        votre action saissiez{' '}
+                        <span className=" text-tainoi-800">SQITCH</span> dans le
+                        champ ci-dessous.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <form className="flex flex-col space-y-6">
+                      <Input
+                        type="text"
+                        placeholder=""
+                        value={confirmDelete}
+                        onChange={(e) => setConfirmDelete(e.target.value)}
+                        className="w-full flex self-center"
+                        required
+                      />
+                      <div className="button-container flex w-full justify-center">
+                        <Button
+                          className="flex space-x-3 w-40"
+                          variant="urgent"
+                          onClick={handleDestroy}
+                        >
+                          <p>Confirmer</p>
+                        </Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </div>
             </CardContent>
           </Card>

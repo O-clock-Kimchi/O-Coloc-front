@@ -20,6 +20,8 @@ const buttonVariants = cva(
         ghost:
           'hover:bg-jet-100 hover:text-jet-900 dark:hover:bg-jet-800 dark:hover:text-jet-50',
         link: 'text-jet-900 underline-offset-4 hover:underline dark:text-jet-50',
+        urgent:
+          'bg-tainoi-800 text-floral-white hover:bg-tainoi-700/80 dark:bg-tainoi-800 dark:text-tainoi-50 dark:hover:bg-tainoi-800/80',
       },
       size: {
         default: 'h-10 px-4 py-2',
