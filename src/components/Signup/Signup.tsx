@@ -49,9 +49,13 @@ function Signup() {
     setData({ ...data, [name]: value });
     if (name === 'password') {
       // check if value in password meets regex requirements (formerly handlePasswordChange)
-      if (!value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)) {
+      if (
+        !value.match(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*]{8,}$/
+        )
+      ) {
         setPasswordError(
-          'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
+          'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre et 1 caractère spécial parmi !@#$%^&*.'
         );
       } else {
         setPasswordError('');
