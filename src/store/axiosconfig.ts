@@ -5,22 +5,17 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      console.log('Session cookie expired. Logging out user...');
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export default axiosInstance;
-
-// const getStoredCookie = () => {
-//   return localStorage.getItem('authCookie');
-// };
-
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     const storedCookie = getStoredCookie();
-
-//     if (storedCookie) {
-//       config.headers.Cookie = storedCookie;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );

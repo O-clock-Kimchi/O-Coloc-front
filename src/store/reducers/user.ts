@@ -47,6 +47,8 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.colocId = current_coloc_id;
       state.user.color = color;
       state.user.email = email;
+
+      // localStorage.setItem('userSession', JSON.stringify(state.user));
     })
     .addCase(login.rejected, (state) => {
       state.isLogged = false;
@@ -58,13 +60,11 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(logout, (state) => {
       state.isLogged = false;
-      state.isLogged = false;
       state.user.userId = null;
       state.user.firstname = '';
       state.user.colocId = null;
       state.user.color = '';
       state.user.email = '';
-      localStorage.clear();
     })
     .addCase(signup.fulfilled, (state, action) => {
       state.isLogged = false;
