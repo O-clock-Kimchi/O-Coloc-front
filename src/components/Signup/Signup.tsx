@@ -16,19 +16,13 @@ import {
 import RegistrationSuccessful from './Signup_RegistrationSuccessful';
 
 import randomHexColor from '../../utils/randomHex';
+import passwordIsValid from '../../utils/checkPasswordValidity';
+import emailFormatIsValid from '../../utils/checkEmailFormat';
+
 import { useAppDispatch } from '../../hooks/redux';
 import { signup } from '../../store/action/actions';
 
 function Signup() {
-  const [firstName, setFirstName] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  const [registrationIsSuccessful, setRegistrationIsSuccessful] = useState<
-    boolean | null
-  >(null);
-
   const [data, setData] = useState({
     firstname: '',
     email: '',
@@ -36,6 +30,18 @@ function Signup() {
     password: '',
     confirmPassword: '',
   });
+
+  const [errors, setErrors] = useState({
+    emailError: '',
+    passwordError: '',
+    confirmPasswordError: '',
+  });
+
+  const [formSubmitError, setFormSubmitError] = useState<null | string>(null);
+
+  const [registrationIsSuccessful, setRegistrationIsSuccessful] = useState<
+    boolean | null
+  >(null);
 
   const dispatch = useAppDispatch();
 
@@ -45,28 +51,58 @@ function Signup() {
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    setErrorMessage(null);
+    setFormSubmitError(null);
+    setErrors({
+      emailError: '',
+      passwordError: '',
+      confirmPasswordError: '',
+    });
     setData({ ...data, [name]: value });
     if (name === 'password') {
-      // check if value in password meets regex requirements (formerly handlePasswordChange)
-      if (!value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)) {
-        setPasswordError(
-          'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre.'
-        );
+      const isPasswordValid = passwordIsValid(value);
+      // check password validity...
+      if (!isPasswordValid) {
+        // .. if password is invalid, update error
+        setErrors({
+          ...errors,
+          passwordError:
+            'Le mot de passe doit comporter au moins 8 caractères, 1 majuscule, 1 minuscule et 1 chiffre et 1 caractère spécial parmi !@#$%^&*.',
+        });
       } else {
-        setPasswordError('');
+        setErrors({
+          ...errors,
+          passwordError: '',
+        });
       }
     } else if (name === 'confirmPassword') {
-      // check if value in confirmPassword === password (formerly handleConfirmPasswordChange)
+      // check if confirmPassword matches password...
       if (value !== data.password) {
-        setConfirmPasswordError(
-          'Les deux mots de passe ne correspondent pas !'
-        );
+        // if not, update error
+        setErrors({
+          ...errors,
+          confirmPasswordError: 'Les deux mots de passe ne correspondent pas !',
+        });
       } else {
-        setConfirmPasswordError('');
+        setErrors({
+          ...errors,
+          confirmPasswordError: '',
+        });
       }
-    } else if (name === 'firstname') {
-      setFirstName(value);
+    } else if (name === 'email') {
+      // check email validity...
+      const isEmailValid = emailFormatIsValid(value);
+      if (!isEmailValid) {
+        // .. if email is invalid, update error
+        setErrors({
+          ...errors,
+          emailError: 'Veuillez saisir une adresse email valide.',
+        });
+      } else {
+        setErrors({
+          ...errors,
+          emailError: '',
+        });
+      }
     }
   };
 
@@ -78,15 +114,22 @@ function Signup() {
 
   const handleRegisterFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrorMessage(null);
-    if (data.password !== data.confirmPassword) {
-      setConfirmPasswordError('Les deux mots de passe ne correspondent pas !');
+    setFormSubmitError(null);
+    const formIsValid =
+      errors.emailError === '' &&
+      errors.passwordError === '' &&
+      errors.confirmPasswordError === '';
+
+    if (!formIsValid) {
+      setFormSubmitError('Veuillez vérifier votre saisie.');
       return;
     }
+
     try {
       const response = await dispatch(signup(data));
       setRegistrationIsSuccessful(true);
       console.log('Signup successful:', response.payload);
+
       setData({
         firstname: '',
         email: '',
@@ -94,10 +137,15 @@ function Signup() {
         password: '',
         confirmPassword: '',
       });
-      return;
+      setErrors({
+        emailError: '',
+        passwordError: '',
+        confirmPasswordError: '',
+      });
+      setFormSubmitError(null);
     } catch (error: any) {
       if (error.response) {
-        setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
+        setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
         setData({
           firstname: '',
           email: '',
@@ -139,8 +187,8 @@ function Signup() {
                 Inscrivez-vous maintenant pour créer ou rejoindre votre future
                 colocation.
               </p>
-              {errorMessage && (
-                <p className="text-cardinal-600 text-xs">{errorMessage}</p>
+              {formSubmitError && (
+                <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
               )}
             </div>
             <form
@@ -172,6 +220,9 @@ function Signup() {
                   required
                 />
               </div>
+              {errors.emailError && (
+                <p className="text-cardinal-600 text-xs">{errors.emailError}</p>
+              )}
               <div className="grid gap-2">
                 <Label htmlFor="color">Couleur d&rsquo;avatar</Label>
                 <div className="flex items-center space-x-2 justify-between">
@@ -223,8 +274,10 @@ function Signup() {
                   onChange={handleInputChange}
                   required
                 />
-                {passwordError && (
-                  <p className="text-cardinal-600 text-xs">{passwordError}</p>
+                {errors.passwordError && (
+                  <p className="text-cardinal-600 text-xs">
+                    {errors.passwordError}
+                  </p>
                 )}
               </div>
               <div className="grid gap-2">
@@ -245,9 +298,9 @@ function Signup() {
                   required
                 />
               </div>
-              {confirmPasswordError && (
+              {errors.confirmPasswordError && (
                 <p className="text-cardinal-600 text-xs">
-                  {confirmPasswordError}
+                  {errors.confirmPasswordError}
                 </p>
               )}
 
