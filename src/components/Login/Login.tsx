@@ -25,8 +25,8 @@ function Login() {
   const [redirect, setRedirect] = useState<boolean>(false);
 
   const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
+    email: 'sian@ocoloc.com',
+    password: 'Sian123456',
   });
 
   const dispatch = useAppDispatch();

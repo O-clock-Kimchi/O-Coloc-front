@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
 function Dashboard() {
-  const hasColoc = useAppSelector((state) => state.userReducer.colocId);
+  const hasColoc = useAppSelector((state) => state.userReducer.user.colocId);
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
   if (isLogged && !hasColoc) {
