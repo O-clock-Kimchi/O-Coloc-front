@@ -28,7 +28,7 @@ function ColocationManagementWidget() {
       </CardHeader>
       <CardContent className=" grid grid-cols-1 grid-rows-2 gap-4 h-full bg-cardinal-400 max-h-full">
         <div className="flex flex-col bg-tainoi-300 overflow-auto ">
-          <div className="flex flex-col max-h-full bg-jet-400 overflow-scroll">
+          <div className="flex flex-col max-h-64 bg-jet-400 overflow-scroll">
             <FlatmatesListElement />
             <FlatmatesListElement />
             <FlatmatesListElement />
