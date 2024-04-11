@@ -145,3 +145,38 @@ export const createColoc = createAsyncThunk<GetColocData, CreateFormData>(
     }
   }
 );
+
+const JOIN_COLOC = 'JOIN_COLOC';
+
+interface GetJoinData {
+  coloc_id: number;
+  name: string;
+}
+
+interface PostFormData {
+  groupe_code_valid: string;
+}
+
+export const joinColoc = createAsyncThunk<GetJoinData, PostFormData>(
+  JOIN_COLOC,
+  async (postFormData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`/colocs/join`, postFormData);
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
+
+// colocsRouter.post('/colocs/join', colocController.join);
+// {
+//   "coloc_id": 3,
+//   "name": "CHAT",
+//   "groupe_code_valid": "13552811",
+//   "date_creation": "2024-04-10T16:19:44.975Z",
+//   "lien_coloc": "13552811",
+//   "user_id": 16
+// }

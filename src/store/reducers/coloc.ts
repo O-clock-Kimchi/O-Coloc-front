@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { createColoc } from '../action/actions';
+import { createColoc, joinColoc } from '../action/actions';
 
 interface ColocState {
   colocId: null | number;
@@ -16,15 +16,24 @@ export const initialState: ColocState = {
 };
 
 const colocReducer = createReducer(initialState, (builder) => {
-  builder.addCase(createColoc.fulfilled, (state, action) => {
-    state.isCreated = true;
-    state.nameColoc = action.payload.name;
-    state.colocId = action.payload.coloc_id;
-  });
-  builder.addCase(createColoc.rejected, (state, action) => {
-    state.isCreated = false;
-    state.errorMessage = action.payload as string;
-  });
+  builder
+    .addCase(createColoc.fulfilled, (state, action) => {
+      state.isCreated = true;
+      state.nameColoc = action.payload.name;
+      state.colocId = action.payload.coloc_id;
+    })
+    .addCase(createColoc.rejected, (state, action) => {
+      state.isCreated = false;
+      state.errorMessage = action.payload as string;
+    })
+    .addCase(joinColoc.fulfilled, (state, action) => {
+      state.isCreated = true;
+      state.nameColoc = action.payload.name;
+      state.colocId = action.payload.coloc_id;
+    })
+    .addCase(joinColoc.rejected, (state) => {
+      state.isCreated = false;
+    });
 });
 
 export default colocReducer;

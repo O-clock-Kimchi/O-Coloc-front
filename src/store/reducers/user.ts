@@ -3,6 +3,7 @@ import {
   changeField,
   createColoc,
   destroyUser,
+  joinColoc,
   login,
   logout,
   signup,
@@ -93,6 +94,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.email = '';
     })
     .addCase(createColoc.fulfilled, (state, action) => {
+      state.user.colocId = action.payload.coloc_id;
+    })
+    .addCase(joinColoc.fulfilled, (state, action) => {
       state.user.colocId = action.payload.coloc_id;
     });
 });
