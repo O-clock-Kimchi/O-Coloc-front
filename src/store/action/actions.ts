@@ -125,12 +125,8 @@ interface GetColocData {
   coloc_id: number;
 }
 
-interface ColocData {
-  name: string;
-}
-
 interface CreateFormData {
-  coloc: ColocData;
+  name: string;
 }
 
 export const createColoc = createAsyncThunk<GetColocData, CreateFormData>(

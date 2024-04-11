@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     let sessionTimeOut: string | number | NodeJS.Timeout | undefined;
 
-    const SESSION_DURATION = 60000; // 1 minute in milliseconds
+    const SESSION_DURATION = 1000 * 60 * 60; // 1 minute in milliseconds
 
     if (isLogged) {
       // Start session timer
