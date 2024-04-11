@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   changeField,
+  createColoc,
   destroyUser,
   login,
   logout,
@@ -90,6 +91,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.colocId = null;
       state.user.color = '';
       state.user.email = '';
+    })
+    .addCase(createColoc.fulfilled, (state, action) => {
+      state.user.colocId = action.payload.coloc_id;
     });
 });
 

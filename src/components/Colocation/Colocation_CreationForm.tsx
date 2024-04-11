@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import {
   Card,
@@ -29,6 +30,14 @@ function CreationForm() {
       duration: 1000,
     });
   };
+
+  useEffect(() => {
+    if (isCreated) {
+      setTimeout(() => {
+        <Navigate to="/dashboard" replace />;
+      }, 900);
+    }
+  }, [isCreated]);
 
   return (
     <Card className="flex flex-col mx-auto max-w-sm h-64 w-full justify-center">
