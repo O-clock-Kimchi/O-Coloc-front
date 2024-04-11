@@ -31,8 +31,9 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.nameColoc = action.payload.name;
       state.colocId = action.payload.coloc_id;
     })
-    .addCase(joinColoc.rejected, (state) => {
+    .addCase(joinColoc.rejected, (state, action) => {
       state.isCreated = false;
+      state.errorMessage = action.payload as string;
     });
 });
 

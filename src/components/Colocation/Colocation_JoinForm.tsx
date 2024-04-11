@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import {
@@ -13,22 +14,35 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '../ui/input-otp';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { joinColoc } from '../../store/action/actions';
+import { toast } from '../ui/use-toast';
+import { Toaster } from '../ui/toaster';
 
 function JoinForm() {
   const dispatch = useAppDispatch();
-  const [otp, setOtp] = useState<string | null>(null);
+  const isCreated = useAppSelector((state) => state.colocReducer.isCreated);
+  const errorMessage = useAppSelector(
+    (state) => state.colocReducer.errorMessage
+  );
+  const [otp, setOtp] = useState<string>('');
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     if (otp) {
-      dispatch(joinColoc({ groupe_code_valid: otp }));
+      await dispatch(joinColoc({ groupe_code_valid: otp }));
     }
   };
 
-  console.log('vals:', otp);
+  toast({
+    description: `${errorMessage}`,
+    className: 'bg-tainoi-800',
+  });
+
+  if (isCreated && !errorMessage) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
     <Card className="flex flex-col mx-auto max-w-sm h-64 justify-center">
       <CardHeader>
@@ -59,6 +73,7 @@ function JoinForm() {
           </Button>
         </form>
       </CardContent>
+      {errorMessage && <Toaster />}
     </Card>
   );
 }

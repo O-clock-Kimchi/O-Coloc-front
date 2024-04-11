@@ -36,11 +36,7 @@ function Colocation() {
                 <CardTitle className="text-2xl">Créer une colocation</CardTitle>
               </CardHeader>
               <CardContent>
-                <Button
-                  type="submit"
-                  className="w-full"
-                  onClick={() => openCreationForm()}
-                >
+                <Button className="w-full" onClick={() => openCreationForm()}>
                   Je crée ma colocation
                 </Button>
               </CardContent>
@@ -59,11 +55,7 @@ function Colocation() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    onClick={() => openJoinForm()}
-                  >
+                  <Button className="w-full" onClick={() => openJoinForm()}>
                     Je rejoins une colocation
                   </Button>
                 </CardContent>
