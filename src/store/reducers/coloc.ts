@@ -1,21 +1,34 @@
 import { createReducer } from '@reduxjs/toolkit';
-
-import { IColoc } from '../../@types/coloc';
+import { createColoc } from '../action/actions';
 
 interface ColocState {
-  coloc: IColoc;
+  coloc: {
+    colocId: null | number;
+    name: string;
+    code_validation: null | number;
+    created_at: null;
+    link: string;
+  };
+  isCreated: boolean;
 }
 
 export const initialState: ColocState = {
   coloc: {
-    id: 2,
-    name: 'Kimchi',
-    code_validation: 12345678,
-    created_at: 12042024,
+    colocId: null,
+    name: '',
+    code_validation: null,
+    created_at: null,
     link: '',
   },
+  isCreated: false,
 };
 
-const colocReducer = createReducer(initialState, (builder) => {});
+const colocReducer = createReducer(initialState, (builder) => {
+  builder.addCase(createColoc.fulfilled, (state, action) => {
+    state.isCreated = true;
+    state.coloc.name = action.payload.name;
+    state.coloc.colocId = action.payload.coloc_id;
+  });
+});
 
 export default colocReducer;

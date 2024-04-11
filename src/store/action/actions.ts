@@ -115,3 +115,30 @@ export const destroyUser = createAsyncThunk(
     return response.data;
   }
 );
+
+// COLOC RELATED ACTIONS
+
+const CREATE_COLOC = 'CREATE_COLOC';
+
+interface GetColocData {
+  name: string;
+  coloc_id: number;
+}
+
+interface ColocData {
+  name: string;
+}
+
+interface CreateFormData {
+  coloc: ColocData;
+}
+
+export const createColoc = createAsyncThunk<GetColocData, CreateFormData>(
+  CREATE_COLOC,
+  async (createFormData) => {
+    const response = await axiosInstance.post(`/colocs/create`, createFormData);
+
+    console.log(response.data);
+    return response.data;
+  }
+);
