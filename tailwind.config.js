@@ -86,11 +86,30 @@ module.exports = {
           '0%,70%,100%': { opacity: '1' },
           '20%,50%': { opacity: '0' },
         },
+        ping: {
+          '75%, 100%': {
+            transform: 'scale(1)',
+            opacity: 0,
+          },
+        },
+        slide: {
+          '0%': {
+            '-webkit-transform': 'translateX(-1000px)',
+            transform: 'translateX(-1000px)',
+            opacity: 0,
+          },
+          '100%': {
+            '-webkit-transform': 'translateX(0)',
+            transform: 'translateX(0)',
+            opacity: 1,
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'caret-blink': 'caret-blink 1.25s ease-out infinite',
+        slide: '2s cubic-bezier(.25,.46,.45,.94) both',
       },
     },
   },
