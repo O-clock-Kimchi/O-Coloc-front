@@ -131,10 +131,17 @@ interface CreateFormData {
 
 export const createColoc = createAsyncThunk<GetColocData, CreateFormData>(
   CREATE_COLOC,
-  async (createFormData) => {
-    const response = await axiosInstance.post(`/colocs/create`, createFormData);
+  async (createFormData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(
+        `/colocs/create`,
+        createFormData
+      );
 
-    console.log(response.data);
-    return response.data;
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue("Votre nom de coloc n'est pas correct");
+    }
   }
 );

@@ -19,25 +19,22 @@ function CreationForm() {
   const dispatch = useAppDispatch();
   const isCreated = useAppSelector((state) => state.colocReducer.isCreated);
   const [nameColoc, setNameColoc] = useState<string>('');
+  const errorMessage = useAppSelector(
+    (state) => state.colocReducer.errorMessage
+  );
 
-  const handleCreate = (e: { preventDefault: () => void }) => {
+  const handleCreate = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     dispatch(createColoc({ name: nameColoc }));
     toast({
-      description: `Votre coloc ${nameColoc} a été créée avec succès`,
-      className: 'bg-jet-50 text-eden-800',
-      duration: 1000,
+      description: 'Une erreur est survenue!',
+      className: 'bg-tainoi-800',
     });
   };
 
-  useEffect(() => {
-    if (isCreated) {
-      setTimeout(() => {
-        <Navigate to="/dashboard" replace />;
-      }, 900);
-    }
-  }, [isCreated]);
+  if (isCreated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   return (
     <Card className="flex flex-col mx-auto max-w-sm h-64 w-full justify-center">
@@ -63,7 +60,7 @@ function CreationForm() {
           </Button>
         </form>
       </CardContent>
-      {isCreated && <Toaster />}
+      {errorMessage && <Toaster />}
     </Card>
   );
 }
