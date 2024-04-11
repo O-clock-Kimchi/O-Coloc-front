@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/action/actions';
+import ScreenSize from '../DevComponent/ScreenSize';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ function App() {
     <div className=" container mx-auto  min-h-screen flex flex-col">
       <Header />
       <Outlet />
+      <ScreenSize />
       <Footer />
     </div>
   );
