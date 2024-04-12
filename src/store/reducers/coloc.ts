@@ -70,7 +70,7 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.colocCode = '';
       state.isLeaving = true;
     })
-    .addCase(updateNameColoc.fulfilled, (state, action) => {
+    .addCase(updateNameColoc.fulfilled, (state) => {
       state.isUpdated = true;
     })
     .addCase(changeName, (state, action) => {
@@ -79,6 +79,7 @@ const colocReducer = createReducer(initialState, (builder) => {
     .addCase(generateNewCode.fulfilled, (state, action) => {
       state.colocCode = action.payload.newCode;
       state.isUpdated = true;
+      state.isLeaving = true;
     });
 });
 

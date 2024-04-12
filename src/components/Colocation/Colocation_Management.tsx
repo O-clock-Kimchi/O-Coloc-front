@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   CirclePlus,
@@ -27,6 +28,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   changeName,
   generateNewCode,
+  leaveColoc,
   updateNameColoc,
 } from '../../store/action/actions';
 import { toast } from '../ui/use-toast';
@@ -35,13 +37,16 @@ import { Toaster } from '../ui/toaster';
 
 function ColocationManagement() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const isUpdated = useAppSelector((state) => state.colocReducer.isUpdated);
   const colocId = useAppSelector((state) => state.colocReducer.colocId);
   const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
   const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
+  const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
   const [isUpdatingNameColoc, setIsUpdatingNameColoc] =
     useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmLeave, setConfirmLeave] = useState('');
 
   const toggleName = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -77,6 +82,24 @@ function ColocationManagement() {
         description: 'Mise à jour réussie',
         className: 'bg-jet-50 text-eden-800',
         duration: 1000,
+      });
+    }
+  };
+
+  // Handle User to leave coloc
+
+  const handleUserToLeave = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    if (confirmLeave !== 'CONFIRMER') {
+      return;
+    }
+
+    if (colocId) {
+      dispatch(leaveColoc(colocId)).then(() => {
+        if (isLeaving) {
+          navigate('/acces-coloc');
+        }
       });
     }
   };
@@ -166,12 +189,17 @@ function ColocationManagement() {
                     dans le champ ci-dessous
                   </DialogDescription>
                 </DialogHeader>
-                <form className="flex flex-col space-y-6">
+                <form
+                  className="flex flex-col space-y-6"
+                  onSubmit={handleUserToLeave}
+                >
                   <Input
                     type="text"
                     placeholder=""
                     className="w-full flex self-center"
                     required
+                    value={confirmLeave}
+                    onChange={(e) => setConfirmLeave(e.target.value)}
                   />
                   <div className="button-container flex w-full justify-center">
                     <Button
