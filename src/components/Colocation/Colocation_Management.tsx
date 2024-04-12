@@ -23,18 +23,44 @@ import {
 
 import FlatmatesListElement from './Colocation_FlatmatesListElement';
 import AddFlatmateModal from './Colocation_AddFlatmateModal';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { changeName, updateNameColoc } from '../../store/action/actions';
+import { toast } from '../ui/use-toast';
+import { Label } from '../ui/label';
 
 function ColocationManagement() {
+  const dispatch = useAppDispatch();
+  const colocId = useAppSelector((state) => state.colocReducer.colocId);
   const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
   const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
   const [isUpdatingNameColoc, setIsUpdatingNameColoc] =
     useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleField = (e: { preventDefault: () => void }) => {
+  const toggleName = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsUpdatingNameColoc(!isUpdatingNameColoc);
+  };
+
+  const handleNewName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value;
+    dispatch(changeName({ name: newName }));
+  };
+
+  const handleSubmitName = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (colocId) {
+      dispatch(updateNameColoc({ colocId, name: nameColoc }));
+
+      setIsUpdatingNameColoc(false);
+      toast({
+        description: 'Mise à jour réussie',
+        className: 'bg-jet-50 text-eden-800',
+        duration: 1000,
+      });
+    } else {
+      throw new Error('Une erreur est survenue');
+    }
   };
 
   return (
@@ -43,26 +69,32 @@ function ColocationManagement() {
         <div className="flex flex-col p-6 space-y-9 ">
           <div>
             <h1>Gestion de la coloc : {nameColoc}</h1>
-            <form className="horizontal gap-3">
+            <form
+              className="horizontal gap-3"
+              onSubmit={handleSubmitName}
+              autoComplete="off"
+            >
+              <Label htmlFor="name" />
               {!isUpdatingNameColoc ? (
                 <>
                   <Input
-                    id="text"
+                    id="name"
                     type="text"
                     placeholder={nameColoc}
                     disabled
                     className=" placeholder-jet-900 flex-auto"
                   />
-                  <Button onClick={handleField}>
+                  <Button onClick={toggleName}>
                     <SquarePenIcon size={15} />
                   </Button>
                 </>
               ) : (
                 <>
                   <Input
-                    id="text"
+                    id="name"
                     type="text"
                     value={nameColoc}
+                    onChange={handleNewName}
                     className=" placeholder-jet-900 flex-auto"
                   />
                   <Button type="submit">
