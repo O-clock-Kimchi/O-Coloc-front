@@ -17,7 +17,7 @@ import { Toaster } from '../ui/toaster';
 
 function CreationForm() {
   const dispatch = useAppDispatch();
-  const { colocId } = useParams();
+  const colocId = useAppSelector((state) => state.userReducer.user.colocId);
   const isCreated = useAppSelector((state) => state.colocReducer.isCreated);
   const [nameColoc, setNameColoc] = useState<string>('');
   const errorMessage = useAppSelector(
@@ -34,8 +34,7 @@ function CreationForm() {
   };
 
   if (isCreated && colocId) {
-    const parsedColocId = parseInt(colocId, 10);
-    return <Navigate to={`/dashboard/${parseInt}`} replace />;
+    return <Navigate to={`/dashboard/${colocId}`} replace />;
   }
 
   return (
