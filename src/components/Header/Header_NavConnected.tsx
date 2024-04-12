@@ -56,8 +56,17 @@ function NavConnected() {
           <DropdownMenuItem>
             <NavLink to="/mon-profil">Mon profil</NavLink>
           </DropdownMenuItem>
+          {colocId && (
+            <DropdownMenuItem>
+              <NavLink to={`/dashboard/${colocId}`}>Ma coloc</NavLink>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem>
-            <NavLink to={`/dashboard/${colocId}`}>Ma coloc</NavLink>
+            {colocId ? (
+              <NavLink to="/gestion-coloc">Gérer ma coloc</NavLink>
+            ) : (
+              <NavLink to="/acces-coloc">Créer ma coloc</NavLink>
+            )}
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Button className=" bg-tainoi-200" onClick={handleLogout}>

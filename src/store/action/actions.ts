@@ -232,3 +232,18 @@ export const leaveColoc = createAsyncThunk(
     }
   }
 );
+
+// Update Coloc
+
+const UPDATE_NAME_COLOC = 'UPDATE_NAME_COLOC';
+
+export const updateNameColoc = createAsyncThunk(
+  UPDATE_NAME_COLOC,
+  async ({ rejectWithValue }) => {
+    try {
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
+// colocsRouter.patch('/colocs/:id', colocController.update);

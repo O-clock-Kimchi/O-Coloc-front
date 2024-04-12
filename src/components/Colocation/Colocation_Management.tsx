@@ -1,6 +1,12 @@
 import { useState } from 'react';
 
-import { CirclePlus, RefreshCcw, DoorOpen } from 'lucide-react';
+import {
+  CirclePlus,
+  RefreshCcw,
+  DoorOpen,
+  SquarePenIcon,
+  Check,
+} from 'lucide-react';
 
 import { Button } from '../ui/button';
 import { Card, CardContent, CardTitle, CardHeader } from '../ui/card';
@@ -17,15 +23,55 @@ import {
 
 import FlatmatesListElement from './Colocation_FlatmatesListElement';
 import AddFlatmateModal from './Colocation_AddFlatmateModal';
+import { useAppSelector } from '../../hooks/redux';
 
 function ColocationManagement() {
-  const secretCode = parseInt('12345678', 10);
+  const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
+  const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
+  const [isUpdatingNameColoc, setIsUpdatingNameColoc] =
+    useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleField = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setIsUpdatingNameColoc(!isUpdatingNameColoc);
+  };
 
   return (
     <main className="px-6 flex grow">
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <div className="flex flex-col p-6 space-y-9 ">
+          <div>
+            <h1>Gestion de la coloc : {nameColoc}</h1>
+            <form className="horizontal gap-3">
+              {!isUpdatingNameColoc ? (
+                <>
+                  <Input
+                    id="text"
+                    type="text"
+                    placeholder={nameColoc}
+                    disabled
+                    className=" placeholder-jet-900 flex-auto"
+                  />
+                  <Button onClick={handleField}>
+                    <SquarePenIcon size={15} />
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Input
+                    id="text"
+                    type="text"
+                    value={nameColoc}
+                    className=" placeholder-jet-900 flex-auto"
+                  />
+                  <Button type="submit">
+                    <Check size={15} />
+                  </Button>
+                </>
+              )}
+            </form>
+          </div>
           <div className="secret-code-container justify-center flex flex-col items-center w-4/5 h-2/4 mx-auto space-y-6">
             <p className="flex text-3xl text-eden-800">
               Code secret de la coloc
@@ -38,6 +84,7 @@ function ColocationManagement() {
               </Button>
             </div>
           </div>
+
           <div className="button-container flex w-4/5 h-2/4 mx-auto justify-center items-center">
             <Dialog>
               <DialogTrigger asChild>
