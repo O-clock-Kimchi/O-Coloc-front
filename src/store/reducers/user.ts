@@ -4,6 +4,7 @@ import {
   createColoc,
   destroyUser,
   joinColoc,
+  leaveColoc,
   login,
   logout,
   signup,
@@ -98,6 +99,10 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(joinColoc.fulfilled, (state, action) => {
       state.user.colocId = action.payload.coloc_id;
+    })
+    .addCase(leaveColoc.fulfilled, (state) => {
+      state.isLogged = true;
+      state.user.colocId = null;
     });
 });
 

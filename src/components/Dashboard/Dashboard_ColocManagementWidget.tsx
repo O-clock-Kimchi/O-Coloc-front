@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // import UI components
 import { DoorOpen, X, Copy, KeyRound } from 'lucide-react';
@@ -19,11 +20,23 @@ import { useToast } from '../ui/use-toast';
 
 // import custom components
 import FlatmatesListElement from './Dashboard_FlatmatesListElement';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { leaveColoc } from '../../store/action/actions';
 
 function ColocationManagementWidget() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const secretCode = parseInt('12345678', 10);
   const [codeIsCopied, setCodeIsCopied] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
+
+  // To handle the confirm value
+
+  const [confirmLeave, setConfirmLeave] = useState<string>('');
+
+  const { colocId } = useParams();
+
   const { toast } = useToast();
 
   const openDrawer = () => {
@@ -37,6 +50,22 @@ function ColocationManagementWidget() {
   const onCopyCode = () => {
     setCodeIsCopied(true);
     setTimeout(() => setCodeIsCopied(false), 3000);
+  };
+
+  const handleUserLeaveColoc = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    if (confirmLeave !== 'CONFIRMER') {
+      return;
+    }
+
+    if (colocId) {
+      const parsedColocId = parseInt(colocId, 10);
+      dispatch(leaveColoc(parsedColocId));
+      if (isLeaving) {
+        navigate('/acces-coloc');
+      }
+    }
   };
 
   return (
@@ -134,10 +163,15 @@ function ColocationManagementWidget() {
                   dans le champ ci-dessous
                 </DialogDescription>
               </DialogHeader>
-              <form className="flex flex-col space-y-6">
+              <form
+                className="flex flex-col space-y-6"
+                onSubmit={handleUserLeaveColoc}
+              >
                 <Input
                   type="text"
                   placeholder=""
+                  value={confirmLeave}
+                  onChange={(e) => setConfirmLeave(e.target.value)}
                   className="w-full flex self-center"
                   required
                 />
@@ -145,6 +179,7 @@ function ColocationManagementWidget() {
                   <Button
                     className="flex space-x-3 w-40 bg-cardinal-600 hover:bg-cardinal-400 self-center"
                     variant="default"
+                    type="submit"
                   >
                     <p>Confirmer</p>
                   </Button>

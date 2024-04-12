@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import {
@@ -21,6 +21,7 @@ import { Toaster } from '../ui/toaster';
 
 function JoinForm() {
   const dispatch = useAppDispatch();
+  const { colocId } = useParams();
   const isCreated = useAppSelector((state) => state.colocReducer.isCreated);
   const errorMessage = useAppSelector(
     (state) => state.colocReducer.errorMessage
@@ -40,7 +41,7 @@ function JoinForm() {
   });
 
   if (isCreated && !errorMessage) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={`/dashboard/${colocId}`} replace />;
   }
 
   return (

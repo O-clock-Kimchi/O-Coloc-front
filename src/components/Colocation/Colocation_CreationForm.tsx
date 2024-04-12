@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { Button } from '../ui/button';
 import {
   Card,
@@ -17,6 +17,7 @@ import { Toaster } from '../ui/toaster';
 
 function CreationForm() {
   const dispatch = useAppDispatch();
+  const { colocId } = useParams();
   const isCreated = useAppSelector((state) => state.colocReducer.isCreated);
   const [nameColoc, setNameColoc] = useState<string>('');
   const errorMessage = useAppSelector(
@@ -32,8 +33,9 @@ function CreationForm() {
     });
   };
 
-  if (isCreated) {
-    return <Navigate to="/dashboard" replace />;
+  if (isCreated && colocId) {
+    const parsedColocId = parseInt(colocId, 10);
+    return <Navigate to={`/dashboard/${parseInt}`} replace />;
   }
 
   return (

@@ -1,5 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { createColoc, getColoc, joinColoc } from '../action/actions';
+import {
+  createColoc,
+  getColoc,
+  joinColoc,
+  leaveColoc,
+} from '../action/actions';
 
 interface ColocState {
   colocId: null | number;
@@ -8,6 +13,7 @@ interface ColocState {
   isCreated: boolean;
   errorMessage: string;
   isLoading: boolean;
+  isLeaving: boolean;
 }
 
 export const initialState: ColocState = {
@@ -17,6 +23,7 @@ export const initialState: ColocState = {
   isCreated: false,
   errorMessage: '',
   isLoading: false,
+  isLeaving: false,
 };
 
 const colocReducer = createReducer(initialState, (builder) => {
@@ -51,6 +58,12 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.nameColoc = action.payload.name;
       state.colocCode = action.payload.groupe_code_valid;
       state.isLoading = false;
+    })
+    .addCase(leaveColoc.fulfilled, (state) => {
+      state.colocId = null;
+      state.nameColoc = '';
+      state.colocCode = '';
+      state.isLeaving = true;
     });
 });
 

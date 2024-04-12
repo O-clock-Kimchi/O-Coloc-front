@@ -200,13 +200,22 @@ export const getColoc = createAsyncThunk<GetDataFromColoc, number>(
   }
 );
 
-// colocsRouter.get('/colocs/:id', colocController.show);
+// Leave coloc
+// colocsRouter.post('/colocs/:id/leave', colocController.handleUserLeave);
 
-// // {
-// coloc_id": 4,
-// name": "COOOKIE",
-// groupe_code_valid": "95916192",
-// date_creation": "2024-04-11T08:42:08.336Z",
-// lien_coloc": "95916192",
-// user_id": 15
-// // }
+const LEAVE_COLOC = 'LEAVE_COLOC';
+
+export const leaveColoc = createAsyncThunk(
+  LEAVE_COLOC,
+  async (colocId: number, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`colocs/${colocId}/leave`);
+
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
