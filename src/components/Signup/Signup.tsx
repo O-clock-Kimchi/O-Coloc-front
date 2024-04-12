@@ -127,24 +127,24 @@ function Signup() {
 
     try {
       const response = await dispatch(signup(data));
-      setRegistrationIsSuccessful(true);
-      console.log('Signup successful:', response.payload);
-
-      setData({
-        firstname: '',
-        email: '',
-        color: randomHexColor(),
-        password: '',
-        confirmPassword: '',
-      });
-      setErrors({
-        emailError: '',
-        passwordError: '',
-        confirmPasswordError: '',
-      });
-      setFormSubmitError(null);
-    } catch (error: any) {
-      if (error.response) {
+      console.log('Response status:', response.payload?.status);
+      if (response.payload?.status === 201) {
+        console.log('Request successful:', response);
+        setRegistrationIsSuccessful(true);
+        setData({
+          firstname: '',
+          email: '',
+          color: randomHexColor(),
+          password: '',
+          confirmPassword: '',
+        });
+        setErrors({
+          emailError: '',
+          passwordError: '',
+          confirmPasswordError: '',
+        });
+      } else {
+        console.log('Request failed', response);
         setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
         setData({
           firstname: '',
@@ -153,11 +153,16 @@ function Signup() {
           password: '',
           confirmPassword: '',
         });
-      } else if (error.request) {
-        console.error('No response received:', error.request);
-      } else {
-        console.error('Error setting up the request:', error.message);
+        setErrors({
+          emailError: '',
+          passwordError: '',
+          confirmPasswordError: '',
+        });
       }
+      return;
+    } catch (error: any) {
+      console.error('Error:', error.message);
+      setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
     }
   };
 
