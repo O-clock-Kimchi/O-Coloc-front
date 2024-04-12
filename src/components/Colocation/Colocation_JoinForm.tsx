@@ -21,7 +21,7 @@ import { Toaster } from '../ui/toaster';
 
 function JoinForm() {
   const dispatch = useAppDispatch();
-  const { colocId } = useParams();
+  const colocId = useAppSelector((state) => state.userReducer.user.colocId);
   const isCreated = useAppSelector((state) => state.colocReducer.isCreated);
   const errorMessage = useAppSelector(
     (state) => state.colocReducer.errorMessage
@@ -40,7 +40,7 @@ function JoinForm() {
     className: 'bg-tainoi-800',
   });
 
-  if (isCreated && !errorMessage) {
+  if (isCreated && !errorMessage && colocId) {
     return <Navigate to={`/dashboard/${colocId}`} replace />;
   }
 
