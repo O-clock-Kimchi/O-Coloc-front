@@ -7,6 +7,7 @@ import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
 
 function NavMobile() {
+  const colocId = useAppSelector((state) => state.userReducer.user.colocId);
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
   return (
@@ -38,7 +39,7 @@ function NavMobile() {
                 <Separator />
                 <NavLink to="/">Ma coloc</NavLink>
                 <Separator />
-                <NavLink to="/">Dashboard</NavLink>
+                <NavLink to={`/dashboard/${colocId}`}>Dashboard</NavLink>
                 <Separator />
                 <NavLink to="/inscription">Rejoindre une coloc</NavLink>
                 <Separator />

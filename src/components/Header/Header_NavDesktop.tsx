@@ -12,6 +12,7 @@ import { Button } from '../ui/button';
 
 function NavDesktop() {
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
+  const colocId = useAppSelector((state) => state.userReducer.user.colocId);
 
   return (
     <NavigationMenu>
@@ -65,7 +66,7 @@ function NavDesktop() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to={`/dashboard/${colocId}`}>Dashboard</NavLink>
               </NavigationMenuLink>
             </NavigationMenuItem>
 

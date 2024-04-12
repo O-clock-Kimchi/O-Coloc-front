@@ -23,6 +23,7 @@ function NavConnected() {
   const userFirstname = useAppSelector(
     (state) => state.userReducer.user.firstname
   );
+  const colocId = useAppSelector((state) => state.userReducer.user.colocId);
   const color = useAppSelector((state) => state.userReducer.user.color);
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
@@ -53,7 +54,7 @@ function NavConnected() {
             <NavLink to="/mon-profil">Mon profil</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <NavLink to="/dashboard">Ma coloc</NavLink>
+            <NavLink to={`/dashboard/${colocId}`}>Ma coloc</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Button className=" bg-tainoi-200" onClick={handleLogout}>
