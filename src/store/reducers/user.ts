@@ -61,7 +61,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.color = '';
       state.user.email = '';
     })
-    .addCase(logout, (state) => {
+    .addCase(logout.fulfilled, (state) => {
       state.isLogged = false;
       state.user.userId = null;
       state.user.firstname = '';

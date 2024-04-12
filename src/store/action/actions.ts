@@ -41,7 +41,20 @@ export const login = createAsyncThunk<
 
 // Logout action
 const LOGOUT = 'LOGOUT';
-export const logout = createAction(LOGOUT);
+
+export const logout = createAsyncThunk(
+  LOGOUT,
+  async (userId: number, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`/user/${userId}/logout`);
+
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
 
 // Signup action
 const SIGNUP = 'SIGNUP';

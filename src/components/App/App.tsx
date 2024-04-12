@@ -8,6 +8,7 @@ import ScreenSize from '../DevComponent/ScreenSize';
 
 function App() {
   const dispatch = useAppDispatch();
+  const userId = useAppSelector((state) => state.userReducer.user.userId);
   const navigate = useNavigate();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   // Logout User after one hour
@@ -16,10 +17,10 @@ function App() {
 
     const SESSION_DURATION = 1000 * 60 * 60; // 1 heure in milliseconds
 
-    if (isLogged) {
+    if (isLogged && userId) {
       // Start session timer
       sessionTimeOut = setTimeout(() => {
-        dispatch(logout());
+        dispatch(logout(userId));
         navigate('/connexion', { replace: true });
       }, SESSION_DURATION);
 
@@ -30,7 +31,7 @@ function App() {
     }
 
     return undefined;
-  }, [dispatch, isLogged, navigate]);
+  }, [dispatch, isLogged, navigate, userId]);
 
   return (
     <div className=" container mx-auto  min-h-screen flex flex-col">

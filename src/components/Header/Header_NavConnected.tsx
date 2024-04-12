@@ -24,12 +24,15 @@ function NavConnected() {
     (state) => state.userReducer.user.firstname
   );
   const colocId = useAppSelector((state) => state.userReducer.user.colocId);
+  const userId = useAppSelector((state) => state.userReducer.user.userId);
   const color = useAppSelector((state) => state.userReducer.user.color);
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
   const handleLogout = () => {
-    dispatch(logout());
+    if (userId) {
+      dispatch(logout(userId));
+    }
   };
 
   if (!isLogged) {
