@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       {
         element: <PrivatesRoutes />,
         children: [
-          { path: '/dashboard', element: <Dashboard /> },
+          { path: '/dashboard/:colocId', element: <Dashboard /> },
           { path: '/reinitialisation', element: <ResetPasswordForm /> },
           { path: '/acces-coloc', element: <Colocation /> },
           { path: '/mon-profil', element: <Profil /> },

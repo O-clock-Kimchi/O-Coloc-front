@@ -28,7 +28,7 @@ export const login = createAsyncThunk<
   {
     rejectValue: { message: string };
   }
->(LOGIN, async (loginFormData: LoginFormData, { rejectWithValue }) => {
+>(LOGIN, async (loginFormData, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.post('/login', loginFormData);
 
@@ -118,6 +118,8 @@ export const destroyUser = createAsyncThunk(
 
 // COLOC RELATED ACTIONS
 
+// Created Coloc
+
 const CREATE_COLOC = 'CREATE_COLOC';
 
 interface GetColocData {
@@ -146,6 +148,8 @@ export const createColoc = createAsyncThunk<GetColocData, CreateFormData>(
   }
 );
 
+// Join Coloc
+
 const JOIN_COLOC = 'JOIN_COLOC';
 
 interface GetJoinData {
@@ -171,12 +175,38 @@ export const joinColoc = createAsyncThunk<GetJoinData, PostFormData>(
   }
 );
 
-// colocsRouter.post('/colocs/join', colocController.join);
-// {
-//   "coloc_id": 3,
-//   "name": "CHAT",
-//   "groupe_code_valid": "13552811",
-//   "date_creation": "2024-04-10T16:19:44.975Z",
-//   "lien_coloc": "13552811",
-//   "user_id": 16
-// }
+// Get Coloc
+
+const GET_COLOC = 'GET_COLOC';
+
+interface GetDataFromColoc {
+  coloc_id: number;
+  name: string;
+  groupe_code_valid: string;
+}
+
+export const getColoc = createAsyncThunk<GetDataFromColoc, number>(
+  GET_COLOC,
+  async (colocId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/colocs/${colocId}`);
+
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
+
+// colocsRouter.get('/colocs/:id', colocController.show);
+
+// // {
+// coloc_id": 4,
+// name": "COOOKIE",
+// groupe_code_valid": "95916192",
+// date_creation": "2024-04-11T08:42:08.336Z",
+// lien_coloc": "95916192",
+// user_id": 15
+// // }
