@@ -8,7 +8,6 @@ import { getColoc } from '../../store/action/actions';
 function Dashboard() {
   const dispatch = useAppDispatch();
   const { colocId } = useParams();
-  const hasColoc = useAppSelector((state) => state.userReducer.user.colocId);
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
   const isLoading = useAppSelector((state) => state.colocReducer.isLoading);
@@ -17,10 +16,8 @@ function Dashboard() {
     if (colocId) {
       const parsedColocId = parseInt(colocId, 10);
       dispatch(getColoc(parsedColocId));
-      console.log('working', typeof parsedColocId);
-      console.log('second coloc id', typeof hasColoc);
     }
-  }, [colocId, dispatch, hasColoc]);
+  }, [colocId, dispatch]);
 
   if (isLogged && !colocId) {
     return <Navigate to="/acces-coloc" replace />;
