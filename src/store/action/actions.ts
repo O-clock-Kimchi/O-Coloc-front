@@ -53,17 +53,22 @@ interface SignupData {
   color: string;
 }
 
-export const signup = createAsyncThunk(
-  SIGNUP,
-  async (signupData: SignupData, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.post('/signup', signupData);
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
+export const signup = createAsyncThunk<
+  {
+    status: number;
+  },
+  SignupData,
+  {
+    rejectValue: { status: number };
   }
-);
+>(SIGNUP, async (signupData: SignupData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post('/signup', signupData);
+    return { status: response.status };
+  } catch (error: any) {
+    return rejectWithValue({ status: error.response.status });
+  }
+});
 
 // Update user action
 
@@ -101,7 +106,7 @@ const CHANGE_FIELD = 'CHANGE_FIELD';
 
 export const changeField = createAction<FormField>(CHANGE_FIELD);
 
-// DESTROY ACCOUNT
+// Destroy account
 
 // /user/5/delete
 
@@ -210,3 +215,10 @@ export const getColoc = createAsyncThunk<GetDataFromColoc, number>(
 // lien_coloc": "95916192",
 // user_id": 15
 // // }
+
+// Get flatmates' list (SELECT * FROM users WHERE current_coloc_id === x)
+const GET_FLATMATES_LIST = 'GET_FLATMATES_LIST';
+
+// interface FlatmatesList {
+//   flatmatesList:
+// }
