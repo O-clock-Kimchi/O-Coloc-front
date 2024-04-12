@@ -1,20 +1,36 @@
-import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useEffect } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import ColocationManagementWidget from './Dashboard_ColocManagementWidget';
 import TodoListWidget from './Dashboard_TodoListWidget';
 import MyProfileWidget from './Dashboard_MyProfileWidget';
+import { getColoc } from '../../store/action/actions';
 
 function Dashboard() {
-  const hasColoc = useAppSelector((state) => state.userReducer.user.colocId);
+  const dispatch = useAppDispatch();
+  const { colocId } = useParams();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
+  const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
+  const isLoading = useAppSelector((state) => state.colocReducer.isLoading);
 
-  if (isLogged && !hasColoc) {
+  useEffect(() => {
+    if (colocId) {
+      const parsedColocId = parseInt(colocId, 10);
+      dispatch(getColoc(parsedColocId));
+    }
+  }, [colocId, dispatch]);
+
+  if (isLogged && !colocId) {
     return <Navigate to="/acces-coloc" replace />;
   }
+  if (isLoading) {
+    return <h1>Je charge là...</h1>;
+  }
+
   return (
     <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
       <h2 className=" title text-3xl text-center">
-        Bienvenue sur le dashboard de la coloc&rsquo; Kimchi&nbsp;!{' '}
+        Bienvenue sur le dashboard de la coloc {nameColoc}!{' '}
       </h2>
       <div className="grid grid-rows-1 grid-cols-1 p-12 lg:p-0 lg:grid-cols-3 gap-8 w-full grow">
         <ColocationManagementWidget />

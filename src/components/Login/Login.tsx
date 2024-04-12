@@ -10,7 +10,7 @@ import { useToast } from '../ui/use-toast';
 
 // Function de redux pour utiliser action et state
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { login } from '../../store/action/actions';
+import { getColoc, login } from '../../store/action/actions';
 
 // interface LoginFormData {
 //   email: string;
@@ -20,7 +20,7 @@ import { login } from '../../store/action/actions';
 function Login() {
   // Pour envoyer mail et password au back
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
-  const colocID = useAppSelector((state) => state.userReducer.user.colocId);
+  const colocId = useAppSelector((state) => state.userReducer.user.colocId);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [redirect, setRedirect] = useState<boolean>(false);
 
@@ -64,7 +64,7 @@ function Login() {
     }
   };
 
-  // TODO: régler problème de toast avec navigate
+  // UseEffect to handle the toast if login success
 
   useEffect(() => {
     if (isLogged) {
@@ -78,8 +78,16 @@ function Login() {
     }
   }, [isLogged, toast]);
 
-  if (redirect) {
-    return <Navigate to={colocID ? '/dashboard' : '/acces-coloc'} replace />;
+  // Handle redirection if user has a coloc or not
+
+  if (redirect && colocId) {
+    // dispatch(getColoc({ colocId }));
+
+    return <Navigate to={`/dashboard/${colocId}`} replace />;
+  }
+
+  if (redirect && !colocId) {
+    return <Navigate to="/acces-coloc" replace />;
   }
 
   return (
