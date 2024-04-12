@@ -24,7 +24,11 @@ import {
 import FlatmatesListElement from './Colocation_FlatmatesListElement';
 import AddFlatmateModal from './Colocation_AddFlatmateModal';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { changeName, updateNameColoc } from '../../store/action/actions';
+import {
+  changeName,
+  generateNewCode,
+  updateNameColoc,
+} from '../../store/action/actions';
 import { toast } from '../ui/use-toast';
 import { Label } from '../ui/label';
 import { Toaster } from '../ui/toaster';
@@ -62,6 +66,18 @@ function ColocationManagement() {
       });
     } else {
       throw new Error('Une erreur est survenue');
+    }
+  };
+
+  const handleNewCode = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (colocId) {
+      dispatch(generateNewCode(colocId));
+      toast({
+        description: 'Mise à jour réussie',
+        className: 'bg-jet-50 text-eden-800',
+        duration: 1000,
+      });
     }
   };
 
@@ -112,7 +128,11 @@ function ColocationManagement() {
             </p>
             <p className="code flex text-2xl tracking-widest">{secretCode}</p>
             <div className="button-container flex">
-              <Button className="flex space-x-3 w-auto " variant="ghost">
+              <Button
+                className="flex space-x-3 w-auto "
+                variant="ghost"
+                onClick={handleNewCode}
+              >
                 <RefreshCcw />
                 <p>Générer un nouveau code</p>
               </Button>
@@ -186,10 +206,7 @@ function ColocationManagement() {
           </Card>
           <Separator className="w-[90%] mx-auto" />
           {isModalOpen ? (
-            <AddFlatmateModal
-              onClose={() => setIsModalOpen(false)}
-              secretCode={secretCode}
-            />
+            <AddFlatmateModal onClose={() => setIsModalOpen(false)} />
           ) : (
             <div className="button-container w-4/5 mx-auto">
               <Button

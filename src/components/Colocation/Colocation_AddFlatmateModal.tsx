@@ -16,14 +16,15 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
+import { useAppSelector } from '../../hooks/redux';
 
 interface AddFlatmateModalProps {
   onClose: () => void;
-  secretCode: number;
 }
 
-function AddFlatmateModal({ onClose, secretCode }: AddFlatmateModalProps) {
+function AddFlatmateModal({ onClose }: AddFlatmateModalProps) {
   const [codeIsCopied, setCodeIsCopied] = useState(false);
+  const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
   const { toast } = useToast();
 
   const onCopyCode = () => {
@@ -48,18 +49,19 @@ function AddFlatmateModal({ onClose, secretCode }: AddFlatmateModalProps) {
           <div className="copy-to-clipboard-container flex space-x-3">
             <Input
               type="text"
-              value={String(secretCode)}
+              value={secretCode}
               id="code"
               className="flex w-3/5"
               disabled
             />
-            <CopyToClipboard text={String(secretCode)} onCopy={onCopyCode}>
+            <CopyToClipboard text={secretCode} onCopy={onCopyCode}>
               <Button
                 className=""
                 variant="ghost"
                 onClick={() => {
                   toast({
                     description: 'Copié dans le presse-papiers !',
+                    className: 'bg-jet-50 text-eden-800',
                   });
                 }}
               >

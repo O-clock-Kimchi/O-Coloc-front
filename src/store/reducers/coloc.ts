@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   changeName,
   createColoc,
+  generateNewCode,
   getColoc,
   joinColoc,
   leaveColoc,
@@ -74,6 +75,10 @@ const colocReducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeName, (state, action) => {
       state.nameColoc = action.payload.name;
+    })
+    .addCase(generateNewCode.fulfilled, (state, action) => {
+      state.colocCode = action.payload.newCode;
+      state.isUpdated = true;
     });
 });
 

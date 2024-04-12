@@ -263,9 +263,23 @@ const CHANGE_NAME = 'CHANGE_NAME';
 
 export const changeName = createAction<{ name: string }>(CHANGE_NAME);
 
-// colocsRouter.patch('/colocs/:id', colocController.update);
-// http://localhost:3000/colocs/33
+// Update coloc for the code
 
-// {
-//   "name": "LES PEINTRES"
-// }
+// colocsRouter.patch('/colocs/:id/code', colocController.generateNewCode);
+
+// coloc.update({ lien_coloc: code, groupe_code_valid: code });
+
+const GENERATE_NEW_CODE = 'GENERATE_NEW_CODE';
+
+export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
+  GENERATE_NEW_CODE,
+  async (colocId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.patch(`/colocs/${colocId}/code`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
