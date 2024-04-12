@@ -237,3 +237,54 @@ export const leaveColoc = createAsyncThunk(
     }
   }
 );
+
+// Update Coloc for the name
+
+const UPDATE_NAME_COLOC = 'UPDATE_NAME_COLOC';
+
+interface UpdateColocName {
+  colocId: number;
+  name: string;
+}
+
+export const updateNameColoc = createAsyncThunk(
+  UPDATE_NAME_COLOC,
+  async ({ colocId, name }: UpdateColocName, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.patch(`/colocs/${colocId}`, {
+        name,
+      });
+
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
+
+const CHANGE_NAME = 'CHANGE_NAME';
+
+export const changeName = createAction<{ name: string }>(CHANGE_NAME);
+
+// Update coloc for the code
+
+// colocsRouter.patch('/colocs/:id/code', colocController.generateNewCode);
+
+// coloc.update({ lien_coloc: code, groupe_code_valid: code });
+
+const GENERATE_NEW_CODE = 'GENERATE_NEW_CODE';
+
+export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
+  GENERATE_NEW_CODE,
+  async (colocId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.patch(`/colocs/${colocId}/code`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);

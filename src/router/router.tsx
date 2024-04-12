@@ -10,6 +10,7 @@ import Colocation from '../components/Colocation/Colocation';
 import Profil from '../components/Profil/Profil';
 import Dashboard from '../components/Dashboard/Dashboard';
 import PrivatesRoutes from '../components/PrivateRoutes/PrivatesRoutes';
+import ColocationManagement from '../components/Colocation/Colocation_Management';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
           { path: '/dashboard/:colocId', element: <Dashboard /> },
           { path: '/reinitialisation', element: <ResetPasswordForm /> },
           { path: '/acces-coloc', element: <Colocation /> },
+          { path: '/gestion-coloc', element: <ColocationManagement /> },
           { path: '/mon-profil', element: <Profil /> },
         ],
       },

@@ -1,6 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { CirclePlus, RefreshCcw, DoorOpen } from 'lucide-react';
+import {
+  CirclePlus,
+  RefreshCcw,
+  DoorOpen,
+  SquarePenIcon,
+  Check,
+} from 'lucide-react';
 
 import { Button } from '../ui/button';
 import { Card, CardContent, CardTitle, CardHeader } from '../ui/card';
@@ -17,27 +24,144 @@ import {
 
 import FlatmatesListElement from './Colocation_FlatmatesListElement';
 import AddFlatmateModal from './Colocation_AddFlatmateModal';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import {
+  changeName,
+  generateNewCode,
+  leaveColoc,
+  updateNameColoc,
+} from '../../store/action/actions';
+import { toast } from '../ui/use-toast';
+import { Label } from '../ui/label';
+import { Toaster } from '../ui/toaster';
 
 function ColocationManagement() {
-  const secretCode = parseInt('12345678', 10);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const isUpdated = useAppSelector((state) => state.colocReducer.isUpdated);
+  const colocId = useAppSelector((state) => state.colocReducer.colocId);
+  const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
+  const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
+  const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
+  const [isUpdatingNameColoc, setIsUpdatingNameColoc] =
+    useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmLeave, setConfirmLeave] = useState('');
+
+  const toggleName = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setIsUpdatingNameColoc(!isUpdatingNameColoc);
+  };
+
+  const handleNewName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value;
+    dispatch(changeName({ name: newName }));
+  };
+
+  const handleSubmitName = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (colocId) {
+      dispatch(updateNameColoc({ colocId, name: nameColoc }));
+
+      setIsUpdatingNameColoc(false);
+      toast({
+        description: 'Mise à jour réussie',
+        className: 'bg-jet-50 text-eden-800',
+        duration: 1000,
+      });
+    } else {
+      throw new Error('Une erreur est survenue');
+    }
+  };
+
+  const handleNewCode = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (colocId) {
+      dispatch(generateNewCode(colocId));
+      toast({
+        description: 'Mise à jour réussie',
+        className: 'bg-jet-50 text-eden-800',
+        duration: 1000,
+      });
+    }
+  };
+
+  // Handle User to leave coloc
+
+  const handleUserToLeave = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    if (confirmLeave !== 'CONFIRMER') {
+      return;
+    }
+
+    if (colocId) {
+      dispatch(leaveColoc(colocId)).then(() => {
+        if (isLeaving) {
+          navigate('/acces-coloc');
+        }
+      });
+    }
+  };
 
   return (
     <main className="px-6 flex grow">
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <div className="flex flex-col p-6 space-y-9 ">
+          <div>
+            <h1>Gestion de la coloc : {nameColoc}</h1>
+            <form
+              className="horizontal gap-3"
+              onSubmit={handleSubmitName}
+              autoComplete="off"
+            >
+              <Label htmlFor="name" />
+              {!isUpdatingNameColoc ? (
+                <>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder={nameColoc}
+                    disabled
+                    className=" placeholder-jet-900 flex-auto"
+                  />
+                  <Button onClick={toggleName}>
+                    <SquarePenIcon size={15} />
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Input
+                    id="name"
+                    type="text"
+                    value={nameColoc}
+                    onChange={handleNewName}
+                    className=" placeholder-jet-900 flex-auto"
+                  />
+                  <Button type="submit">
+                    <Check size={15} />
+                  </Button>
+                </>
+              )}
+            </form>
+          </div>
           <div className="secret-code-container justify-center flex flex-col items-center w-4/5 h-2/4 mx-auto space-y-6">
             <p className="flex text-3xl text-eden-800">
               Code secret de la coloc
             </p>
             <p className="code flex text-2xl tracking-widest">{secretCode}</p>
             <div className="button-container flex">
-              <Button className="flex space-x-3 w-auto " variant="ghost">
+              <Button
+                className="flex space-x-3 w-auto "
+                variant="ghost"
+                onClick={handleNewCode}
+              >
                 <RefreshCcw />
                 <p>Générer un nouveau code</p>
               </Button>
             </div>
           </div>
+
           <div className="button-container flex w-4/5 h-2/4 mx-auto justify-center items-center">
             <Dialog>
               <DialogTrigger asChild>
@@ -65,12 +189,17 @@ function ColocationManagement() {
                     dans le champ ci-dessous
                   </DialogDescription>
                 </DialogHeader>
-                <form className="flex flex-col space-y-6">
+                <form
+                  className="flex flex-col space-y-6"
+                  onSubmit={handleUserToLeave}
+                >
                   <Input
                     type="text"
                     placeholder=""
                     className="w-full flex self-center"
                     required
+                    value={confirmLeave}
+                    onChange={(e) => setConfirmLeave(e.target.value)}
                   />
                   <div className="button-container flex w-full justify-center">
                     <Button
@@ -105,10 +234,7 @@ function ColocationManagement() {
           </Card>
           <Separator className="w-[90%] mx-auto" />
           {isModalOpen ? (
-            <AddFlatmateModal
-              onClose={() => setIsModalOpen(false)}
-              secretCode={secretCode}
-            />
+            <AddFlatmateModal onClose={() => setIsModalOpen(false)} />
           ) : (
             <div className="button-container w-4/5 mx-auto">
               <Button
@@ -123,6 +249,7 @@ function ColocationManagement() {
           )}
         </div>
       </div>
+      {isUpdated && <Toaster />}
     </main>
   );
 }
