@@ -40,7 +40,7 @@ function JoinForm() {
     className: 'bg-tainoi-800',
   });
 
-  if (isCreated && !errorMessage && colocId) {
+  if (isCreated && colocId) {
     return <Navigate to={`/dashboard/${colocId}`} replace />;
   }
 
