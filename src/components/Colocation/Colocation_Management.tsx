@@ -27,9 +27,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { changeName, updateNameColoc } from '../../store/action/actions';
 import { toast } from '../ui/use-toast';
 import { Label } from '../ui/label';
+import { Toaster } from '../ui/toaster';
 
 function ColocationManagement() {
   const dispatch = useAppDispatch();
+  const isUpdated = useAppSelector((state) => state.colocReducer.isUpdated);
   const colocId = useAppSelector((state) => state.colocReducer.colocId);
   const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
   const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
@@ -202,6 +204,7 @@ function ColocationManagement() {
           )}
         </div>
       </div>
+      {isUpdated && <Toaster />}
     </main>
   );
 }

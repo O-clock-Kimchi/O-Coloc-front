@@ -71,7 +71,6 @@ const colocReducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateNameColoc.fulfilled, (state, action) => {
       state.isUpdated = true;
-      state.nameColoc = action.payload.name;
     })
     .addCase(changeName, (state, action) => {
       state.nameColoc = action.payload.name;
