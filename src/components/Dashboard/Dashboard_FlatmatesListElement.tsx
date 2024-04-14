@@ -1,14 +1,36 @@
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
-function FlatmatesListElement() {
+import { IUser } from '../../@types/coloc';
+import getFormattedFallback from '../../utils/getFormattedFallback';
+
+interface FlatmatesListElementProps {
+  flatmate: IUser;
+  isCurrentUser: boolean;
+}
+
+function FlatmatesListElement({
+  flatmate,
+  isCurrentUser,
+}: FlatmatesListElementProps) {
+  const displayName = isCurrentUser
+    ? `${flatmate.firstname} (moi)`
+    : flatmate.firstname;
   return (
     <div className="flex items-center gap-4">
-      <Avatar className="hidden h-12 w-12 sm:flex">
-        <AvatarImage src="https://picsum.photos/200" alt="Avatar" />
-        <AvatarFallback>NC</AvatarFallback>
+      <Avatar
+        className="flex sm:flex align rounded-3xl
+                  justify-center items-center"
+      >
+        <AvatarImage src="" />
+        <AvatarFallback
+          className="text-xs"
+          style={{ backgroundColor: flatmate.color }}
+        >
+          {getFormattedFallback(flatmate.firstname)}
+        </AvatarFallback>
       </Avatar>
       <div className="grid gap-1">
-        <p className="text-lg font-small leading-none">Moi (Noëllie)</p>
+        <p className="text-lg font-small leading-none">{displayName}</p>
         <p className="text-sm text-muted-foreground">
           Membre depuis le 01.04.2024
         </p>

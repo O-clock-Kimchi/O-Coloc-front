@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // import UI components
@@ -21,7 +21,8 @@ import { useToast } from '../ui/use-toast';
 // import custom components
 import FlatmatesListElement from './Dashboard_FlatmatesListElement';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { leaveColoc } from '../../store/action/actions';
+import { leaveColoc, getFlatmates } from '../../store/action/actions';
+import { IUser } from '../../@types/coloc';
 
 function ColocationManagementWidget() {
   const dispatch = useAppDispatch();
@@ -30,10 +31,16 @@ function ColocationManagementWidget() {
   const [codeIsCopied, setCodeIsCopied] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
-
+  const isLoading = useAppSelector((state) => state.colocReducer.isLoading);
+  const currentUserId = useAppSelector(
+    (state) => state.userReducer.user.userId
+  );
   // To handle the confirm value
 
   const [confirmLeave, setConfirmLeave] = useState<string>('');
+  const flatmatesList = useAppSelector(
+    (state) => state.colocReducer.flatmatesList
+  );
 
   const { colocId } = useParams();
 
@@ -68,6 +75,14 @@ function ColocationManagementWidget() {
     }
   };
 
+  useEffect(() => {
+    if (colocId) {
+      const parsedColocId = parseInt(colocId, 10);
+      const response = dispatch(getFlatmates(parsedColocId));
+      console.log(response);
+    }
+  }, [dispatch, colocId]);
+
   return (
     <Card className="coloc-management flex flex-col w-full mx-auto h-full max-h-full bg-jet-200/70 hover:drop-shadow-lg">
       <CardHeader>
@@ -76,11 +91,17 @@ function ColocationManagementWidget() {
       <CardContent className="flex flex-col h-full ">
         <div className="flex flex-col h-3/6 overflow-y-auto bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
           <div className="list flex flex-col max-h-[95%] overflow-y-scroll space-y-3 p-3 ">
-            <FlatmatesListElement />
-            <FlatmatesListElement />
-            <FlatmatesListElement />
-            <FlatmatesListElement />
-            <FlatmatesListElement />
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              flatmatesList.map((flatmate) => (
+                <FlatmatesListElement
+                  key={flatmate.id}
+                  flatmate={flatmate}
+                  isCurrentUser={flatmate.id === currentUserId}
+                />
+              ))
+            )}
           </div>
         </div>
         <div className="drawer-container flex flex-col h-[25%] justify-center ">
