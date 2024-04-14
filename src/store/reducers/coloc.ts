@@ -4,10 +4,12 @@ import {
   createColoc,
   generateNewCode,
   getColoc,
+  getFlatmates,
   joinColoc,
   leaveColoc,
   updateNameColoc,
 } from '../action/actions';
+import { IUser } from '../../@types/coloc';
 
 interface ColocState {
   colocId: null | number;
@@ -18,6 +20,8 @@ interface ColocState {
   isLoading: boolean;
   isLeaving: boolean;
   isUpdated: boolean;
+  flatmatesList: IUser[];
+  error: string | null;
 }
 
 export const initialState: ColocState = {
@@ -29,6 +33,8 @@ export const initialState: ColocState = {
   isLoading: false,
   isLeaving: false,
   isUpdated: false,
+  flatmatesList: [],
+  error: null,
 };
 
 const colocReducer = createReducer(initialState, (builder) => {
@@ -80,6 +86,18 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.colocCode = action.payload.newCode;
       state.isUpdated = true;
       state.isLeaving = true;
+    })
+    .addCase(getFlatmates.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(getFlatmates.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.flatmatesList = action.payload;
+    })
+    .addCase(getFlatmates.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload as string; // Assurez-vous que le payload est de type string
     });
 });
 
