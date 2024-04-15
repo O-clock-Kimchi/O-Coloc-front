@@ -299,22 +299,14 @@ interface FlatmatesListResponse {
   firstname: string;
   color: string;
 }
-
-export const getFlatmates = createAsyncThunk<IUser[], number>(
+export const getFlatmates = createAsyncThunk<FlatmatesListResponse[], number>(
   GET_FLATMATES_LIST,
   async (colocId: number, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get<FlatmatesListResponse[]>(
         `/colocs/${colocId}/users`
       );
-      return response.data.map((flatmate) => ({
-        id: flatmate.user_id,
-        firstname: flatmate.firstname,
-        email: '', // Vous pouvez ajouter d'autres propriétés ici si nécessaire
-        password: '',
-        color: flatmate.color,
-        id_coloc: colocId, // Si nécessaire
-      }));
+      return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
