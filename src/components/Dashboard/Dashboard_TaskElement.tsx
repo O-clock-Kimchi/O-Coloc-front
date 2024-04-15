@@ -37,8 +37,32 @@ import {
 } from '../ui/dialog';
 import { Calendar } from '../ui/calendar';
 
-function TaskElement() {
+// import custom components
+import { ITask } from '../../@types/coloc';
+import getFormattedFallback from '../../utils/getFormattedFallback';
+import { useAppSelector } from '../../hooks/redux';
+
+interface TaskElementProps {
+  task: ITask;
+}
+
+function TaskElement({ task }: TaskElementProps) {
   const [date, setDate] = useState<Date>();
+  const flatmatesList = useAppSelector(
+    (state) => state.colocReducer.flatmatesList
+  );
+  const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
+
+  // get assignee first name
+  const assigneeFirstName =
+    flatmatesList.find((flatmate) => flatmate.user_id === task.user_id)
+      ?.firstname || 'Utilisateur inconnu';
+
+  // get assignee color
+  const assigneeColor = flatmatesList.find(
+    (flatmate) => flatmate.user_id === task.user_id
+  )?.color;
+
   return (
     <Card className="flex flex-col w-full mx-auto p-1 bg-cardinal-100 content-center min-h-24">
       <CardContent className="flex flex-col max-h-full space-y-2 w-full content-center ">
@@ -47,8 +71,10 @@ function TaskElement() {
             <Checkbox className="w-4 h-4" id="is-complete" />
           </div>
           <div className="task-instructions flex flex-col w-[70%]">
-            <p className="text-sm">Faire les courses</p>
-            <p className="text-xs">Avant le : 22/04/2024</p>
+            <p className="text-sm">{task.description}</p>
+            <p className="text-xs">
+              Avant le : {format(new Date(task.due_date), 'dd/MM/yyyy')}
+            </p>
           </div>
           <div className="avatar-container flex w-[20%] items-center justify-center ">
             <Avatar
@@ -56,7 +82,7 @@ function TaskElement() {
                   justify-center items-center"
             >
               <AvatarFallback className="border-[1px] border-solid">
-                Pa
+                {getFormattedFallback(assigneeFirstName)}
               </AvatarFallback>
             </Avatar>
           </div>
