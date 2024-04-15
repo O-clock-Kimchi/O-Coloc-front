@@ -75,14 +75,6 @@ function ColocationManagementWidget() {
     }
   };
 
-  useEffect(() => {
-    if (colocId) {
-      const parsedColocId = parseInt(colocId, 10);
-      const response = dispatch(getFlatmates(parsedColocId));
-      console.log(response);
-    }
-  }, [dispatch, colocId]);
-
   return (
     <Card className="coloc-management flex flex-col w-full mx-auto h-full max-h-full bg-jet-200/70 hover:drop-shadow-lg">
       <CardHeader>
