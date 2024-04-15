@@ -20,12 +20,12 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: '/connexion', element: <Login /> },
       { path: '/inscription', element: <Signup /> },
+      { path: '/reinitialisation', element: <ResetPasswordForm /> },
       { path: '*', element: <NotFoundPage /> },
       {
         element: <PrivatesRoutes />,
         children: [
           { path: '/dashboard/:colocId', element: <Dashboard /> },
-          { path: '/reinitialisation', element: <ResetPasswordForm /> },
           { path: '/acces-coloc', element: <Colocation /> },
           { path: '/gestion-coloc', element: <ColocationManagement /> },
           { path: '/mon-profil', element: <Profil /> },

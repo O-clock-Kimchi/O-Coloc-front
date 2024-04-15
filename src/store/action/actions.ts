@@ -292,31 +292,31 @@ export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
 
 // Get flatmates' list
 
-const GET_FLATMATES_LIST = 'GET_FLATMATES_LIST';
+// const GET_FLATMATES_LIST = 'GET_FLATMATES_LIST';
 
-interface FlatmatesListResponse {
-  user_id: number;
-  firstname: string;
-  color: string;
-}
+// interface FlatmatesListResponse {
+//   user_id: number;
+//   firstname: string;
+//   color: string;
+// }
 
-export const getFlatmates = createAsyncThunk<IUser[], number>(
-  GET_FLATMATES_LIST,
-  async (colocId: number, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.get<FlatmatesListResponse[]>(
-        `/colocs/${colocId}/users`
-      );
-      return response.data.map((flatmate) => ({
-        id: flatmate.user_id,
-        firstname: flatmate.firstname,
-        email: '', // Vous pouvez ajouter d'autres propriétés ici si nécessaire
-        password: '',
-        color: flatmate.color,
-        id_coloc: colocId, // Si nécessaire
-      }));
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
+// export const getFlatmates = createAsyncThunk<IUser[], number>(
+//   GET_FLATMATES_LIST,
+//   async (colocId: number, { rejectWithValue }) => {
+//     try {
+//       const response = await axiosInstance.get<FlatmatesListResponse[]>(
+//         `/colocs/${colocId}/users`
+//       );
+//       return response.data.map((flatmate) => ({
+//         id: flatmate.user_id,
+//         firstname: flatmate.firstname,
+//         email: '', // Vous pouvez ajouter d'autres propriétés ici si nécessaire
+//         password: '',
+//         color: flatmate.color,
+//         id_coloc: colocId, // Si nécessaire
+//       }));
+//     } catch (error: any) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
