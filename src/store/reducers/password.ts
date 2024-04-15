@@ -12,7 +12,7 @@ const initialState: PasswordState = {
   tokenPassword: '',
   tokenPasswordValidity: '',
   error: null,
-  isResetting: false,
+  isResetting: true,
 };
 
 const passwordReducer = createReducer(initialState, (builder) => {
