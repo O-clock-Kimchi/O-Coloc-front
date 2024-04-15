@@ -47,6 +47,13 @@ function ColocationManagement() {
     useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmLeave, setConfirmLeave] = useState('');
+  const flatmatesList = useAppSelector(
+    (state) => state.colocReducer.flatmatesList
+  );
+  const isLoading = useAppSelector((state) => state.colocReducer.isLoading);
+  const currentUserId = useAppSelector(
+    (state) => state.userReducer.user.userId
+  );
 
   const toggleName = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -223,12 +230,17 @@ function ColocationManagement() {
             </CardHeader>
             <CardContent className="grid gap-8 max-h-full overflow-auto">
               <div className="flatmates-list flex flex-col space-y-6 h-full overflow-scroll p-3">
-                <FlatmatesListElement />
-                <FlatmatesListElement />
-                <FlatmatesListElement />
-                <FlatmatesListElement />
-                <FlatmatesListElement />
-                <FlatmatesListElement />
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : (
+                  flatmatesList.map((flatmate) => (
+                    <FlatmatesListElement
+                      key={flatmate.id}
+                      flatmate={flatmate}
+                      isCurrentUser={flatmate.id === currentUserId}
+                    />
+                  ))
+                )}
               </div>
             </CardContent>
           </Card>
