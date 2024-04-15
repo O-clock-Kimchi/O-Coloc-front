@@ -1,5 +1,5 @@
 export interface IUser {
-  id: number;
+  user_id: number;
   firstname: string;
   email: string;
   password: string;
@@ -13,4 +13,14 @@ export interface IColoc {
   code_validation: number;
   created_at: number;
   link: string;
+}
+
+export interface ITask {
+  tasks_id: number;
+  description: string;
+  created_at: string;
+  is_done: boolean;
+  frequency: number;
+  due_date: string;
+  user_id: number;
 }
