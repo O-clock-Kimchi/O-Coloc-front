@@ -39,6 +39,7 @@ function TodoListWidget() {
   const flatmatesList = useAppSelector(
     (state) => state.colocReducer.flatmatesList
   );
+  const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
 
   const [data, setData] = useState({
     description: '',
@@ -180,7 +181,9 @@ function TodoListWidget() {
           </RadioGroup>
         </div>
         <div className="tasks-list flex flex-col w-full space-y-3 h-[80%] max-h-[85%] overflow-y-auto">
-          <TaskElement />
+          {tasksList.map((task) => (
+            <TaskElement key={task.tasks_id} task={task} />
+          ))}
         </div>
 
         <Sheet>
