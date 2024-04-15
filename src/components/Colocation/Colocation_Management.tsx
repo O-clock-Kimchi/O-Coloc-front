@@ -235,9 +235,9 @@ function ColocationManagement() {
                 ) : (
                   flatmatesList.map((flatmate) => (
                     <FlatmatesListElement
-                      key={flatmate.id}
+                      key={flatmate.user_id}
                       flatmate={flatmate}
-                      isCurrentUser={flatmate.id === currentUserId}
+                      isCurrentUser={flatmate.user_id === currentUserId}
                     />
                   ))
                 )}
