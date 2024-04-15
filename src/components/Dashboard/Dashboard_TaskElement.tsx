@@ -36,9 +36,8 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Calendar } from '../ui/calendar';
-
-// import custom components
 import { ITask } from '../../@types/coloc';
+
 import getFormattedFallback from '../../utils/getFormattedFallback';
 import { useAppSelector } from '../../hooks/redux';
 
@@ -48,11 +47,12 @@ interface TaskElementProps {
 
 function TaskElement({ task }: TaskElementProps) {
   const [date, setDate] = useState<Date>();
+
   const flatmatesList = useAppSelector(
     (state) => state.colocReducer.flatmatesList
   );
-  const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
 
+  const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
   // get assignee first name
   const assigneeFirstName =
     flatmatesList.find((flatmate) => flatmate.user_id === task.user_id)
@@ -63,12 +63,41 @@ function TaskElement({ task }: TaskElementProps) {
     (flatmate) => flatmate.user_id === task.user_id
   )?.color;
 
+  // get lightened color (code snippet: https://www.sitepoint.com/javascript-generate-lighter-darker-color/)
+  function ColorLuminance(hex: string, lum: number) {
+    // validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    lum = lum || 0;
+    // convert to decimal and change luminosity
+    var rgb = '#',
+      c,
+      i;
+    for (i = 0; i < 3; i++) {
+      c = parseInt(hex.substr(i * 2, 2), 16);
+      c = Math.round(Math.min(Math.max(0, c + c * lum), 255)).toString(16);
+      rgb += `00${c}`.substr(c.length);
+    }
+
+    return rgb;
+  }
+
+  const lightenedAssigneeColor = ColorLuminance(assigneeColor || '', 0.5);
+
   return (
-    <Card className="flex flex-col w-full mx-auto p-1 bg-cardinal-100 content-center min-h-24">
+    <Card
+      className="flex flex-col w-full mx-auto p-2 content-center min-h-24 border-solid[1px]"
+      style={{
+        backgroundColor: lightenedAssigneeColor,
+        borderColor: assigneeColor,
+      }}
+    >
       <CardContent className="flex flex-col max-h-full space-y-2 w-full content-center ">
         <div className="flex task-details w-full items-center justify-center">
           <div className="checkbox flex w-[10%] items-center justify-center">
-            <Checkbox className="w-4 h-4" id="is-complete" />
+            <Checkbox className="w-4 h-4 bg-jet-50" id="is-complete" />
           </div>
           <div className="task-instructions flex flex-col w-[70%]">
             <p className="text-sm">{task.description}</p>
@@ -81,7 +110,10 @@ function TaskElement({ task }: TaskElementProps) {
               className="flex h-10 w-10 sm:flex align rounded-3xl
                   justify-center items-center"
             >
-              <AvatarFallback className="border-[1px] border-solid">
+              <AvatarFallback
+                className="border-[1px] text-xs border-none"
+                style={{ backgroundColor: assigneeColor }}
+              >
                 {getFormattedFallback(assigneeFirstName)}
               </AvatarFallback>
             </Avatar>

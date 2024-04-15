@@ -167,7 +167,7 @@ function TodoListWidget() {
         <CardTitle className="text-center text-2xl">To-do list</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col h-full grow space-y-12 w-full">
-        <div className="to-do-settings flex flex-col w-full p-3 h-[20%] space-y-3">
+        <div className="to-do-settings flex flex-col w-full p-3 max-h[300px] space-y-3">
           <p>Afficher</p>
           <RadioGroup defaultValue="option-one">
             <div className="flex items-center space-x-2">
@@ -180,14 +180,14 @@ function TodoListWidget() {
             </div>
           </RadioGroup>
         </div>
-        <div className="tasks-list flex flex-col w-full space-y-3 h-[80%] max-h-[85%] overflow-y-auto">
+        <div className="tasks-list flex flex-col w-full space-y-3 h-[50%] max-h-[50%] overflow-y-scroll">
           {tasksList.map((task) => (
             <TaskElement key={task.tasks_id} task={task} />
           ))}
         </div>
 
         <Sheet>
-          <SheetTrigger className="button-container flex flex-col h-[10%] w-full justify-end  items-center">
+          <SheetTrigger className="button-container flex flex-col h-[10%] w-full justify-end  items-center bg-jet-300">
             <Button className="flex space-x-3" variant="default">
               <CirclePlus color="#FFFCF1" />
               <p>Ajouter une tâche</p>
