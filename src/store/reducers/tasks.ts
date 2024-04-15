@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { createTask } from '../action/actions';
+import { createTask, getAllTasks } from '../action/actions';
 
 import { ITask } from '../../@types/coloc';
 
@@ -26,6 +26,18 @@ const tasksReducer = createReducer(initialState, (builder) => {
       state.tasksList = [...state.tasksList, action.payload.task];
     })
     .addCase(createTask.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload?.message ?? null;
+    })
+    .addCase(getAllTasks.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(getAllTasks.fulfilled, (state, action) => {
+      state.loading = false;
+      state.tasksList = action.payload.tasks;
+    })
+    .addCase(getAllTasks.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload?.message ?? null;
     });
