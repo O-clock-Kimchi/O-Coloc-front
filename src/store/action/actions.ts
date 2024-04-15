@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../axiosconfig';
-import { IUser } from '../../@types/coloc';
+import { IUser, ITask } from '../../@types/coloc';
 
 // USER-RELATED ACTIONS
 
@@ -368,6 +368,42 @@ export const createTask = createAsyncThunk<
     return rejectWithValue({
       message: 'Une erreur est survenue',
       status: 500,
+    });
+  }
+});
+
+// Get tasks' list
+const GET_TASKS_LIST = 'GET_TASKS_LIST';
+
+interface TasksListResponse {
+  message: string | null;
+  status: number;
+  tasks: ITask[];
+}
+
+export const getAllTasks = createAsyncThunk<
+  TasksListResponse,
+  number,
+  {
+    rejectValue: { message: string; status: number };
+  }
+>(GET_TASKS_LIST, async (colocId: number, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.get<ITask[]>(
+      `/colocs/${colocId}/tasks`
+    );
+    console.log('list of tasks is ok');
+    console.log('Details of response:', response);
+    return {
+      message: response.statusText,
+      status: response.status,
+      tasks: response.data,
+    };
+  } catch (error: any) {
+    console.log('list of tasks de mes couilles en slip is not ok', error);
+    return rejectWithValue({
+      message: error.response.message,
+      status: error.response.status,
     });
   }
 });
