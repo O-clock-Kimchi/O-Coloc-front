@@ -320,3 +320,34 @@ export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
 //     }
 //   }
 // );
+
+// User reset password
+
+const ASK_RESET_PASSWORD = 'ASK_RESET_PASSWORD';
+
+interface ResetPasswordData {
+  email: string;
+}
+
+interface GetPasswordData {
+  resetToken: string;
+  resetTokenExpires: string;
+}
+
+export const askResetPassword = createAsyncThunk<
+  GetPasswordData,
+  ResetPasswordData
+>(ASK_RESET_PASSWORD, async (resetPasswordData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post(
+      '/request-reset',
+      resetPasswordData
+    );
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    return rejectWithValue('Une erreur est survenue');
+  }
+});

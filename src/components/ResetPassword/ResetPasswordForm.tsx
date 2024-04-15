@@ -1,7 +1,19 @@
+import { useState } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { useAppDispatch } from '../../hooks/redux';
+import { askResetPassword } from '../../store/action/actions';
 
 function ResetPasswordForm() {
+  const dispatch = useAppDispatch();
+  const [emailReset, setEmailReset] = useState<string>('');
+
+  const handleResetPassword = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    dispatch(askResetPassword({ email: emailReset }));
+  };
+
   return (
     <main className="px-6 flex grow">
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-12">
@@ -16,10 +28,15 @@ function ResetPasswordForm() {
             l&rsquo;adresse email que vous avez renseignée lors de votre
             inscription sur CoHabit.
           </p>
-          <form className="password-reset-form flex space-x-6">
+          <form
+            className="password-reset-form flex space-x-6"
+            onSubmit={handleResetPassword}
+          >
             <Input
               type="email"
               placeholder="email@example.com"
+              value={emailReset}
+              onChange={(e) => setEmailReset(e.target.value)}
               className="w-2/5 md:w-auto flex self-center"
               required
             />
