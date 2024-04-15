@@ -4,7 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import ColocationManagementWidget from './Dashboard_ColocManagementWidget';
 import TodoListWidget from './Dashboard_TodoListWidget';
 import MyProfileWidget from './Dashboard_MyProfileWidget';
-import { getColoc, getFlatmates } from '../../store/action/actions';
+import {
+  getColoc,
+  getFlatmates,
+  getAllTasks,
+} from '../../store/action/actions';
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -18,6 +22,7 @@ function Dashboard() {
       const parsedColocId = parseInt(colocId, 10);
       dispatch(getColoc(parsedColocId));
       dispatch(getFlatmates(parsedColocId));
+      dispatch(getAllTasks(parsedColocId));
     }
   }, [colocId, dispatch]);
 
