@@ -97,7 +97,7 @@ const colocReducer = createReducer(initialState, (builder) => {
     })
     .addCase(getFlatmates.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.payload as string; // Assurez-vous que le payload est de type string
+      state.error = action.payload as string;
     });
 });
 
