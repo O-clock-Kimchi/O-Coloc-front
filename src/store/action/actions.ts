@@ -298,6 +298,9 @@ interface FlatmatesListResponse {
   user_id: number;
   firstname: string;
   color: string;
+  email: '';
+  password: '';
+  id_coloc: number;
 }
 export const getFlatmates = createAsyncThunk<FlatmatesListResponse[], number>(
   GET_FLATMATES_LIST,
@@ -312,3 +315,59 @@ export const getFlatmates = createAsyncThunk<FlatmatesListResponse[], number>(
     }
   }
 );
+
+// TASKS RELATED ACTIONS
+
+// Create task action
+const CREATE_TASK = 'CREATE_TASK';
+
+interface CreateTaskResponseData {
+  message: string;
+  status: number;
+  task: {
+    // request update to task_id!!!
+    tasks_id: number;
+    description: string;
+    is_done: boolean;
+    frequency: number;
+    created_at: string;
+    due_date: string;
+    user_id: number;
+  };
+}
+
+interface CreateTaskFormData {
+  description: string;
+  frequency: number;
+  user_id: number;
+  is_done: boolean;
+}
+
+export const createTask = createAsyncThunk<
+  CreateTaskResponseData,
+  CreateTaskFormData,
+  {
+    rejectValue: { message: string; status: number };
+  }
+>(CREATE_TASK, async (taskData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post('/tasks', taskData);
+    return {
+      status: response.status,
+      message: 'Task created successfully',
+      task: response.data.task,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      return rejectWithValue({
+        message: error.response.data.message,
+        status: error.response.status,
+      });
+    }
+    console.log('tâche pas ok');
+    return rejectWithValue({
+      message: 'Une erreur est survenue',
+      status: 500,
+    });
+  }
+});
