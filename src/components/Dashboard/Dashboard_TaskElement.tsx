@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { format } from 'date-fns';
 
 // import UI components
@@ -92,7 +92,7 @@ function TaskElement({ task }: TaskElementProps) {
 
   const lightenedAssigneeColor = ColorLuminance(assigneeColor || '', 0.5);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (name === 'description') {
@@ -143,6 +143,25 @@ function TaskElement({ task }: TaskElementProps) {
     }
   };
 
+  const handleCheckboxChange = () => {
+    const updatedTaskStatus = { ...formData, is_done: !formData.is_done };
+    setFormData(updatedTaskStatus);
+    dispatch(updateTask({ tasks_id: task.tasks_id, ...updatedTaskStatus }));
+    toast({
+      description: 'Tâche mise à jour avec succès.',
+      className: 'bg-jet-50 text-eden-600',
+    });
+  };
+
+  // define specific conditional classes to update syle and layout according to task status
+  const cardStyleDetails = `flex flex-col w-full mx-auto p-2 content-center min-h-24 border-solid[1px] ${
+    formData.is_done ? 'opacity-50' : ''
+  }`;
+  const taskDescriptionStyleDetails = `text-sm ${
+    formData.is_done ? 'line-through' : ''
+  }`;
+  const isTaskComplete = formData.is_done;
+
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormSubmitError(null);
@@ -160,7 +179,7 @@ function TaskElement({ task }: TaskElementProps) {
     );
     toast({
       description: 'Tâche mise à jour avec succès.',
-      className: 'bg-jet-50',
+      className: 'bg-jet-50 text-eden-600',
     });
   };
 
@@ -176,7 +195,7 @@ function TaskElement({ task }: TaskElementProps) {
 
   return (
     <Card
-      className="flex flex-col w-full mx-auto p-2 content-center min-h-24 border-solid[1px]"
+      className={cardStyleDetails}
       style={{
         backgroundColor: lightenedAssigneeColor,
         borderColor: assigneeColor,
@@ -185,10 +204,14 @@ function TaskElement({ task }: TaskElementProps) {
       <CardContent className="flex flex-col max-h-full space-y-2 w-full content-center ">
         <div className="flex task-details w-full items-center justify-center">
           <div className="checkbox flex w-[10%] items-center justify-center">
-            <Checkbox className="w-4 h-4 bg-jet-50" id="is_done" />
+            <Checkbox
+              className="w-4 h-4 bg-jet-50"
+              id="is_done"
+              onCheckedChange={handleCheckboxChange}
+            />
           </div>
           <div className="task-instructions flex flex-col w-[70%]">
-            <p className="text-sm">{task.description}</p>
+            <p className={taskDescriptionStyleDetails}>{task.description}</p>
             <p className="text-xs">
               Avant le : {format(new Date(task.due_date), 'dd/MM/yyyy')}
             </p>
@@ -210,7 +233,7 @@ function TaskElement({ task }: TaskElementProps) {
         <div className="flex btns-container w-full space-x-3 justify-end">
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="p-2" variant="ghost">
+              <Button className="p-2" variant="ghost" disabled={isTaskComplete}>
                 <SquarePenIcon size={16} />
               </Button>
             </DialogTrigger>
@@ -301,8 +324,8 @@ function TaskElement({ task }: TaskElementProps) {
             </DialogContent>
           </Dialog>
           <Dialog>
-            <DialogTrigger>
-              <Button className="p-2" variant="ghost">
+            <DialogTrigger disabled={isTaskComplete}>
+              <Button className="p-2" variant="ghost" disabled={isTaskComplete}>
                 <Trash2 size={16} />
               </Button>
             </DialogTrigger>
