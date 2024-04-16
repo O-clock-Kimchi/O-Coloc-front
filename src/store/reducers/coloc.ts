@@ -15,7 +15,7 @@ interface ColocState {
   nameColoc: string;
   colocCode: string;
   isCreated: boolean;
-  errorMessage: string;
+  errorMessage: string | undefined;
   isLoading: boolean;
   isLeaving: boolean;
   isUpdated: boolean;
@@ -51,14 +51,19 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.isCreated = false;
       state.errorMessage = action.payload as string;
     })
+    .addCase(joinColoc.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(joinColoc.fulfilled, (state, action) => {
       state.isCreated = true;
       state.nameColoc = action.payload.name;
       state.colocId = action.payload.coloc_id;
+      state.isLoading = false;
     })
     .addCase(joinColoc.rejected, (state, action) => {
       state.isCreated = false;
       state.errorMessage = action.payload as string;
+      state.isLoading = false;
     })
     .addCase(getColoc.pending, (state) => {
       state.colocId = null;
@@ -73,22 +78,50 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.colocCode = action.payload.groupe_code_valid;
       state.isLoading = false;
     })
+    .addCase(getColoc.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.error.message;
+    })
+    .addCase(leaveColoc.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(leaveColoc.fulfilled, (state) => {
       state.colocId = null;
       state.nameColoc = '';
       state.colocCode = '';
       state.isLeaving = true;
+      state.isLoading = false;
+    })
+    .addCase(leaveColoc.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.error.message;
+    })
+    .addCase(updateNameColoc.pending, (state) => {
+      state.isLoading = true;
     })
     .addCase(updateNameColoc.fulfilled, (state) => {
       state.isUpdated = true;
+      state.isLoading = false;
+    })
+    .addCase(updateNameColoc.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.error.message;
     })
     .addCase(changeName, (state, action) => {
       state.nameColoc = action.payload.name;
+    })
+    .addCase(generateNewCode.pending, (state) => {
+      state.isLoading = true;
     })
     .addCase(generateNewCode.fulfilled, (state, action) => {
       state.colocCode = action.payload.newCode;
       state.isUpdated = true;
       state.isLeaving = true;
+      state.isLoading = false;
+    })
+    .addCase(generateNewCode.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.error.message;
     });
   // .addCase(getFlatmates.pending, (state) => {
   //   state.isLoading = true;
