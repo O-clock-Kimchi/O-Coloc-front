@@ -38,10 +38,14 @@ export const initialState: ColocState = {
 
 const colocReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(createColoc.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(createColoc.fulfilled, (state, action) => {
       state.isCreated = true;
       state.nameColoc = action.payload.name;
       state.colocId = action.payload.coloc_id;
+      state.isLoading = false;
     })
     .addCase(createColoc.rejected, (state, action) => {
       state.isCreated = false;
