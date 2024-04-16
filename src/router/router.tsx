@@ -11,6 +11,7 @@ import Profil from '../components/Profil/Profil';
 import Dashboard from '../components/Dashboard/Dashboard';
 import PrivatesRoutes from '../components/PrivateRoutes/PrivatesRoutes';
 import ColocationManagement from '../components/Colocation/Colocation_Management';
+import VerifyToken from '../components/ResetPassword/VerifyToken';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: '/connexion', element: <Login /> },
       { path: '/inscription', element: <Signup /> },
       { path: '/reinitialisation', element: <ResetPasswordForm /> },
+      { path: '/acces-reset/:token', element: <VerifyToken /> },
       { path: '*', element: <NotFoundPage /> },
       {
         element: <PrivatesRoutes />,

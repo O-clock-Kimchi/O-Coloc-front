@@ -1,7 +1,12 @@
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 
 function AskResetPassword() {
+  const { token } = useParams();
+  const [newPassword, setNewPassword] = useState<string>('');
+
   return (
     <>
       <p className="flex 404-message text-4xl text-eden-800">

@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/action/actions';
 import ScreenSize from '../DevComponent/ScreenSize';
+import Loader from '../Loader/Loader';
 
 function App() {
   const dispatch = useAppDispatch();

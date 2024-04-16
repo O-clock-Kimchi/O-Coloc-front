@@ -208,7 +208,7 @@ export const getColoc = createAsyncThunk<GetDataFromColoc, number>(
   GET_COLOC,
   async (colocId, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/colocs/${colocId}`);
+      const response = await axiosInstance.get(`/coloc/${colocId}`);
 
       console.log(response.data);
 
@@ -323,31 +323,72 @@ export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
 
 // User reset password
 
+// Action for user to ask the reset
+
 const ASK_RESET_PASSWORD = 'ASK_RESET_PASSWORD';
 
 interface ResetPasswordData {
   email: string;
 }
 
-interface GetPasswordData {
-  resetToken: string;
-  resetTokenExpires: string;
+export const askResetPassword = createAsyncThunk(
+  ASK_RESET_PASSWORD,
+  async (resetPasswordData: ResetPasswordData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(
+        '/request-reset',
+        resetPasswordData
+      );
+
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
+
+// Check if the token and date are matching
+
+const CHECK_TOKEN_RESET = 'CHECK_TOKEN_RESET';
+
+export const checkTokenReset = createAsyncThunk(
+  CHECK_TOKEN_RESET,
+  async (token: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/validate-reset-token/${token}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
+
+const RENEW_PASSWORD = 'RENEW_PASSWORD';
+
+interface RenewFormData {
+  userId: number;
+  token: string;
+  newPassword: string;
 }
 
-export const askResetPassword = createAsyncThunk<
-  GetPasswordData,
-  ResetPasswordData
->(ASK_RESET_PASSWORD, async (resetPasswordData, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.post(
-      '/request-reset',
-      resetPasswordData
-    );
+export const renewPassword = createAsyncThunk(
+  RENEW_PASSWORD,
+  async (renewFormData: RenewFormData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(
+        '/reset-password',
+        renewFormData
+      );
 
-    console.log(response.data);
+      console.log(response.data);
 
-    return response.data;
-  } catch (error) {
-    return rejectWithValue('Une erreur est survenue');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
   }
-});
+);

@@ -1,25 +1,35 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { askResetPassword } from '../action/actions';
+import { askResetPassword, checkTokenReset } from '../action/actions';
 
 interface PasswordState {
   tokenPassword: string;
   tokenPasswordValidity: string;
   error: string | null;
-  isResetting: boolean;
+  isTokenValid: boolean;
+  isResetAsked: boolean;
 }
 
 const initialState: PasswordState = {
   tokenPassword: '',
   tokenPasswordValidity: '',
   error: null,
-  isResetting: true,
+  isTokenValid: false,
+  isResetAsked: false,
 };
 
 const passwordReducer = createReducer(initialState, (builder) => {
-  builder.addCase(askResetPassword.fulfilled, (state, action) => {
-    state.tokenPassword = action.payload.resetToken;
-    state.tokenPasswordValidity = action.payload.resetTokenExpires;
-    state.isResetting = true;
+  builder.addCase(askResetPassword.fulfilled, (state) => {
+    state.isResetAsked = true;
+  });
+  builder.addCase(checkTokenReset.fulfilled, (state) => {
+    state.isTokenValid = true;
+    state.error = null;
+    state.isResetAsked = false;
+  });
+  builder.addCase(checkTokenReset.rejected, (state) => {
+    state.isTokenValid = false;
+    state.error = 'Une erreur est survenue';
+    state.isResetAsked = false;
   });
 });
 

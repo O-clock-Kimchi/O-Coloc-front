@@ -5,6 +5,7 @@ import ColocationManagementWidget from './Dashboard_ColocManagementWidget';
 import TodoListWidget from './Dashboard_TodoListWidget';
 import MyProfileWidget from './Dashboard_MyProfileWidget';
 import { getColoc } from '../../store/action/actions';
+import Loader from '../Loader/Loader';
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ function Dashboard() {
     return <Navigate to="/acces-coloc" replace />;
   }
   if (isLoading) {
-    return <h1>Je charge là...</h1>;
+    return <Loader />;
   }
 
   return (

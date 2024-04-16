@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { askResetPassword } from '../../store/action/actions';
