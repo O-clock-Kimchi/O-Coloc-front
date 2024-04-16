@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { format } from 'date-fns';
 
 // import UI components
@@ -36,10 +36,14 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Calendar } from '../ui/calendar';
-import { ITask } from '../../@types/coloc';
+import { Toaster } from '../ui/toaster';
+import { useToast } from '../ui/use-toast';
 
+// import custom components
+import { ITask } from '../../@types/coloc';
 import getFormattedFallback from '../../utils/getFormattedFallback';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { deleteTask } from '../../store/action/actions';
 
 interface TaskElementProps {
   task: ITask;
@@ -47,12 +51,14 @@ interface TaskElementProps {
 
 function TaskElement({ task }: TaskElementProps) {
   const [date, setDate] = useState<Date>();
+  const dispatch = useAppDispatch();
+  const { toast } = useToast();
 
   const flatmatesList = useAppSelector(
     (state) => state.colocReducer.flatmatesList
   );
-
   const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
+
   // get assignee first name
   const assigneeFirstName =
     flatmatesList.find((flatmate) => flatmate.user_id === task.user_id)
@@ -80,11 +86,20 @@ function TaskElement({ task }: TaskElementProps) {
       c = Math.round(Math.min(Math.max(0, c + c * lum), 255)).toString(16);
       rgb += `00${c}`.substr(c.length);
     }
-
     return rgb;
   }
 
   const lightenedAssigneeColor = ColorLuminance(assigneeColor || '', 0.5);
+
+  const handleDeleteTask = async () => {
+    const taskId = task.tasks_id;
+    if (taskId) {
+      dispatch(deleteTask(taskId));
+      toast({
+        description: 'La tâche a bien été supprimée.',
+      });
+    }
+  };
 
   return (
     <Card
@@ -197,7 +212,7 @@ function TaskElement({ task }: TaskElementProps) {
                 </div>
               </div>
               <DialogFooter>
-                <div className="flex btns-container w-full space-x-3 bg-cardinal-200 justify-center">
+                <div className="flex btns-container w-full space-x-12 justify-center">
                   <Button className="bg-eden-800 hover:bg-eden-600">
                     <Check size={16} />
                   </Button>
@@ -223,7 +238,10 @@ function TaskElement({ task }: TaskElementProps) {
                   <p>Cette action est irréversible.</p>
                   <DialogFooter>
                     <div className="flex btns-container w-full space-x-3 bg-cardinal-200 justify-center">
-                      <Button className="bg-cardinal-600 hover:bg-cardinal-400">
+                      <Button
+                        className="bg-cardinal-600 hover:bg-cardinal-400"
+                        onClick={handleDeleteTask}
+                      >
                         Supprimer
                       </Button>
                     </div>
