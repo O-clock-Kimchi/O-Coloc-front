@@ -97,12 +97,9 @@ function Profil() {
     if (userId) {
       dispatch(
         updateUser({
-          userId,
-          updateDataUser: {
-            firstname,
-            email,
-            color,
-          },
+          firstname,
+          email,
+          color,
         })
       );
 
@@ -129,7 +126,7 @@ function Profil() {
     }
 
     if (userId) {
-      dispatch(destroyUser(userId));
+      dispatch(destroyUser());
     }
   };
 

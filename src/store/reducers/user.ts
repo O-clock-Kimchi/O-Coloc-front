@@ -96,6 +96,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.colocId = null;
       state.user.color = '';
       state.user.email = '';
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('userData');
     })
     .addCase(createColoc.fulfilled, (state, action) => {
       state.user.colocId = action.payload.coloc_id;

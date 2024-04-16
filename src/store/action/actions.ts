@@ -101,10 +101,14 @@ interface UpdateDataUser {
 
 export const updateUser = createAsyncThunk(
   UPDATE_USER,
-  async (updateDataUser: UpdateDataUser) => {
-    const response = await axiosInstance.put(`/profile`, updateDataUser);
-    console.log(response.data);
-    return response.data;
+  async (updateDataUser: UpdateDataUser, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/profile`, updateDataUser);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
   }
 );
 
@@ -125,10 +129,14 @@ const DESTROY_USER = 'DESTROY_USER';
 
 export const destroyUser = createAsyncThunk(
   DESTROY_USER,
-  async (userId: number) => {
-    const response = await axiosInstance.delete(`user/${userId}/delete`);
-    console.log(response.data);
-    return response.data;
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete(`/delete`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
   }
 );
 
