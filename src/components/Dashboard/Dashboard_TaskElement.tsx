@@ -2,21 +2,13 @@ import React, { useState, FormEvent } from 'react';
 import { format } from 'date-fns';
 
 // import UI components
-import {
-  Check,
-  SquarePenIcon,
-  X,
-  Trash2,
-  Calendar as CalendarIcon,
-} from 'lucide-react';
-import { cn } from '../../lib/utils';
+import { Check, SquarePenIcon, Trash2 } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import {
   Select,
   SelectContent,
@@ -35,7 +27,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
-import { Toaster } from '../ui/toaster';
 import { useToast } from '../ui/use-toast';
 
 // import custom components
