@@ -21,13 +21,13 @@ import { useToast } from '../ui/use-toast';
 // import custom components
 import FlatmatesListElement from './Dashboard_FlatmatesListElement';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { leaveColoc, getFlatmates } from '../../store/action/actions';
+import { leaveColoc } from '../../store/action/actions';
 import { IUser } from '../../@types/coloc';
 
 function ColocationManagementWidget() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const secretCode = parseInt('12345678', 10);
+  const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
   const [codeIsCopied, setCodeIsCopied] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
@@ -115,12 +115,12 @@ function ColocationManagementWidget() {
               <div className="copy-to-clipboard-container flex space-x- items-center">
                 <Input
                   type="text"
-                  value={String(secretCode)}
+                  value={secretCode}
                   id="code"
                   className="flex w-3/5 h-8 rounded-sm"
                   disabled
                 />
-                <CopyToClipboard text={String(secretCode)} onCopy={onCopyCode}>
+                <CopyToClipboard text={secretCode} onCopy={onCopyCode}>
                   <Button
                     className=""
                     variant="ghost"
