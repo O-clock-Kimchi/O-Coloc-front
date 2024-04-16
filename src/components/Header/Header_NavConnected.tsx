@@ -30,9 +30,7 @@ function NavConnected() {
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
 
   const handleLogout = () => {
-    if (userId) {
-      dispatch(logout(userId));
-    }
+    dispatch(logout());
   };
 
   if (!isLogged) {

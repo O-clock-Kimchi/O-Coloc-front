@@ -10,7 +10,9 @@ import {
   signup,
   updateUser,
 } from '../action/actions';
-import randomHexColor from '../../utils/randomHex';
+
+const storedToken = localStorage.getItem('token');
+const storedUserData = localStorage.getItem('userData');
 
 interface UserState {
   isLogged: boolean;
@@ -23,17 +25,18 @@ interface UserState {
   };
   isUpdated: boolean;
 }
+const defaultUser = {
+  userId: null,
+  firstname: '',
+  colocId: null,
+  color: '',
+  email: '',
+};
 
 export const initialState: UserState = {
-  isLogged: false,
-  user: {
-    userId: null,
-    firstname: '',
-    colocId: null,
-    color: '',
-    email: '',
-  },
+  isLogged: !!storedToken,
   isUpdated: false,
+  user: storedUserData ? JSON.parse(storedUserData) : defaultUser,
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -50,6 +53,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.colocId = current_coloc_id;
       state.user.color = color;
       state.user.email = email;
+
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('userData', JSON.stringify(action.payload.user));
     })
     .addCase(login.rejected, (state) => {
       state.isLogged = false;
@@ -66,6 +72,9 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.colocId = null;
       state.user.color = '';
       state.user.email = '';
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('userData');
     })
     .addCase(signup.fulfilled, (state) => {
       state.isLogged = false;

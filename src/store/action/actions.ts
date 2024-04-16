@@ -14,6 +14,7 @@ interface LoginFormData {
 
 interface LoginResponseData {
   message: string;
+  token: string;
   user: {
     user_id: number;
     firstname: string;
@@ -43,11 +44,15 @@ export const login = createAsyncThunk<
 // Logout action
 const LOGOUT = 'LOGOUT';
 
-export const logout = createAsyncThunk(
+interface LogoutData {
+  message: string;
+}
+
+export const logout = createAsyncThunk<LogoutData>(
   LOGOUT,
-  async (userId: number, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post(`/user/${userId}/logout`);
+      const response = await axiosInstance.post('/logout');
 
       console.log(response.data);
       return response.data;

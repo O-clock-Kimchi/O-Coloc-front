@@ -6,7 +6,7 @@ import TodoListWidget from './Dashboard_TodoListWidget';
 import MyProfileWidget from './Dashboard_MyProfileWidget';
 import { getColoc } from '../../store/action/actions';
 import Loader from '../Loader/Loader';
-import SkeletonDashboard from './Dashboard_skeleton-loading';
+import SkeletonDashboard from './Dashboard_Skeleton-Loading';
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ function Dashboard() {
     if (colocId) {
       const parsedColocId = parseInt(colocId, 10);
       dispatch(getColoc(parsedColocId));
-      dispatch(getFlatmates(parsedColocId));
+      // dispatch(getFlatmates(parsedColocId));
     }
   }, [colocId, dispatch]);
 
