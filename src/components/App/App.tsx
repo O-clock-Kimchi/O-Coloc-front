@@ -5,34 +5,40 @@ import Footer from '../Footer/Footer';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/action/actions';
 import ScreenSize from '../DevComponent/ScreenSize';
-import Loader from '../Loader/Loader';
 
 function App() {
   const dispatch = useAppDispatch();
+  const token = localStorage.getItem('token');
+  const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const userId = useAppSelector((state) => state.userReducer.user.userId);
   const navigate = useNavigate();
-  const isLogged = useAppSelector((state) => state.userReducer.isLogged);
-  // Logout User after one hour
+
+  // Decode function find here : "https://stackoverflow.com/questions/72584332/how-to-convert-token-jwt-to-object-in-reactjs"
+  // At expiration time, logout the user and redirect on the login page
+
   useEffect(() => {
-    let sessionTimeOut: string | number | NodeJS.Timeout | undefined;
+    if (isLogged && token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      const expirationTime = decodedToken.exp * 1000;
+      const currentTime = Date.now();
 
-    const SESSION_DURATION = 1000 * 60 * 60; // 1 heure in milliseconds
+      if (currentTime < expirationTime) {
+        // To trigger the logout just before the token expire
+        const timeout = expirationTime - currentTime - 1000;
+        const logoutTimer = setTimeout(() => {
+          dispatch(logout());
+          navigate('/connexion', { replace: true });
+        }, timeout);
 
-    if (isLogged && userId) {
-      // Start session timer
-      sessionTimeOut = setTimeout(() => {
-        dispatch(logout(userId));
-        navigate('/connexion', { replace: true });
-      }, SESSION_DURATION);
-
-      // Clear the timeout when the component unmounts or when isLogged changes
-      return () => {
-        clearTimeout(sessionTimeOut);
-      };
+        // To clear the time afterwards
+        return () => clearTimeout(logoutTimer);
+      }
     }
 
     return undefined;
-  }, [dispatch, isLogged, navigate, userId]);
+  }, [dispatch, isLogged, navigate, token]);
+
+  // Logout User after one hour
 
   return (
     <div className=" container mx-auto  min-h-screen flex flex-col">

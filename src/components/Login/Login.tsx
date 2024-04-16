@@ -11,6 +11,7 @@ import { useToast } from '../ui/use-toast';
 // Function de redux pour utiliser action et state
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/action/actions';
+import PopupExpiredToken from './PopupExpiredToken';
 
 // interface LoginFormData {
 //   email: string;
@@ -23,6 +24,9 @@ function Login() {
   const colocId = useAppSelector((state) => state.userReducer.user.colocId);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [redirect, setRedirect] = useState<boolean>(false);
+  const isTokenExpired = useAppSelector(
+    (state) => state.userReducer.isTokenExpired
+  );
 
   const [loginData, setLoginData] = useState({
     email: 'sian@ocoloc.com',
@@ -74,7 +78,7 @@ function Login() {
       });
       setTimeout(() => {
         setRedirect(true);
-      }, 900);
+      }, 1000);
     }
   }, [isLogged, toast]);
 
@@ -158,6 +162,7 @@ function Login() {
         />
       </div>
       <Toaster />
+      {isTokenExpired && <PopupExpiredToken />}
     </div>
   );
 }

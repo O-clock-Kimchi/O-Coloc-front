@@ -1,22 +1,10 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-// axiosInstance.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-//     if (error.response && error.response.status === 401) {
-//       console.log('Session cookie expired. Logging out user...');
-//     }
-
-//     return Promise.reject(error);
-//   }
-// );
+// Interceptor to dispatch token in all routes
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -31,6 +19,8 @@ axiosInstance.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
+
+// Interceptor to clean localstorage after token expires
 
 axiosInstance.interceptors.response.use(
   (response) => response,
