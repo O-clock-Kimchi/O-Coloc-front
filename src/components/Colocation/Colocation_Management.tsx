@@ -56,6 +56,7 @@ function ColocationManagement() {
 
   const toggleName = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
     setIsUpdatingNameColoc(!isUpdatingNameColoc);
   };
 
