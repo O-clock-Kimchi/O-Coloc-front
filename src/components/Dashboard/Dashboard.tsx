@@ -19,6 +19,7 @@ function Dashboard() {
     if (colocId) {
       const parsedColocId = parseInt(colocId, 10);
       dispatch(getColoc(parsedColocId));
+      dispatch(getFlatmates(parsedColocId));
     }
   }, [colocId, dispatch]);
 
