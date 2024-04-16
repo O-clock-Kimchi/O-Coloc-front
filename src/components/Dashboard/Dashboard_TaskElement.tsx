@@ -143,14 +143,33 @@ function TaskElement({ task }: TaskElementProps) {
     }
   };
 
-  const handleCheckboxChange = () => {
+  const handleCheckboxChange = async () => {
     const updatedTaskStatus = { ...formData, is_done: !formData.is_done };
     setFormData(updatedTaskStatus);
-    dispatch(updateTask({ tasks_id: task.tasks_id, ...updatedTaskStatus }));
-    toast({
-      description: 'Tâche mise à jour avec succès.',
-      className: 'bg-jet-50 text-eden-600',
-    });
+    try {
+      const response = await dispatch(
+        updateTask({ tasks_id: task.tasks_id, ...updatedTaskStatus })
+      );
+      if (response.payload?.status === 200) {
+        console.log('Request successful:', response);
+        toast({
+          description: 'Tâche mise à jour avec succès.',
+          className: 'bg-jet-50 text-eden-600',
+        });
+      } else if (response.payload?.status === 401) {
+        console.log('Request failed:', response);
+        toast({
+          description: 'Une erreur est survenue, veuillez réessayer.',
+          className: 'bg-jet-50 text-cardinal-600',
+        });
+      }
+    } catch (error: any) {
+      console.error('Error:', error);
+      toast({
+        description: 'Une erreur est survenue, veuillez réessayer.',
+        className: 'bg-jet-50 text-cardinal-600',
+      });
+    }
   };
 
   // define specific conditional classes to update syle and layout according to task status
