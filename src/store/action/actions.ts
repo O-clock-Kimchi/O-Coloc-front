@@ -424,3 +424,53 @@ export const deleteTask = createAsyncThunk(
     }
   }
 );
+
+// Update task
+const UPDATE_TASK = 'UPDATE_TASK';
+
+interface UpdateTaskResponseData {
+  message: string;
+  status: number;
+  updatedTask: ITask;
+}
+
+interface UpdateTaskFormData {
+  // request update
+  tasks_id: number;
+  description: string;
+  frequency: number;
+  user_id: number;
+  is_done: boolean;
+}
+
+export const updateTask = createAsyncThunk<
+  UpdateTaskResponseData,
+  UpdateTaskFormData,
+  {
+    rejectValue: { message: string; status: number };
+  }
+>(UPDATE_TASK, async (taskData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.put(
+      `/tasks/${taskData.tasks_id}`,
+      taskData
+    );
+    return {
+      status: response.status,
+      message: 'Task updated successfully',
+      updatedTask: response.data.updatedTask,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      return rejectWithValue({
+        message: error.response.data.message,
+        status: error.response.status,
+      });
+    }
+    console.log('Erreur lors de la mise à jour de la tâche');
+    return rejectWithValue({
+      message: 'Une erreur est survenue lors de la mise à jour de la tâche',
+      status: 500,
+    });
+  }
+});
