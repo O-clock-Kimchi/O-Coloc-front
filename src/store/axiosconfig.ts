@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
@@ -36,10 +37,15 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest.retry) {
+    if (
+      error.response &&
+      error.response.status === 403 &&
+      !originalRequest.retry
+    ) {
       originalRequest.retry = true;
 
       try {
+        console.log('The token has expired');
         localStorage.removeItem('token');
         localStorage.removeItem('userData');
       } catch (removeTokenError) {
