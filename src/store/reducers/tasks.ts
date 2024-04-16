@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { createTask, getAllTasks } from '../action/actions';
+import { createTask, getAllTasks, deleteTask } from '../action/actions';
 
 import { ITask } from '../../@types/coloc';
 
@@ -40,6 +40,22 @@ const tasksReducer = createReducer(initialState, (builder) => {
     .addCase(getAllTasks.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload?.message ?? null;
+    })
+    .addCase(deleteTask.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(deleteTask.fulfilled, (state, action) => {
+      state.loading = false;
+      state.tasksList = state.tasksList.filter(
+        (task) => task.tasks_id !== action.payload.taskId
+      );
+    })
+    .addCase(deleteTask.rejected, (state, action) => {
+      state.loading = false;
+      state.error =
+        action.payload?.message ??
+        'Une erreur est survenue lors de la suppression de la tâche.';
     });
 });
 
