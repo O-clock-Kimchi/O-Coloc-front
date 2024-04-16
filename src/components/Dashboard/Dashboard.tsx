@@ -6,6 +6,7 @@ import TodoListWidget from './Dashboard_TodoListWidget';
 import MyProfileWidget from './Dashboard_MyProfileWidget';
 import { getColoc } from '../../store/action/actions';
 import Loader from '../Loader/Loader';
+import SkeletonDashboard from './Dashboard_skeleton-loading';
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -25,7 +26,7 @@ function Dashboard() {
     return <Navigate to="/acces-coloc" replace />;
   }
   if (isLoading) {
-    return <Loader />;
+    return <SkeletonDashboard />;
   }
 
   return (

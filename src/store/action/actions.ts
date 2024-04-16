@@ -208,7 +208,7 @@ export const getColoc = createAsyncThunk<GetDataFromColoc, number>(
   GET_COLOC,
   async (colocId, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/coloc/${colocId}`);
+      const response = await axiosInstance.get(`/colocs/${colocId}`);
 
       console.log(response.data);
 
