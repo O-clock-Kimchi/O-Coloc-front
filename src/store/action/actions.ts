@@ -392,18 +392,35 @@ export const getAllTasks = createAsyncThunk<
     const response = await axiosInstance.get<ITask[]>(
       `/colocs/${colocId}/tasks`
     );
-    console.log('list of tasks is ok');
-    console.log('Details of response:', response);
+    console.log('Loading successful:', response);
     return {
       message: response.statusText,
       status: response.status,
       tasks: response.data,
     };
   } catch (error: any) {
-    console.log('list of tasks de mes couilles en slip is not ok', error);
+    console.log('An error occurred while loading tasks:', error);
     return rejectWithValue({
       message: error.response.message,
       status: error.response.status,
     });
   }
 });
+
+// Delete task
+
+const DELETE_TASK = 'DELETE_TASK';
+
+export const deleteTask = createAsyncThunk(
+  DELETE_TASK,
+  async (taskId: number, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete(`/tasks/${taskId}`);
+      console.log('Deleted task:', taskId);
+      console.log('Response status:', response.status);
+      return { taskId, status: response.status };
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
