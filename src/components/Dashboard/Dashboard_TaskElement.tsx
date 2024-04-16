@@ -242,6 +242,7 @@ function TaskElement({ task }: TaskElementProps) {
               className="w-4 h-4 bg-jet-50"
               id="is_done"
               onCheckedChange={handleCheckboxChange}
+              checked={isTaskComplete}
             />
           </div>
           <div className="task-instructions flex flex-col w-[70%]">
