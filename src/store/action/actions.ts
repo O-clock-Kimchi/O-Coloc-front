@@ -99,18 +99,10 @@ interface UpdateDataUser {
   color: string;
 }
 
-interface UpdateUserWithId {
-  userId: number;
-  updateDataUser: UpdateDataUser;
-}
-
 export const updateUser = createAsyncThunk(
   UPDATE_USER,
-  async ({ userId, updateDataUser }: UpdateUserWithId) => {
-    const response = await axiosInstance.put(
-      `/user/${userId}/profile`,
-      updateDataUser
-    );
+  async (updateDataUser: UpdateDataUser) => {
+    const response = await axiosInstance.put(`/profile`, updateDataUser);
     console.log(response.data);
     return response.data;
   }
