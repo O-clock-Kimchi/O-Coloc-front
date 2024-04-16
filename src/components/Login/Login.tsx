@@ -11,12 +11,6 @@ import { useToast } from '../ui/use-toast';
 // Function de redux pour utiliser action et state
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/action/actions';
-import PopupExpiredToken from './PopupExpiredToken';
-
-// interface LoginFormData {
-//   email: string;
-//   password: string;
-// }
 
 function Login() {
   // Pour envoyer mail et password au back
@@ -24,9 +18,7 @@ function Login() {
   const colocId = useAppSelector((state) => state.userReducer.user.colocId);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [redirect, setRedirect] = useState<boolean>(false);
-  const isTokenExpired = useAppSelector(
-    (state) => state.userReducer.isTokenExpired
-  );
+  const token = localStorage.getItem('token');
 
   const [loginData, setLoginData] = useState({
     email: 'sian@ocoloc.com',
@@ -71,7 +63,7 @@ function Login() {
   // UseEffect to handle the toast if login success
 
   useEffect(() => {
-    if (isLogged) {
+    if (isLogged && token) {
       toast({
         description: 'Connexion réussie !',
         className: 'bg-jet-100',
@@ -80,7 +72,7 @@ function Login() {
         setRedirect(true);
       }, 1000);
     }
-  }, [isLogged, toast]);
+  }, [isLogged, toast, token]);
 
   // Handle redirection if user has a coloc or not
 
@@ -162,7 +154,6 @@ function Login() {
         />
       </div>
       <Toaster />
-      {isTokenExpired && <PopupExpiredToken />}
     </div>
   );
 }

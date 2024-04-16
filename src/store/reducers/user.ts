@@ -24,7 +24,6 @@ interface UserState {
     email: string;
   };
   isUpdated: boolean;
-  isTokenExpired: boolean | undefined;
 }
 const defaultUser = {
   userId: null,
@@ -38,7 +37,6 @@ export const initialState: UserState = {
   isLogged: !!storedToken,
   isUpdated: false,
   user: storedUserData ? JSON.parse(storedUserData) : defaultUser,
-  isTokenExpired: undefined,
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -55,7 +53,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.colocId = current_coloc_id;
       state.user.color = color;
       state.user.email = email;
-      state.isTokenExpired = false;
 
       localStorage.setItem('token', action.payload.token);
       localStorage.setItem('userData', JSON.stringify(action.payload.user));
@@ -75,7 +72,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.colocId = null;
       state.user.color = '';
       state.user.email = '';
-      state.isTokenExpired = true;
 
       localStorage.removeItem('token');
       localStorage.removeItem('userData');
