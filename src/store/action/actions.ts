@@ -248,9 +248,13 @@ interface UpdateColocName {
   name: string;
 }
 
-export const updateNameColoc = createAsyncThunk(
+interface HandleMessage {
+  message: string;
+}
+
+export const updateNameColoc = createAsyncThunk<HandleMessage, UpdateColocName>(
   UPDATE_NAME_COLOC,
-  async ({ colocId, name }: UpdateColocName, { rejectWithValue }) => {
+  async ({ colocId, name }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.patch(`/colocs/${colocId}`, {
         name,
@@ -259,8 +263,9 @@ export const updateNameColoc = createAsyncThunk(
       console.log(response.data);
 
       return response.data;
-    } catch (error) {
-      return rejectWithValue('Une erreur est survenue');
+    } catch (error: any) {
+      console.log(error);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );

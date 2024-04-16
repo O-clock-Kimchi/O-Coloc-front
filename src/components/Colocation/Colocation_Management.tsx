@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -43,6 +43,12 @@ function ColocationManagement() {
   const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
   const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
   const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
+  const successMessage = useAppSelector(
+    (state) => state.colocReducer.successMessage
+  );
+  const errorMessage = useAppSelector(
+    (state) => state.colocReducer.errorMessage
+  );
   const [isUpdatingNameColoc, setIsUpdatingNameColoc] =
     useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,15 +70,20 @@ function ColocationManagement() {
       dispatch(updateNameColoc({ colocId, name: nameColoc }));
 
       setIsUpdatingNameColoc(false);
-      toast({
-        description: 'Mise à jour réussie',
-        className: 'bg-jet-50 text-eden-800',
-        duration: 1000,
-      });
     } else {
       throw new Error('Une erreur est survenue');
     }
   };
+
+  useEffect(() => {
+    if (successMessage) {
+      toast({
+        description: successMessage,
+        className: 'bg-jet-50 text-eden-800',
+        duration: 1000,
+      });
+    }
+  }, [successMessage]);
 
   const handleNewCode = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -111,13 +122,18 @@ function ColocationManagement() {
           <div>
             <h1>Gestion de la coloc : {nameColoc}</h1>
             <form
-              className="horizontal gap-3"
+              className="horizontal gap-3 relative"
               onSubmit={handleSubmitName}
               autoComplete="off"
             >
               <Label htmlFor="name" />
               {!isUpdatingNameColoc ? (
                 <>
+                  {errorMessage && (
+                    <p className="text-cardinal-600 text-xs absolute top-11 left-3">
+                      {errorMessage}
+                    </p>
+                  )}
                   <Input
                     id="name"
                     type="text"

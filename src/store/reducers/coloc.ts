@@ -21,6 +21,7 @@ interface ColocState {
   isUpdated: boolean;
   flatmatesList: IUser[];
   error: string | null;
+  successMessage: string;
 }
 
 export const initialState: ColocState = {
@@ -34,6 +35,7 @@ export const initialState: ColocState = {
   isUpdated: false,
   flatmatesList: [],
   error: null,
+  successMessage: '',
 };
 
 const colocReducer = createReducer(initialState, (builder) => {
@@ -98,14 +100,19 @@ const colocReducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateNameColoc.pending, (state) => {
       state.isLoading = true;
+      state.errorMessage = '';
+      state.successMessage = '';
     })
     .addCase(updateNameColoc.fulfilled, (state) => {
       state.isUpdated = true;
       state.isLoading = false;
+      state.errorMessage = '';
+      state.successMessage = 'Mise à jour réussie';
     })
     .addCase(updateNameColoc.rejected, (state, action) => {
       state.isLoading = false;
-      state.errorMessage = action.error.message;
+      state.errorMessage = action.payload as string;
+      state.successMessage = '';
     })
     .addCase(changeName, (state, action) => {
       state.nameColoc = action.payload.name;
