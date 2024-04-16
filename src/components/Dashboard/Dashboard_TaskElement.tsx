@@ -44,7 +44,7 @@ function TaskElement({ task }: TaskElementProps) {
     description: task.description,
     frequency: task.frequency,
     user_id: task.user_id,
-    is_done: false,
+    is_done: task.is_done,
   });
   const dispatch = useAppDispatch();
   const { toast } = useToast();
@@ -204,7 +204,7 @@ function TaskElement({ task }: TaskElementProps) {
           description: 'Tâche mise à jour avec succès.',
           className: 'bg-jet-50 text-eden-600',
         });
-      } else if (response.payload?.status === 400) {
+      } else if (response.payload?.status === 401) {
         console.log('Request failed:', response);
         toast({
           description: 'Une erreur est survenue, veuillez réessayer.',
