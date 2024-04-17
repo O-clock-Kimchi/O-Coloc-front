@@ -12,11 +12,15 @@ import { useToast } from '../ui/use-toast';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login } from '../../store/action/actions';
 
+// import custom components
+import emailFormatIsValid from '../../utils/checkEmailFormat';
+
 function Login() {
   // Pour envoyer mail et password au back
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const colocId = useAppSelector((state) => state.userReducer.user.colocId);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<null | string>('');
+  const [formSubmitError, setFormSubmitError] = useState<null | string>(null);
   const [redirect, setRedirect] = useState<boolean>(false);
   const token = localStorage.getItem('token');
 
@@ -29,41 +33,63 @@ function Login() {
   const { toast } = useToast();
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
-    setErrorMessage(null);
+    setEmailError(null);
+    setFormSubmitError(null);
     const { name, value } = e.currentTarget;
     setLoginData({ ...loginData, [name]: value });
+    if (name === 'email') {
+      // check email validity...
+      const isEmailFormatValid = emailFormatIsValid(value);
+      if (!isEmailFormatValid) {
+        // .. if password is invalid, update error
+        setEmailError('Veuillez saisir une adresse email valide.');
+      } else {
+        setEmailError(null);
+      }
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrorMessage(null);
+    setEmailError(null);
+    setFormSubmitError(null);
+    const formIsValid = emailError === null;
+
+    // prevent form submission if not valid
+    if (!formIsValid) {
+      setFormSubmitError('Veuillez vérifier votre saisie.');
+      return;
+    }
+
     try {
       const response = await dispatch(login(loginData));
-      console.log('Login successful:', response.payload);
-      setLoginData({
-        email: '',
-        password: '',
-      });
-      return;
-    } catch (error: any) {
-      if (error.response) {
-        setErrorMessage('Veuillez vérifier vos identifiants.');
+      console.log('Response status:', response.payload?.status);
+      if (response.payload?.status === 201) {
+        console.log('Request successful:', response);
         setLoginData({
           email: '',
           password: '',
         });
-      } else if (error.request) {
-        console.error('No response received:', error.request);
       } else {
-        console.error('Error setting up the request:', error.message);
+        console.log('Request failed:', response);
+        setFormSubmitError('Veuillez vérifier votre saisie');
+        setLoginData({
+          email: '',
+          password: '',
+        });
+        setEmailError(null);
       }
+      return;
+    } catch (error: any) {
+      console.error('Error:', error.message);
+      setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
     }
   };
 
   // UseEffect to handle the toast if login success
 
   useEffect(() => {
-    if (isLogged && token) {
+    if (isLogged && colocId !== null && token) {
       toast({
         description: 'Connexion réussie !',
         className: 'bg-jet-100',
@@ -72,7 +98,7 @@ function Login() {
         setRedirect(true);
       }, 1000);
     }
-  }, [isLogged, toast, token]);
+  }, [isLogged, colocId, toast, token]);
 
   // Handle redirection if user has a coloc or not
 
@@ -95,8 +121,8 @@ function Login() {
             <p className="text-balance text-muted-foreground">
               Entrez votre e-mail pour vous connecter dès maintenant.
             </p>
-            {errorMessage && (
-              <p className="text-cardinal-600 text-xs">{errorMessage}</p>
+            {formSubmitError && (
+              <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
             )}
           </div>
           <form className="grid gap-4" onSubmit={handleSubmit}>
