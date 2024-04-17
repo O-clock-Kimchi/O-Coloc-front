@@ -34,6 +34,7 @@ import { ITask } from '../../@types/coloc';
 import getFormattedFallback from '../../utils/getFormattedFallback';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { deleteTask, updateTask } from '../../store/action/actions';
+import getLighterColor from '../../utils/getLighterShade';
 
 interface TaskElementProps {
   task: ITask;
@@ -52,7 +53,6 @@ function TaskElement({ task }: TaskElementProps) {
   const flatmatesList = useAppSelector(
     (state) => state.colocReducer.flatmatesList
   );
-  const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
   const [errors, setErrors] = useState({
     descriptionError: '',
     frequencyError: '',
@@ -66,31 +66,14 @@ function TaskElement({ task }: TaskElementProps) {
       ?.firstname || 'Utilisateur inconnu';
 
   // get assignee color
-  const assigneeColor = flatmatesList.find(
+  const assignee = flatmatesList.find(
     (flatmate) => flatmate.user_id === task.user_id
-  )?.color;
+  );
+  const assigneeColor = assignee ? assignee.color : 'defaultColor'; // Remplacez 'defaultColor' par la couleur par défaut souhaitée
 
-  // get lightened color (code snippet: https://www.sitepoint.com/javascript-generate-lighter-darker-color/)
-  function ColorLuminance(hex: string, lum: number) {
-    // validate hex string
-    hex = String(hex).replace(/[^0-9a-f]/gi, '');
-    if (hex.length < 6) {
-      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-    }
-    lum = lum || 0;
-    // convert to decimal and change luminosity
-    var rgb = '#',
-      c,
-      i;
-    for (i = 0; i < 3; i++) {
-      c = parseInt(hex.substr(i * 2, 2), 16);
-      c = Math.round(Math.min(Math.max(0, c + c * lum), 255)).toString(16);
-      rgb += `00${c}`.substr(c.length);
-    }
-    return rgb;
-  }
+  const lightenedAssigneeColor = getLighterColor(assigneeColor, 30);
 
-  const lightenedAssigneeColor = ColorLuminance(assigneeColor || '', 0.5);
+  // const lightenedAssigneeColor = ColorLuminance(assigneeColor || '', 0.5);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
