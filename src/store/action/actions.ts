@@ -391,11 +391,22 @@ export const getAllTasks = createAsyncThunk<
     const response = await axiosInstance.get<ITask[]>(
       `/colocs/${colocId}/tasks`
     );
+    // sorting tasksList by date (code snippet from: https://www.geeksforgeeks.org/sort-an-object-array-by-date-in-javascript/)
+    const sortedTasksList = response.data.sort((a, b) => {
+      // // convert due dates from string to date object
+      const dateA = new Date(a.due_date);
+      const dateB = new Date(b.due_date);
+      // check dates validity
+      if (Number.isNaN(dateA.getTime()) || Number.isNaN(dateB.getTime())) {
+        return 0;
+      }
+      return dateA.getTime() - dateB.getTime();
+    });
     console.log('Loading successful:', response);
     return {
       message: response.statusText,
       status: response.status,
-      tasks: response.data,
+      tasks: sortedTasksList,
     };
   } catch (error: any) {
     console.log('An error occurred while loading tasks:', error);
