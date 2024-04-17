@@ -354,7 +354,7 @@ export const createTask = createAsyncThunk<
     const response = await axiosInstance.post('/tasks', taskData);
     return {
       status: response.status,
-      message: 'Task created successfully',
+      message: response.data.message,
       task: response.data.task,
     };
   } catch (error: any) {
@@ -364,7 +364,6 @@ export const createTask = createAsyncThunk<
         status: error.response.status,
       });
     }
-    console.log('tâche pas ok');
     return rejectWithValue({
       message: 'Une erreur est survenue',
       status: 500,
