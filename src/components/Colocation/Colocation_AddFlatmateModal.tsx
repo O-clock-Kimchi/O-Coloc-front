@@ -33,7 +33,7 @@ function AddFlatmateModal({ onClose }: AddFlatmateModalProps) {
   };
 
   return (
-    <div className="modal-container flex w-4/5 h-1/4 mx-auto">
+    <div className="modal-container flex w-4/5 mx-auto">
       <Card className="bg-jet-50 w-4/5">
         <CardHeader className="flex">
           <Button className="flex self-end" variant="ghost">
