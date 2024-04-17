@@ -15,6 +15,7 @@ function Dashboard() {
   const dispatch = useAppDispatch();
   const { colocId } = useParams();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
+  const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
   const nameColoc = useAppSelector(
     (state) => state.colocReducer.coloc.nameColoc
   );
@@ -32,7 +33,7 @@ function Dashboard() {
   if (isLogged && !colocId) {
     return <Navigate to="/acces-coloc" replace />;
   }
-  if (isLoading) {
+  if (isLoading || tasksList === undefined) {
     return <SkeletonDashboard />;
   }
 
