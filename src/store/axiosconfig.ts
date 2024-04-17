@@ -4,7 +4,7 @@ const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-// Interceptor to dispatch token in all routes
+// Interceptor to git checkout bugfix_dispatch token in all routes
 
 axiosInstance.interceptors.request.use(
   (config) => {
