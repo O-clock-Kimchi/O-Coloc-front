@@ -45,12 +45,12 @@ const userReducer = createReducer(initialState, (builder) => {
       (state.user as any)[action.payload.name] = action.payload.value;
     })
     .addCase(login.fulfilled, (state, action) => {
-      const { user_id, firstname, current_coloc_id, color, email } =
+      const { userId, firstname, currentColocId, color, email } =
         action.payload.user;
       state.isLogged = true;
-      state.user.userId = user_id;
+      state.user.userId = userId;
       state.user.firstname = firstname;
-      state.user.colocId = current_coloc_id;
+      state.user.colocId = currentColocId;
       state.user.color = color;
       state.user.email = email;
 

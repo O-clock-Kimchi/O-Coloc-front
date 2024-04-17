@@ -16,9 +16,9 @@ interface LoginResponseData {
   message: string;
   token: string;
   user: {
-    user_id: number;
+    userId: number;
     firstname: string;
-    current_coloc_id: number;
+    currentColocId: number;
     color: string;
     email: string;
   };
@@ -122,8 +122,6 @@ const CHANGE_FIELD = 'CHANGE_FIELD';
 export const changeField = createAction<FormField>(CHANGE_FIELD);
 
 // Destroy account
-
-// /user/5/delete
 
 const DESTROY_USER = 'DESTROY_USER';
 
