@@ -10,7 +10,7 @@ import {
   updateNameColoc,
   getFlatmates,
 } from '../action/actions';
-import { IUser } from '../../@types/coloc';
+import { IFlatmate, IUser } from '../../@types/coloc';
 
 interface ColocState {
   colocId: null | number;
@@ -21,7 +21,7 @@ interface ColocState {
   isLoading: boolean;
   isLeaving: boolean;
   isUpdated: boolean;
-  flatmatesList: IUser[];
+  flatmatesList: IFlatmate[];
   error: string | null;
   successMessage: string;
 }
