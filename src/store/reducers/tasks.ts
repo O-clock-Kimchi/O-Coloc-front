@@ -42,6 +42,7 @@ const tasksReducer = createReducer(initialState, (builder) => {
     .addCase(getAllTasks.fulfilled, (state, action) => {
       state.loading = false;
       state.tasksList = action.payload.tasks;
+      state.error = null;
     })
     .addCase(getAllTasks.rejected, (state, action) => {
       state.loading = false;
