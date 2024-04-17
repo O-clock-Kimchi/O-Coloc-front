@@ -29,10 +29,11 @@ const tasksReducer = createReducer(initialState, (builder) => {
     .addCase(createTask.fulfilled, (state, action) => {
       state.loading = false;
       state.tasksList = [...state.tasksList, action.payload.task];
+      state.error = null;
     })
     .addCase(createTask.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload?.message ?? null;
+      state.error = action.error.message ?? null;
     })
     .addCase(getAllTasks.pending, (state) => {
       state.loading = true;
