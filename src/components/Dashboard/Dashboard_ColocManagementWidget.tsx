@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
 // import UI components
@@ -25,7 +25,9 @@ import { leaveColoc } from '../../store/action/actions';
 
 function ColocationManagementWidget() {
   const dispatch = useAppDispatch();
-  const secretCode = parseInt('12345678', 10);
+  const secretCode = useAppSelector(
+    (state) => state.colocReducer.coloc.colocCode
+  );
   const [codeIsCopied, setCodeIsCopied] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);

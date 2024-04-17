@@ -9,7 +9,6 @@ import {
   getFlatmates,
   getAllTasks,
 } from '../../store/action/actions';
-import Loader from '../Loader/Loader';
 import SkeletonDashboard from './Dashboard_Skeleton-Loading';
 
 function Dashboard() {
