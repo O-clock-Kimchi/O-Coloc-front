@@ -140,7 +140,7 @@ function TodoListWidget() {
           description: 'La tâche a bien été créée',
           className: 'bg-jet-50 text-eden-600',
         });
-      } else {
+      } else if (response.payload?.status === 401) {
         console.log('Request failed:', response);
         setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
         setData({
@@ -153,6 +153,10 @@ function TodoListWidget() {
           descriptionError: '',
           frequencyError: '',
           assigneeError: '',
+        });
+        toast({
+          description: 'Votre session a expiré. Veuillez vous reconnecter.',
+          className: 'bg-jet-50 text-cardinal-600',
         });
       }
     } catch (error: any) {
