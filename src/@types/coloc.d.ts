@@ -24,3 +24,11 @@ export interface ITask {
   due_date: string;
   user_id: number;
 }
+
+// data for flatmates (flatmates in coloc other than current logged in user)
+
+export interface IFlatmate {
+  user_id: number;
+  firstname: string;
+  color: string;
+}
