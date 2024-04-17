@@ -115,11 +115,10 @@ function ColocationManagement() {
     }
 
     if (colocId) {
-      dispatch(leaveColoc(colocId)).then(() => {
-        if (isLeaving) {
-          navigate('/acces-coloc');
-        }
-      });
+      dispatch(leaveColoc(colocId));
+      if (isLeaving) {
+        navigate('/acces-coloc');
+      }
     }
   };
 
@@ -217,7 +216,9 @@ function ColocationManagement() {
                   className="flex flex-col space-y-6"
                   onSubmit={handleUserToLeave}
                 >
+                  <Label htmlFor="confirm" />
                   <Input
+                    id="confirm"
                     type="text"
                     placeholder=""
                     className="w-full flex self-center"
@@ -229,6 +230,7 @@ function ColocationManagement() {
                     <Button
                       className="flex space-x-3 w-40 bg-cardinal-600 hover:bg-cardinal-400 self-center"
                       variant="default"
+                      type="submit"
                     >
                       <p>Confirmer</p>
                     </Button>

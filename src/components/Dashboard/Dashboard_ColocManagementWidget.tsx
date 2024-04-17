@@ -22,7 +22,6 @@ import { useToast } from '../ui/use-toast';
 import FlatmatesListElement from './Dashboard_FlatmatesListElement';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { leaveColoc } from '../../store/action/actions';
-import { IUser } from '../../@types/coloc';
 
 function ColocationManagementWidget() {
   const dispatch = useAppDispatch();

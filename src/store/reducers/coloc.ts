@@ -6,6 +6,7 @@ import {
   getColoc,
   joinColoc,
   leaveColoc,
+  logout,
   updateNameColoc,
 } from '../action/actions';
 import { IUser } from '../../@types/coloc';
@@ -129,6 +130,9 @@ const colocReducer = createReducer(initialState, (builder) => {
     .addCase(generateNewCode.rejected, (state, action) => {
       state.isLoading = false;
       state.errorMessage = action.error.message;
+    })
+    .addCase(logout.fulfilled, (state) => {
+      Object.assign(state, initialState);
     });
   // .addCase(getFlatmates.pending, (state) => {
   //   state.isLoading = true;
