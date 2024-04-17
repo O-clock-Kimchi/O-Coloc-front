@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import {
   CirclePlus,
@@ -37,11 +37,14 @@ import { Toaster } from '../ui/toaster';
 
 function ColocationManagement() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const isUpdated = useAppSelector((state) => state.colocReducer.isUpdated);
-  const colocId = useAppSelector((state) => state.colocReducer.colocId);
-  const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
-  const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
+  const colocId = useAppSelector((state) => state.colocReducer.coloc.colocId);
+  const nameColoc = useAppSelector(
+    (state) => state.colocReducer.coloc.nameColoc
+  );
+  const secretCode = useAppSelector(
+    (state) => state.colocReducer.coloc.colocCode
+  );
   const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
   const successMessage = useAppSelector(
     (state) => state.colocReducer.successMessage
@@ -116,12 +119,12 @@ function ColocationManagement() {
 
     if (colocId) {
       dispatch(leaveColoc(colocId));
-      if (isLeaving) {
-        navigate('/acces-coloc');
-      }
     }
   };
 
+  if (isLeaving) {
+    return <Navigate to="/acces-coloc" replace />;
+  }
   return (
     <main className="px-6 flex grow pb-5">
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-8 w-full">

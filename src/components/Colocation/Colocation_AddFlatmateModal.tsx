@@ -24,7 +24,9 @@ interface AddFlatmateModalProps {
 
 function AddFlatmateModal({ onClose }: AddFlatmateModalProps) {
   const [codeIsCopied, setCodeIsCopied] = useState(false);
-  const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
+  const secretCode = useAppSelector(
+    (state) => state.colocReducer.coloc.colocCode
+  );
   const { toast } = useToast();
 
   const onCopyCode = () => {

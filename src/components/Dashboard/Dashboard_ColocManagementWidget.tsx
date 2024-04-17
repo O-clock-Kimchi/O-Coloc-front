@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 
 // import UI components
 import { DoorOpen, X, Copy, KeyRound } from 'lucide-react';
@@ -25,8 +25,7 @@ import { leaveColoc } from '../../store/action/actions';
 
 function ColocationManagementWidget() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
+  const secretCode = parseInt('12345678', 10);
   const [codeIsCopied, setCodeIsCopied] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
@@ -68,12 +67,12 @@ function ColocationManagementWidget() {
     if (colocId) {
       const parsedColocId = parseInt(colocId, 10);
       dispatch(leaveColoc(parsedColocId));
-      if (isLeaving) {
-        navigate('/acces-coloc');
-      }
     }
   };
 
+  if (isLeaving) {
+    return <Navigate to="/acces-coloc" replace />;
+  }
   return (
     <Card className="coloc-management flex flex-col w-full mx-auto h-full max-h-full bg-jet-200/70 hover:drop-shadow-lg">
       <CardHeader>

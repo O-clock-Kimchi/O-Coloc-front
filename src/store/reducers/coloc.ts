@@ -12,10 +12,14 @@ import {
 } from '../action/actions';
 import { IUser } from '../../@types/coloc';
 
+const storedColocData = localStorage.getItem('colocData');
+
 interface ColocState {
-  colocId: null | number;
-  nameColoc: string;
-  colocCode: string;
+  coloc: {
+    colocId: null | number;
+    nameColoc: string;
+    colocCode: string;
+  };
   isCreated: boolean;
   errorMessage: string | undefined;
   isLoading: boolean;
@@ -26,10 +30,14 @@ interface ColocState {
   successMessage: string;
 }
 
-export const initialState: ColocState = {
+const defaultColoc = {
   colocId: null,
   nameColoc: '',
   colocCode: '',
+};
+
+export const initialState: ColocState = {
+  coloc: storedColocData ? JSON.parse(storedColocData) : defaultColoc,
   isCreated: false,
   errorMessage: '',
   isLoading: false,
@@ -47,9 +55,15 @@ const colocReducer = createReducer(initialState, (builder) => {
     })
     .addCase(createColoc.fulfilled, (state, action) => {
       state.isCreated = true;
-      state.nameColoc = action.payload.name;
-      state.colocId = action.payload.coloc_id;
+      state.coloc.nameColoc = action.payload.name;
+      state.coloc.colocId = action.payload.coloc_id;
       state.isLoading = false;
+
+      const colocDataState = {
+        ...state.coloc,
+      };
+
+      localStorage.setItem('colocData', JSON.stringify(colocDataState));
     })
     .addCase(createColoc.rejected, (state, action) => {
       state.isCreated = false;
@@ -60,9 +74,16 @@ const colocReducer = createReducer(initialState, (builder) => {
     })
     .addCase(joinColoc.fulfilled, (state, action) => {
       state.isCreated = true;
-      state.nameColoc = action.payload.name;
-      state.colocId = action.payload.coloc_id;
+      state.coloc.nameColoc = action.payload.name;
+      state.coloc.colocId = action.payload.coloc_id;
       state.isLoading = false;
+      state.isLeaving = false;
+
+      const colocDataState = {
+        ...state.coloc,
+      };
+
+      localStorage.setItem('colocData', JSON.stringify(colocDataState));
     })
     .addCase(joinColoc.rejected, (state, action) => {
       state.isCreated = false;
@@ -70,17 +91,23 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
     })
     .addCase(getColoc.pending, (state) => {
-      state.colocId = null;
-      state.nameColoc = '';
-      state.colocCode = '';
+      state.coloc.colocId = null;
+      state.coloc.nameColoc = '';
+      state.coloc.colocCode = '';
       state.errorMessage = '';
       state.isLoading = true;
     })
     .addCase(getColoc.fulfilled, (state, action) => {
-      state.colocId = action.payload.coloc_id;
-      state.nameColoc = action.payload.name;
-      state.colocCode = action.payload.groupe_code_valid;
+      state.coloc.colocId = action.payload.coloc_id;
+      state.coloc.nameColoc = action.payload.name;
+      state.coloc.colocCode = action.payload.groupe_code_valid;
       state.isLoading = false;
+
+      const colocDataState = {
+        ...state.coloc,
+      };
+
+      localStorage.setItem('colocData', JSON.stringify(colocDataState));
     })
     .addCase(getColoc.rejected, (state, action) => {
       state.isLoading = false;
@@ -90,11 +117,13 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.isLoading = true;
     })
     .addCase(leaveColoc.fulfilled, (state) => {
-      state.colocId = null;
-      state.nameColoc = '';
-      state.colocCode = '';
+      state.coloc.colocId = null;
+      state.coloc.nameColoc = '';
+      state.coloc.colocCode = '';
       state.isLeaving = true;
       state.isLoading = false;
+
+      localStorage.removeItem('colocData');
     })
     .addCase(leaveColoc.rejected, (state, action) => {
       state.isLoading = false;
@@ -110,6 +139,12 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
       state.errorMessage = '';
       state.successMessage = 'Mise à jour réussie';
+
+      const colocDataState = {
+        ...state.coloc,
+      };
+
+      localStorage.setItem('colocData', JSON.stringify(colocDataState));
     })
     .addCase(updateNameColoc.rejected, (state, action) => {
       state.isLoading = false;
@@ -117,16 +152,22 @@ const colocReducer = createReducer(initialState, (builder) => {
       state.successMessage = '';
     })
     .addCase(changeName, (state, action) => {
-      state.nameColoc = action.payload.name;
+      state.coloc.nameColoc = action.payload.name;
     })
     .addCase(generateNewCode.pending, (state) => {
       state.isLoading = true;
     })
     .addCase(generateNewCode.fulfilled, (state, action) => {
-      state.colocCode = action.payload.newCode;
+      state.coloc.colocCode = action.payload.newCode;
       state.isUpdated = true;
       state.isLeaving = true;
       state.isLoading = false;
+
+      const colocDataState = {
+        ...state.coloc,
+      };
+
+      localStorage.setItem('colocData', JSON.stringify(colocDataState));
     })
     .addCase(generateNewCode.rejected, (state, action) => {
       state.isLoading = false;
@@ -134,6 +175,7 @@ const colocReducer = createReducer(initialState, (builder) => {
     })
     .addCase(logout.fulfilled, (state) => {
       Object.assign(state, initialState);
+      localStorage.removeItem('colocData');
     })
     .addCase(getFlatmates.pending, (state) => {
       state.isLoading = true;

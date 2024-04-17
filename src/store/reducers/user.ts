@@ -47,6 +47,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(login.fulfilled, (state, action) => {
       const { userId, firstname, currentColocId, color, email } =
         action.payload.user;
+
       state.isLogged = true;
       state.user.userId = userId;
       state.user.firstname = firstname;
@@ -54,8 +55,12 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.color = color;
       state.user.email = email;
 
+      const userDataState = {
+        ...state.user,
+      };
+
       localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('userData', JSON.stringify(action.payload.user));
+      localStorage.setItem('userData', JSON.stringify(userDataState));
     })
     .addCase(login.rejected, (state) => {
       state.isLogged = false;
@@ -88,6 +93,12 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateUser.fulfilled, (state) => {
       state.isUpdated = true;
+
+      const userDataState = {
+        ...state.user,
+      };
+
+      localStorage.setItem('userData', JSON.stringify(userDataState));
     })
     .addCase(destroyUser.fulfilled, (state) => {
       state.isLogged = false;
@@ -102,13 +113,31 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(createColoc.fulfilled, (state, action) => {
       state.user.colocId = action.payload.coloc_id;
+
+      const userDataState = {
+        ...state.user,
+      };
+
+      localStorage.setItem('userData', JSON.stringify(userDataState));
     })
     .addCase(joinColoc.fulfilled, (state, action) => {
       state.user.colocId = action.payload.coloc_id;
+
+      const userDataState = {
+        ...state.user,
+      };
+
+      localStorage.setItem('userData', JSON.stringify(userDataState));
     })
     .addCase(leaveColoc.fulfilled, (state) => {
       state.isLogged = true;
       state.user.colocId = null;
+
+      const userDataState = {
+        ...state.user,
+      };
+
+      localStorage.setItem('userData', JSON.stringify(userDataState));
     });
 });
 

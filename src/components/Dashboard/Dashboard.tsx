@@ -16,7 +16,9 @@ function Dashboard() {
   const dispatch = useAppDispatch();
   const { colocId } = useParams();
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
-  const nameColoc = useAppSelector((state) => state.colocReducer.nameColoc);
+  const nameColoc = useAppSelector(
+    (state) => state.colocReducer.coloc.nameColoc
+  );
   const isLoading = useAppSelector((state) => state.colocReducer.isLoading);
 
   useEffect(() => {
