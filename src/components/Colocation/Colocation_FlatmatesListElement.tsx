@@ -1,9 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { IUser } from '../../@types/coloc';
+import { IFlatmate } from '../../@types/coloc';
 import getFormattedFallback from '../../utils/getFormattedFallback';
 
 interface FlatmatesListElementProps {
-  flatmate: IUser;
+  flatmate: IFlatmate;
   isCurrentUser: boolean;
 }
 
