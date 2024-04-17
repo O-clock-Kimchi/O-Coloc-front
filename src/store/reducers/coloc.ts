@@ -10,7 +10,7 @@ import {
   updateNameColoc,
   getFlatmates,
 } from '../action/actions';
-import { IUser } from '../../@types/coloc';
+import { IFlatmate, IUser } from '../../@types/coloc';
 
 const storedColocData = localStorage.getItem('colocData');
 
@@ -25,7 +25,7 @@ interface ColocState {
   isLoading: boolean;
   isLeaving: boolean;
   isUpdated: boolean;
-  flatmatesList: IUser[];
+  flatmatesList: IFlatmate[];
   error: string | null;
   successMessage: string;
 }
