@@ -283,6 +283,29 @@ export const changeName = createAction<{ name: string }>(CHANGE_NAME);
 
 // coloc.update({ lien_coloc: code, groupe_code_valid: code });
 
+// Get flatmates' list
+
+const GET_FLATMATES_LIST = 'GET_FLATMATES_LIST';
+
+interface FlatmatesListResponse {
+  user_id: number;
+  firstname: string;
+  color: string;
+}
+export const getFlatmates = createAsyncThunk<FlatmatesListResponse[], number>(
+  GET_FLATMATES_LIST,
+  async (colocId: number, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get<FlatmatesListResponse[]>(
+        `/colocs/${colocId}/users`
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const GENERATE_NEW_CODE = 'GENERATE_NEW_CODE';
 
 export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
