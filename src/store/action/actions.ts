@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../axiosconfig';
-import { IUser } from '../../@types/coloc';
+import { IUser, ITask } from '../../@types/coloc';
 
 // USER-RELATED ACTIONS
 
@@ -298,37 +298,6 @@ export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
   }
 );
 
-// Get flatmates' list
-
-// const GET_FLATMATES_LIST = 'GET_FLATMATES_LIST';
-
-// interface FlatmatesListResponse {
-//   user_id: number;
-//   firstname: string;
-//   color: string;
-// }
-
-// export const getFlatmates = createAsyncThunk<IUser[], number>(
-//   GET_FLATMATES_LIST,
-//   async (colocId: number, { rejectWithValue }) => {
-//     try {
-//       const response = await axiosInstance.get<FlatmatesListResponse[]>(
-//         `/colocs/${colocId}/users`
-//       );
-//       return response.data.map((flatmate) => ({
-//         id: flatmate.user_id,
-//         firstname: flatmate.firstname,
-//         email: '', // Vous pouvez ajouter d'autres propriétés ici si nécessaire
-//         password: '',
-//         color: flatmate.color,
-//         id_coloc: colocId, // Si nécessaire
-//       }));
-//     } catch (error: any) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
-
 // User reset password
 
 // Action for user to ask the reset
@@ -400,3 +369,172 @@ export const renewPassword = createAsyncThunk(
     }
   }
 );
+
+// TASKS RELATED ACTIONS
+
+// Create task action
+const CREATE_TASK = 'CREATE_TASK';
+
+interface CreateTaskResponseData {
+  message: string;
+  status: number;
+  task: {
+    // request update to task_id!!!
+    tasks_id: number;
+    description: string;
+    is_done: boolean;
+    frequency: number;
+    created_at: string;
+    due_date: string;
+    user_id: number;
+  };
+}
+
+interface CreateTaskFormData {
+  description: string;
+  frequency: number;
+  user_id: number;
+  is_done: boolean;
+}
+
+export const createTask = createAsyncThunk<
+  CreateTaskResponseData,
+  CreateTaskFormData,
+  {
+    rejectValue: { message: string; status: number };
+  }
+>(CREATE_TASK, async (taskData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post('/tasks', taskData);
+    return {
+      status: response.status,
+      message: response.data.message,
+      task: response.data.task,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      return rejectWithValue({
+        message: error.response.data.message,
+        status: error.response.status,
+      });
+    }
+    return rejectWithValue({
+      message: 'Une erreur est survenue',
+      status: 500,
+    });
+  }
+});
+
+// Get tasks' list
+const GET_TASKS_LIST = 'GET_TASKS_LIST';
+
+interface TasksListResponse {
+  message: string | null;
+  status: number;
+  tasks: ITask[];
+}
+
+export const getAllTasks = createAsyncThunk<
+  TasksListResponse,
+  number,
+  {
+    rejectValue: { message: string; status: number };
+  }
+>(GET_TASKS_LIST, async (colocId: number, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.get<ITask[]>(
+      `/colocs/${colocId}/tasks`
+    );
+    // sorting tasksList by date (code snippet from: https://www.geeksforgeeks.org/sort-an-object-array-by-date-in-javascript/)
+    const sortedTasksList = response.data.sort((a, b) => {
+      // // convert due dates from string to date object
+      const dateA = new Date(a.due_date);
+      const dateB = new Date(b.due_date);
+      // check dates validity
+      if (Number.isNaN(dateA.getTime()) || Number.isNaN(dateB.getTime())) {
+        return 0;
+      }
+      return dateA.getTime() - dateB.getTime();
+    });
+    console.log('Loading successful:', response);
+    return {
+      message: response.statusText,
+      status: response.status,
+      tasks: sortedTasksList,
+    };
+  } catch (error: any) {
+    console.log('An error occurred while loading tasks:', error);
+    return rejectWithValue({
+      message: error.response.message,
+      status: error.response.status,
+    });
+  }
+});
+
+// Delete task
+
+const DELETE_TASK = 'DELETE_TASK';
+
+export const deleteTask = createAsyncThunk(
+  DELETE_TASK,
+  async (taskId: number, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete(`/tasks/${taskId}`);
+      console.log('Deleted task:', taskId);
+      console.log('Response status:', response.status);
+      return { taskId, status: response.status };
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// Update task
+const UPDATE_TASK = 'UPDATE_TASK';
+
+interface UpdateTaskResponseData {
+  message: string;
+  status: number;
+  updatedTask: ITask;
+}
+
+interface UpdateTaskFormData {
+  // request update
+  tasks_id: number;
+  description: string;
+  frequency: number;
+  user_id: number;
+  is_done: boolean;
+}
+
+export const updateTask = createAsyncThunk<
+  UpdateTaskResponseData,
+  UpdateTaskFormData,
+  {
+    rejectValue: { message: string; status: number };
+  }
+>(UPDATE_TASK, async (taskData, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.put(
+      `/tasks/${taskData.tasks_id}`,
+      taskData
+    );
+    return {
+      status: response.status,
+      message: 'Task updated successfully',
+      updatedTask: response.data.updatedTask,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      return rejectWithValue({
+        message: error.response.data.message,
+        status: error.response.status,
+      });
+    }
+    console.log('Erreur lors de la mise à jour de la tâche');
+    return rejectWithValue({
+      message: 'Une erreur est survenue lors de la mise à jour de la tâche',
+      status: 500,
+    });
+  }
+});

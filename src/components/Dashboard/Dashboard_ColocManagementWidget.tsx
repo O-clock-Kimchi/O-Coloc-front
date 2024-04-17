@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // import UI components
@@ -26,7 +26,7 @@ import { leaveColoc } from '../../store/action/actions';
 function ColocationManagementWidget() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const secretCode = parseInt('12345678', 10);
+  const secretCode = useAppSelector((state) => state.colocReducer.colocCode);
   const [codeIsCopied, setCodeIsCopied] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isLeaving = useAppSelector((state) => state.colocReducer.isLeaving);
@@ -74,14 +74,6 @@ function ColocationManagementWidget() {
     }
   };
 
-  // useEffect(() => {
-  //   if (colocId) {
-  //     const parsedColocId = parseInt(colocId, 10);
-  //     const response = dispatch(getFlatmates(parsedColocId));
-  //     console.log(response);
-  //   }
-  // }, [dispatch, colocId]);
-
   return (
     <Card className="coloc-management flex flex-col w-full mx-auto h-full max-h-full bg-jet-200/70 hover:drop-shadow-lg">
       <CardHeader>
@@ -95,9 +87,9 @@ function ColocationManagementWidget() {
             ) : (
               flatmatesList.map((flatmate) => (
                 <FlatmatesListElement
-                  key={flatmate.id}
+                  key={flatmate.user_id}
                   flatmate={flatmate}
-                  isCurrentUser={flatmate.id === currentUserId}
+                  isCurrentUser={flatmate.user_id === currentUserId}
                 />
               ))
             )}
@@ -122,12 +114,12 @@ function ColocationManagementWidget() {
               <div className="copy-to-clipboard-container flex space-x- items-center">
                 <Input
                   type="text"
-                  value={String(secretCode)}
+                  value={secretCode}
                   id="code"
                   className="flex w-3/5 h-8 rounded-sm"
                   disabled
                 />
-                <CopyToClipboard text={String(secretCode)} onCopy={onCopyCode}>
+                <CopyToClipboard text={secretCode} onCopy={onCopyCode}>
                   <Button
                     className=""
                     variant="ghost"

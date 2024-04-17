@@ -8,6 +8,7 @@ import {
   leaveColoc,
   logout,
   updateNameColoc,
+  getFlatmates,
 } from '../action/actions';
 import { IUser } from '../../@types/coloc';
 
@@ -133,19 +134,19 @@ const colocReducer = createReducer(initialState, (builder) => {
     })
     .addCase(logout.fulfilled, (state) => {
       Object.assign(state, initialState);
+    })
+    .addCase(getFlatmates.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(getFlatmates.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.flatmatesList = action.payload;
+    })
+    .addCase(getFlatmates.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload as string;
     });
-  // .addCase(getFlatmates.pending, (state) => {
-  //   state.isLoading = true;
-  //   state.error = null;
-  // })
-  // .addCase(getFlatmates.fulfilled, (state, action) => {
-  //   state.isLoading = false;
-  //   state.flatmatesList = action.payload;
-  // })
-  // .addCase(getFlatmates.rejected, (state, action) => {
-  //   state.isLoading = false;
-  //   state.error = action.payload as string; // Assurez-vous que le payload est de type string
-  // });
 });
 
 export default colocReducer;
