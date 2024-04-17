@@ -160,7 +160,7 @@ const colocReducer = createReducer(initialState, (builder) => {
     .addCase(generateNewCode.fulfilled, (state, action) => {
       state.coloc.colocCode = action.payload.newCode;
       state.isUpdated = true;
-      state.isLeaving = true;
+      state.isLeaving = false;
       state.isLoading = false;
 
       const colocDataState = {
