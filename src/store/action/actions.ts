@@ -15,6 +15,7 @@ interface LoginFormData {
 interface LoginResponseData {
   message: string;
   token: string;
+  status: number;
   user: {
     userId: number;
     firstname: string;
@@ -28,14 +29,19 @@ export const login = createAsyncThunk<
   LoginResponseData,
   LoginFormData,
   {
-    rejectValue: { message: string };
+    rejectValue: { status: number };
   }
 >(LOGIN, async (loginFormData, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.post('/login', loginFormData);
 
     console.log(response.data);
-    return response.data;
+    return {
+      user: response.data.user,
+      status: response.status,
+      message: response.statusText,
+      token: response.data.token,
+    };
   } catch (error: any) {
     return rejectWithValue(error.response.data);
   }
