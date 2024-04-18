@@ -162,7 +162,7 @@ function TaskElement({ task }: TaskElementProps) {
   }`;
   const isTaskComplete = formData.is_done;
 
-  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleUpdateTaskFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormSubmitError(null);
 
@@ -264,7 +264,10 @@ function TaskElement({ task }: TaskElementProps) {
                   <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
                 )}
               </DialogHeader>
-              <form className="grid gap-4 py-4" onSubmit={handleFormSubmit}>
+              <form
+                className="grid gap-4 py-4"
+                onSubmit={handleUpdateTaskFormSubmit}
+              >
                 <div className="grid gap-2">
                   <Label htmlFor="description">Intitulé de la tâche</Label>
                   <Input
