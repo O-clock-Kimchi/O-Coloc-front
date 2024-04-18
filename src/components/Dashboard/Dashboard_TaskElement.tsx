@@ -69,7 +69,7 @@ function TaskElement({ task }: TaskElementProps) {
   const assignee = flatmatesList.find(
     (flatmate) => flatmate.user_id === task.user_id
   );
-  const assigneeColor = assignee ? assignee.color : 'defaultColor';
+  const assigneeColor = assignee ? assignee.color : '#f6f6f6';
 
   const lightenedAssigneeColor = getLighterColor(assigneeColor, 30);
 
@@ -204,6 +204,7 @@ function TaskElement({ task }: TaskElementProps) {
       dispatch(deleteTask(taskId));
       toast({
         description: 'La tâche a bien été supprimée.',
+        className: 'bg-jet-50 text-eden-600',
       });
     }
   };
@@ -335,8 +336,6 @@ function TaskElement({ task }: TaskElementProps) {
                   </Button>
                 </div>
               </form>
-
-              {/* <DialogFooter></DialogFooter> */}
             </DialogContent>
           </Dialog>
           <Dialog>
