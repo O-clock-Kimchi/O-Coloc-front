@@ -190,7 +190,7 @@ function TodoListWidget() {
             <TaskElement key={task.tasks_id} task={task} />
           ))}
         </div>
-
+        {/* handling opening/closing on submission with: https://github.com/shadcn-ui/ui/issues/2839 */}
         <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
           <SheetTrigger className="button-container flex flex-col h-[35%] w-full justify-end items-center bg-jet-300">
             <Button className="flex space-x-3" variant="default">
