@@ -88,7 +88,7 @@ function Login() {
 
   // UseEffect to handle toast display if login success
   useEffect(() => {
-    if (isLogged && colocId !== null && token) {
+    if (isLogged && token) {
       toast({
         description: 'Connexion réussie !',
         className: 'bg-jet-100 text-eden-600',
@@ -102,8 +102,6 @@ function Login() {
   // Handle redirection if user has a coloc or not
 
   if (redirect && colocId) {
-    // dispatch(getColoc({ colocId }));
-
     return <Navigate to={`/dashboard/${colocId}`} replace />;
   }
 
@@ -118,7 +116,9 @@ function Login() {
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Se connecter</h1>
             <p className="text-balance text-muted-foreground">
-              Entrez votre e-mail pour vous connecter dès maintenant.
+              Saisissez votre e-mail
+              <br />
+              pour vous connecter dès maintenant.
             </p>
             {formSubmitError && (
               <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
