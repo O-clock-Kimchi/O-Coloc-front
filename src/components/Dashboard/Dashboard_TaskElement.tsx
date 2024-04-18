@@ -199,16 +199,6 @@ function TaskElement({ task }: TaskElementProps) {
   };
 
   const handleDeleteTask = async () => {
-    setFormSubmitError(null);
-
-    const formIsValid =
-      errors.descriptionError === '' &&
-      errors.frequencyError === '' &&
-      errors.assigneeError === '';
-    if (!formIsValid) {
-      setFormSubmitError('Veuillez vérifier votre saisie.');
-      return;
-    }
     const taskId = task.tasks_id;
     if (taskId) {
       try {
