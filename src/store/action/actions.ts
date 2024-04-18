@@ -441,15 +441,9 @@ export const createTask = createAsyncThunk<
       task: response.data.task,
     };
   } catch (error: any) {
-    if (error.response) {
-      return rejectWithValue({
-        message: error.response.data.message,
-        status: error.response.status,
-      });
-    }
     return rejectWithValue({
       message: 'Une erreur est survenue',
-      status: 500,
+      status: error.response.status,
     });
   }
 });
