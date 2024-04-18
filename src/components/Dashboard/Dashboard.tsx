@@ -20,6 +20,7 @@ function Dashboard() {
     (state) => state.colocReducer.coloc.nameColoc
   );
   const isLoading = useAppSelector((state) => state.colocReducer.isLoading);
+  const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
 
   useEffect(() => {
     if (colocId) {
