@@ -53,6 +53,7 @@ function TodoListWidget() {
     assigneeError: '',
   });
   const [formSubmitError, setFormSubmitError] = useState<null | string>(null);
+  const [sheetIsOpen, setSheetIsOpen] = useState(false);
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -139,6 +140,7 @@ function TodoListWidget() {
           description: 'La tâche a bien été créée',
           className: 'bg-jet-50 text-eden-600',
         });
+        setSheetIsOpen(false);
       } else if (response.payload?.status === 401) {
         console.log('Request failed:', response);
         setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
@@ -189,9 +191,13 @@ function TodoListWidget() {
           ))}
         </div>
 
-        <Sheet>
+        <Sheet open={sheetIsOpen}>
           <SheetTrigger className="button-container flex flex-col h-[35%] w-full justify-end items-center bg-jet-300">
-            <Button className="flex space-x-3" variant="default">
+            <Button
+              className="flex space-x-3"
+              variant="default"
+              onClick={() => setSheetIsOpen(true)}
+            >
               <CirclePlus color="#FFFCF1" />
               <p>Ajouter une tâche</p>
             </Button>
