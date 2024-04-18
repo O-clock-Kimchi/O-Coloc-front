@@ -12,10 +12,10 @@ function ContactSection() {
         Contatez-nous à{' '}
         <a
           className="hover:text-eden-600"
-          href="mailto:hello@ocohabit.com"
-          title="Mail to: hello@cohabit.com"
+          href="mailto:app.cohabit@gmail.com"
+          title="Mail to: app.cohabit@gmail.com"
         >
-          hello@cohabit.com
+          app.cohabit@gmail.com
         </a>
       </p>
     </section>
