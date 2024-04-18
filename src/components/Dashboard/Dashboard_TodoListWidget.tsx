@@ -191,13 +191,9 @@ function TodoListWidget() {
           ))}
         </div>
 
-        <Sheet open={sheetIsOpen}>
+        <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
           <SheetTrigger className="button-container flex flex-col h-[35%] w-full justify-end items-center bg-jet-300">
-            <Button
-              className="flex space-x-3"
-              variant="default"
-              onClick={() => setSheetIsOpen(true)}
-            >
+            <Button className="flex space-x-3" variant="default">
               <CirclePlus color="#FFFCF1" />
               <p>Ajouter une tâche</p>
             </Button>
