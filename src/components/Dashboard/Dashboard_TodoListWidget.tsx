@@ -5,7 +5,6 @@ import { CirclePlus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import TaskElement from './Dashboard_TaskElement';
 import {
   Sheet,
@@ -27,6 +26,7 @@ import {
 
 import { Input } from '../ui/input';
 import { useToast } from '../ui/use-toast';
+import { Switch } from '../ui/switch';
 
 // import custom components
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -39,6 +39,9 @@ function TodoListWidget() {
     (state) => state.colocReducer.flatmatesList
   );
   const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
+  const currentUserId = useAppSelector(
+    (state) => state.userReducer.user.userId
+  );
 
   const [data, setData] = useState({
     description: '',
@@ -54,6 +57,11 @@ function TodoListWidget() {
   });
   const [formSubmitError, setFormSubmitError] = useState<null | string>(null);
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
+  const [displayUserTasksOnly, setDisplayUserTasksOnly] = useState(false);
+
+  const filteredTasksList = tasksList.filter(
+    (task) => task.user_id === currentUserId
+  );
 
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -173,22 +181,30 @@ function TodoListWidget() {
       </CardHeader>
       <CardContent className="flex flex-col h-full grow space-y-6 w-full">
         <div className="to-do-settings flex flex-col w-full p-3 max-h[300px] space-y-3">
-          <p>Afficher</p>
-          <RadioGroup defaultValue="option-one">
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-one" id="option-one" />
-              <Label htmlFor="option-one">Toutes les tâches</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="option-two" id="option-two" />
-              <Label htmlFor="option-two">Uniquement mes tâches</Label>
-            </div>
-          </RadioGroup>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="user-tasks"
+              onCheckedChange={() =>
+                setDisplayUserTasksOnly(!displayUserTasksOnly)
+              }
+              className="data-[state=checked]:bg-eden-600 data-[state=unchecked]:bg-jet-500"
+            />
+            <Label htmlFor="user-tasks" className="">
+              Afficher uniquement mes tâches
+            </Label>
+          </div>
         </div>
         <div className="tasks-list flex flex-col w-full space-y-3 h-[70%] max-h-[70%] overflow-y-scroll">
-          {tasksList.map((task) => (
+          {filteredTasksList.map((task) => (
             <TaskElement key={task.tasks_id} task={task} />
           ))}
+          {displayUserTasksOnly
+            ? filteredTasksList.map((task) => (
+                <TaskElement key={task.tasks_id} task={task} />
+              ))
+            : tasksList.map((task) => (
+                <TaskElement key={task.tasks_id} task={task} />
+              ))}
         </div>
         {/* handling opening/closing on submission with: https://github.com/shadcn-ui/ui/issues/2839 */}
         <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
