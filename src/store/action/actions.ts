@@ -504,19 +504,24 @@ export const getAllTasks = createAsyncThunk<
 
 const DELETE_TASK = 'DELETE_TASK';
 
-export const deleteTask = createAsyncThunk(
-  DELETE_TASK,
-  async (taskId: number, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.delete(`/tasks/${taskId}`);
-      console.log('Deleted task:', taskId);
-      console.log('Response status:', response.status);
-      return { taskId, status: response.status };
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
+interface DeleteTaskResponse {
+  taskId: number;
+  status: number;
+}
+
+export const deleteTask = createAsyncThunk<
+  DeleteTaskResponse,
+  number,
+  { rejectValue: { status: number } }
+>(DELETE_TASK, async (taskId: number, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.delete(`/tasks/${taskId}`);
+    // console.log('Deleted task:', taskId);
+    return { taskId, status: response.status };
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
   }
-);
+});
 
 // Update task
 const UPDATE_TASK = 'UPDATE_TASK';
