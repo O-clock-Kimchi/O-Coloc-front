@@ -14,7 +14,7 @@ interface LoginFormData {
 
 interface LoginResponseData {
   message: string;
-  token: string;
+  accessToken: string;
   user: {
     userId: number;
     firstname: string;

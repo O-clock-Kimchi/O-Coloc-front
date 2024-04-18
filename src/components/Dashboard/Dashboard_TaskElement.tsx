@@ -173,7 +173,7 @@ function TaskElement({ task }: TaskElementProps) {
   };
 
   // define specific conditional classes to update syle and layout according to task status
-  const cardStyleDetails = `flex flex-col w-full mx-auto p-2 content-center min-h-24 border-solid[1px] ${
+  const cardStyleDetails = `flex flex-col items-center justify-center w-full mx-auto p-2 content-center min-h-24 border-solid[1px] ${
     formData.is_done ? 'opacity-50' : ''
   }`;
   const taskDescriptionStyleDetails = `text-sm ${
@@ -235,8 +235,8 @@ function TaskElement({ task }: TaskElementProps) {
         borderColor: assigneeColor,
       }}
     >
-      <CardContent className="flex flex-col max-h-full space-y-2 w-full content-center ">
-        <div className="flex task-details w-full items-center justify-center">
+      <CardContent className="flex flex-col max-h-full space-y-2 w-full content-center items-center justify-center">
+        <div className="flex task-details w-full items-center justify-center gap-4">
           <div className="checkbox flex w-[10%] items-center justify-center">
             <Checkbox
               className="w-4 h-4 bg-jet-50"
@@ -244,12 +244,6 @@ function TaskElement({ task }: TaskElementProps) {
               onCheckedChange={handleCheckboxChange}
               checked={isTaskComplete}
             />
-          </div>
-          <div className="task-instructions flex flex-col w-[70%]">
-            <p className={taskDescriptionStyleDetails}>{task.description}</p>
-            <p className="text-xs">
-              Avant le : {format(new Date(task.due_date), 'dd/MM/yyyy')}
-            </p>
           </div>
           <div className="avatar-container flex w-[20%] items-center justify-center ">
             <Avatar
@@ -264,127 +258,143 @@ function TaskElement({ task }: TaskElementProps) {
               </AvatarFallback>
             </Avatar>
           </div>
-        </div>
-        <div className="flex btns-container w-full space-x-3 justify-end">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="p-2" variant="ghost" disabled={isTaskComplete}>
-                <SquarePenIcon size={16} />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] bg-jet-50">
-              <DialogHeader>
-                <DialogTitle>Modifier une tâche</DialogTitle>
-                <DialogDescription>
-                  Vous pouvez modifier les détails d&rsquo;une tâche ici.
-                </DialogDescription>
-                {formSubmitError && (
-                  <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
-                )}
-              </DialogHeader>
-              <form className="grid gap-4 py-4" onSubmit={handleFormSubmit}>
-                <div className="grid gap-2">
-                  <Label htmlFor="description">Intitulé de la tâche</Label>
-                  <Input
-                    id="description"
-                    name="description"
-                    type="text"
-                    value={formData.description}
-                    placeholder="Acheter des oeufs"
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                {errors.descriptionError && (
-                  <p className="text-cardinal-600 text-xs">
-                    {errors.descriptionError}
-                  </p>
-                )}
-                <div className="grid gap-2">
-                  <Label htmlFor="frequency">Délai (en jours)</Label>
-                  <Input
-                    id="frequency"
-                    name="frequency"
-                    type="number"
-                    value={formData.frequency}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                {errors.frequencyError && (
-                  <p className="text-cardinal-600 text-xs">
-                    {errors.frequencyError}
-                  </p>
-                )}
-                <div className="grid gap-2">
-                  <Label htmlFor="user_id">Assigner la tâche à</Label>
-                  <Select
-                    onValueChange={handleAssigneeIdChange}
-                    value={formData.user_id.toString()}
-                  >
-                    <SelectTrigger className="w-full bg-jet-50 ">
-                      <SelectValue
-                        placeholder="Choisissez..."
-                        className="bg-jet-50 "
-                      />
-                    </SelectTrigger>
-                    <SelectContent className="bg-jet-50 ">
-                      <SelectGroup>
-                        <SelectLabel>Choisir...</SelectLabel>
-                        {flatmatesList.map((flatmate) => (
-                          <SelectItem
-                            key={flatmate.user_id}
-                            value={flatmate.user_id.toString()}
-                          >
-                            {flatmate.firstname}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  {errors.assigneeError && (
+          <div className="task-instructions flex flex-col w-[70%]">
+            <p className={taskDescriptionStyleDetails}>{task.description}</p>
+            <p className="text-xs">
+              Avant le : {format(new Date(task.due_date), 'dd/MM/yyyy')}
+            </p>
+          </div>
+          <div className="flex btns-container w-full space-x-3 justify-end">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  className="p-2"
+                  variant="ghost"
+                  disabled={isTaskComplete}
+                >
+                  <SquarePenIcon size={16} />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px] bg-jet-50">
+                <DialogHeader>
+                  <DialogTitle>Modifier une tâche</DialogTitle>
+                  <DialogDescription>
+                    Vous pouvez modifier les détails d&rsquo;une tâche ici.
+                  </DialogDescription>
+                  {formSubmitError && (
                     <p className="text-cardinal-600 text-xs">
-                      {errors.assigneeError}
+                      {formSubmitError}
                     </p>
                   )}
-                </div>
-                <div className="flex btns-container w-full justify-center">
-                  <Button className="bg-eden-800 hover:bg-eden-600">
-                    <Check size={16} />
-                  </Button>
-                </div>
-              </form>
+                </DialogHeader>
+                <form className="grid gap-4 py-4" onSubmit={handleFormSubmit}>
+                  <div className="grid gap-2">
+                    <Label htmlFor="description">Intitulé de la tâche</Label>
+                    <Input
+                      id="description"
+                      name="description"
+                      type="text"
+                      value={formData.description}
+                      placeholder="Acheter des oeufs"
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  {errors.descriptionError && (
+                    <p className="text-cardinal-600 text-xs">
+                      {errors.descriptionError}
+                    </p>
+                  )}
+                  <div className="grid gap-2">
+                    <Label htmlFor="frequency">Délai (en jours)</Label>
+                    <Input
+                      id="frequency"
+                      name="frequency"
+                      type="number"
+                      value={formData.frequency}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  {errors.frequencyError && (
+                    <p className="text-cardinal-600 text-xs">
+                      {errors.frequencyError}
+                    </p>
+                  )}
+                  <div className="grid gap-2">
+                    <Label htmlFor="user_id">Assigner la tâche à</Label>
+                    <Select
+                      onValueChange={handleAssigneeIdChange}
+                      value={formData.user_id.toString()}
+                    >
+                      <SelectTrigger className="w-full bg-jet-50 ">
+                        <SelectValue
+                          placeholder="Choisissez..."
+                          className="bg-jet-50 "
+                        />
+                      </SelectTrigger>
+                      <SelectContent className="bg-jet-50 ">
+                        <SelectGroup>
+                          <SelectLabel>Choisir...</SelectLabel>
+                          {flatmatesList.map((flatmate) => (
+                            <SelectItem
+                              key={flatmate.user_id}
+                              value={flatmate.user_id.toString()}
+                            >
+                              {flatmate.firstname}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {errors.assigneeError && (
+                      <p className="text-cardinal-600 text-xs">
+                        {errors.assigneeError}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex btns-container w-full justify-center">
+                    <Button className="bg-eden-800 hover:bg-eden-600">
+                      <Check size={16} />
+                    </Button>
+                  </div>
+                </form>
 
-              {/* <DialogFooter></DialogFooter> */}
-            </DialogContent>
-          </Dialog>
-          <Dialog>
-            <DialogTrigger disabled={isTaskComplete}>
-              <Button className="p-2" variant="ghost" disabled={isTaskComplete}>
-                <Trash2 size={16} />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="bg-jet-100">
-              <DialogHeader>
-                <DialogTitle>
-                  Voulez-vous vraiment supprimer cette tâche ?
-                </DialogTitle>
-                <DialogDescription className="flex flex-col space-y-6 items-center">
-                  <p>Cette action est irréversible.</p>
-                  <DialogFooter>
-                    <div className="flex btns-container w-full space-x-3 bg-cardinal-200 justify-center">
-                      <Button
-                        className="bg-cardinal-600 hover:bg-cardinal-400"
-                        onClick={handleDeleteTask}
-                      >
-                        Supprimer
-                      </Button>
-                    </div>
-                  </DialogFooter>
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
+                {/* <DialogFooter></DialogFooter> */}
+              </DialogContent>
+            </Dialog>
+            <Dialog>
+              <DialogTrigger disabled={isTaskComplete}>
+                <Button
+                  className="p-2"
+                  variant="ghost"
+                  disabled={isTaskComplete}
+                >
+                  <Trash2 size={16} />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-jet-100">
+                <DialogHeader>
+                  <DialogTitle>
+                    Voulez-vous vraiment supprimer cette tâche ?
+                  </DialogTitle>
+                  <DialogDescription className="flex flex-col space-y-6 items-center">
+                    <p>Cette action est irréversible.</p>
+                    <DialogFooter>
+                      <div className="flex btns-container w-full space-x-3 bg-cardinal-200 justify-center">
+                        <Button
+                          className="bg-cardinal-600 hover:bg-cardinal-400"
+                          onClick={handleDeleteTask}
+                        >
+                          Supprimer
+                        </Button>
+                      </div>
+                    </DialogFooter>
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </CardContent>
     </Card>

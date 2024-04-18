@@ -8,7 +8,7 @@ import ScreenSize from '../DevComponent/ScreenSize';
 
 function App() {
   const dispatch = useAppDispatch();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const userId = useAppSelector((state) => state.userReducer.user.userId);
   const navigate = useNavigate();

@@ -11,7 +11,7 @@ import {
   updateUser,
 } from '../action/actions';
 
-const storedToken = localStorage.getItem('token');
+const storedToken = localStorage.getItem('accessToken');
 const storedUserData = localStorage.getItem('userData');
 
 interface UserState {
@@ -59,7 +59,7 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.user,
       };
 
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('accessToken', action.payload.accessToken);
       localStorage.setItem('userData', JSON.stringify(userDataState));
     })
     .addCase(login.rejected, (state) => {
@@ -78,7 +78,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.color = '';
       state.user.email = '';
 
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
       localStorage.removeItem('userData');
     })
     .addCase(signup.fulfilled, (state) => {
@@ -108,7 +108,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.color = '';
       state.user.email = '';
 
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
       localStorage.removeItem('userData');
     })
     .addCase(createColoc.fulfilled, (state, action) => {

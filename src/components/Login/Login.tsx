@@ -18,7 +18,7 @@ function Login() {
   const colocId = useAppSelector((state) => state.userReducer.user.colocId);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [redirect, setRedirect] = useState<boolean>(false);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
 
   const [loginData, setLoginData] = useState({
     email: 'sian@ocoloc.com',
