@@ -69,11 +69,9 @@ function TaskElement({ task }: TaskElementProps) {
   const assignee = flatmatesList.find(
     (flatmate) => flatmate.user_id === task.user_id
   );
-  const assigneeColor = assignee ? assignee.color : 'defaultColor'; // Remplacez 'defaultColor' par la couleur par défaut souhaitée
+  const assigneeColor = assignee ? assignee.color : 'defaultColor';
 
   const lightenedAssigneeColor = getLighterColor(assigneeColor, 30);
-
-  // const lightenedAssigneeColor = ColorLuminance(assigneeColor || '', 0.5);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
