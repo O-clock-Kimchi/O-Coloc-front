@@ -10,7 +10,7 @@ function Testimonials() {
   return (
     <section className="w-100">
       <h2 className="section-title text-center text-4xl  mb-4 text-eden-800">
-        Ils (ne) parlent (pas) de nous !
+        Ils (ne) parlent (pas) de nous&nbsp;!
       </h2>
       <p className="section-subtitle text-lg text-center mb-5">
         ... et ne le feront jamais ;)

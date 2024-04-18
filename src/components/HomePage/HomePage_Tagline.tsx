@@ -13,10 +13,13 @@ function Tagline() {
               au même endroit
             </h1>
             <p className=" px-20 lg:w-[80%] lg:px-0">
-              Comme vous, on en avait marre de gérer notre coloc avec 5 applis.
-              On a créé CoHabit pour gérer tout au même endroit. Un jeu
-              d&apos;enfant même pour Baptiste qui ne fait jamais la vaisselle.
-              Une appli 100% gratuite.
+              Comme vous, on en avait marre de gérer la vie notre coloc avec
+              5&nbsp;applis. On a donc créé CoHabit pour tout gérer... au même
+              endroit&nbsp;! <br />
+              Un jeu d&rsquo;enfant, même pour Baptiste qui ne fait jamais la
+              vaisselle.
+              <br />
+              Une appli 100&nbsp;% gratuite.
             </p>
           </div>
           <NavLink to="/inscription">
@@ -28,7 +31,7 @@ function Tagline() {
         <div className="box-right hidden lg:block">
           <img
             src="/MeditatingDoodle.svg"
-            alt="meditating doodle"
+            alt="A doodle showing a girl meditating"
             className="justify-self-center"
           />
         </div>
