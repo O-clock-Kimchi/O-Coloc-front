@@ -10,7 +10,6 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-      console.log(accessToken);
       const newConfig = { ...config };
       newConfig.headers.Authorization = `Bearer ${accessToken}`;
       return newConfig;
@@ -36,10 +35,11 @@ axiosInstance.interceptors.response.use(
       originalRequest.retry = true;
 
       try {
-        console.log('The token has expired');
+        console.log('The token has expired. Please reconnect');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('userData');
         localStorage.removeItem('colocData');
+        console.log('utilisateur déconnecté');
       } catch (removeTokenError) {
         console.log('Une erreur sur le token est survenue:', removeTokenError);
       }

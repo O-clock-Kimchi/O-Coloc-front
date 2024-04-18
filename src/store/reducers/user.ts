@@ -7,6 +7,7 @@ import {
   leaveColoc,
   login,
   logout,
+  refreshToken,
   signup,
   updateUser,
 } from '../action/actions';
@@ -24,6 +25,7 @@ interface UserState {
     email: string;
   };
   isUpdated: boolean;
+  isRefresh: boolean;
 }
 const defaultUser = {
   userId: null,
@@ -36,6 +38,7 @@ const defaultUser = {
 export const initialState: UserState = {
   isLogged: !!storedToken,
   isUpdated: false,
+  isRefresh: false,
   user: storedUserData ? JSON.parse(storedUserData) : defaultUser,
 };
 
@@ -78,8 +81,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.color = '';
       state.user.email = '';
 
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('userData');
+      localStorage.clear();
     })
     .addCase(signup.fulfilled, (state) => {
       state.isLogged = false;
@@ -138,6 +140,15 @@ const userReducer = createReducer(initialState, (builder) => {
       };
 
       localStorage.setItem('userData', JSON.stringify(userDataState));
+    })
+    .addCase(refreshToken.pending, (state) => {
+      state.isRefresh = true;
+    })
+    .addCase(refreshToken.fulfilled, (state, action) => {
+      state.isLogged = true;
+      state.isRefresh = false;
+
+      localStorage.setItem('accessToken', action.payload.refreshToken);
     });
 });
 

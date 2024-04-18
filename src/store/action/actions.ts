@@ -561,3 +561,25 @@ export const updateTask = createAsyncThunk<
     });
   }
 });
+
+// Refresh Token
+
+const REFRESH_TOKEN = 'REFRESH_TOKEN';
+
+interface RefreshTokenData {
+  refreshToken: string;
+  message: string;
+}
+
+export const refreshToken = createAsyncThunk<RefreshTokenData>(
+  REFRESH_TOKEN,
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance('/refresh-token');
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);
