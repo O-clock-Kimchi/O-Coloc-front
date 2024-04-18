@@ -194,7 +194,7 @@ function TodoListWidget() {
             </Label>
           </div>
         </div>
-        <div className="tasks-list flex flex-col w-full space-y-3 h-[70%] max-h-[70%] overflow-y-scroll pt-6 bg-cardinal-50">
+        <div className="tasks-list flex flex-col w-full space-y-3 h-[70%] max-h-[70%] overflow-y-scroll pt-6">
           {displayUserTasksOnly
             ? filteredTasksList.map((task) => (
                 <TaskElement key={task.tasks_id} task={task} />
