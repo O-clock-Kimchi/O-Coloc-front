@@ -49,6 +49,7 @@ function TaskElement({ task }: TaskElementProps) {
   });
   const dispatch = useAppDispatch();
   const { toast } = useToast();
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   const flatmatesList = useAppSelector(
     (state) => state.colocReducer.flatmatesList
@@ -192,6 +193,7 @@ function TaskElement({ task }: TaskElementProps) {
           className: 'bg-jet-50 text-cardinal-600',
         });
       }
+      setDialogIsOpen(false);
     } catch (error: any) {
       console.error('Error:', error);
       setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
@@ -263,7 +265,7 @@ function TaskElement({ task }: TaskElementProps) {
           </div>
         </div>
         <div className="flex btns-container w-full space-x-3 justify-end">
-          <Dialog>
+          <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
             <DialogTrigger asChild>
               <Button className="p-2" variant="ghost" disabled={isTaskComplete}>
                 <SquarePenIcon size={16} />
