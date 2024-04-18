@@ -86,13 +86,12 @@ function Login() {
     }
   };
 
-  // UseEffect to handle the toast if login success
-
+  // UseEffect to handle toast display if login success
   useEffect(() => {
     if (isLogged && colocId !== null && token) {
       toast({
         description: 'Connexion réussie !',
-        className: 'bg-jet-100',
+        className: 'bg-jet-100 text-eden-600',
       });
       setTimeout(() => {
         setRedirect(true);
