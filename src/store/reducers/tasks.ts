@@ -29,6 +29,11 @@ const tasksReducer = createReducer(initialState, (builder) => {
     .addCase(createTask.fulfilled, (state, action) => {
       state.loading = false;
       state.tasksList = [...state.tasksList, action.payload.task];
+      state.tasksList.sort(
+        (a, b) =>
+          new Date(a.due_date).getTime() - new Date(b.due_date).getTime()
+      );
+      state.error = null;
       state.error = null;
     })
     .addCase(createTask.rejected, (state, action) => {
