@@ -138,6 +138,9 @@ function Login() {
                 required
               />
             </div>
+            {emailError && (
+              <p className="text-cardinal-600 text-xs">{emailError}</p>
+            )}
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Mot de passe</Label>
