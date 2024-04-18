@@ -187,10 +187,10 @@ function Signup() {
         ) : (
           <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
-              <h1 className="text-3xl font-bold">S&apos;inscrire</h1>
+              <h1 className="text-3xl font-bold">S&rsquo;inscrire</h1>
               <p className="text-balance text-muted-foreground">
-                Inscrivez-vous maintenant pour créer ou rejoindre votre future
-                colocation.
+                Inscrivez-vous dès maintenant <br />
+                pour créer ou rejoindre votre future colocation.
               </p>
               {formSubmitError && (
                 <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
@@ -288,7 +288,7 @@ function Signup() {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="confirmPassword">
-                    Confirmation de mot de passe
+                    Confirmation du mot de passe
                   </Label>
                 </div>
                 <Input
@@ -314,7 +314,7 @@ function Signup() {
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">
-              Vous avez déjà un compte ?{' '}
+              Vous avez déjà un compte&nbsp;?{' '}
               <NavLink to="/connexion" className="underline">
                 Connectez-vous
               </NavLink>
@@ -325,7 +325,7 @@ function Signup() {
       <div className="hidden bg-muted lg:block place-items-center">
         <img
           src="/pexels-coloc-register-cohabit.jpg"
-          alt=""
+          alt="A group of flatmates sitting at a table"
           width="1920"
           height="1080"
           className=" max-h-screen w-full object-cover dark:brightness-[0.2] dark:grayscale"

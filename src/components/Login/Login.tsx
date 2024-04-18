@@ -25,8 +25,8 @@ function Login() {
   const token = localStorage.getItem('token');
 
   const [loginData, setLoginData] = useState({
-    email: 'sian@ocoloc.com',
-    password: 'Sian123456',
+    email: '',
+    password: '',
   });
 
   const dispatch = useAppDispatch();
@@ -133,7 +133,7 @@ function Login() {
                 type="email"
                 value={loginData.email}
                 onChange={handleInputChange}
-                placeholder="E-mail (obligatoire)"
+                placeholder="email@example.com"
                 required
               />
             </div>

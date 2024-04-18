@@ -76,7 +76,7 @@ function ColocationManagementWidget() {
     return <Navigate to="/acces-coloc" replace />;
   }
   return (
-    <Card className="coloc-management flex flex-col w-full mx-auto h-full max-h-full bg-jet-200/70 hover:drop-shadow-lg">
+    <Card className="coloc-management flex flex-col w-full mx-auto h-full max-h-full bg-jet-50">
       <CardHeader>
         <CardTitle className="text-center text-2xl">Colocation</CardTitle>
       </CardHeader>
@@ -105,8 +105,8 @@ function ColocationManagementWidget() {
             >
               <div className="drawer-title flex space-x-4">
                 <p>
-                  Pour ajouter un colocataire, transmettez-lui le code secret de
-                  la colocation
+                  Pour ajouter un.e colocataire, transmettez-lui le code secret
+                  de la colocation.
                 </p>
                 <Button className="p-2" variant="ghost" onClick={closeDrawer}>
                   <X size={22} />

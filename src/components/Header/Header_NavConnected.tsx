@@ -51,20 +51,20 @@ function NavConnected() {
         <DropdownMenuContent className=" text-center vertical items-center gap-2">
           <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
           <DropdownMenuItem>
+            {colocId ? (
+              <NavLink to="/gestion-coloc">Gérer ma coloc&rsquo;</NavLink>
+            ) : (
+              <NavLink to="/acces-coloc">Créer ma coloc&rsquo;</NavLink>
+            )}
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <NavLink to="/mon-profil">Mon profil</NavLink>
           </DropdownMenuItem>
           {colocId && (
             <DropdownMenuItem>
-              <NavLink to={`/dashboard/${colocId}`}>Ma coloc</NavLink>
+              <NavLink to={`/dashboard/${colocId}`}>Dashboard</NavLink>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem>
-            {colocId ? (
-              <NavLink to="/gestion-coloc">Gérer ma coloc</NavLink>
-            ) : (
-              <NavLink to="/acces-coloc">Créer ma coloc</NavLink>
-            )}
-          </DropdownMenuItem>
           <DropdownMenuItem>
             <Button className=" bg-tainoi-200" onClick={handleLogout}>
               <SquareArrowRight className=" pr-2" />

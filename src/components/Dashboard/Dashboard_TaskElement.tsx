@@ -155,7 +155,7 @@ function TaskElement({ task }: TaskElementProps) {
   };
 
   // define specific conditional classes to update syle and layout according to task status
-  const cardStyleDetails = `flex flex-col w-full mx-auto p-2 content-center min-h-24 border-solid[1px] ${
+  const cardStyleDetails = `flex flex-col w-full mx-auto p-2 content-center min-h-24 border-solid[1px] hover:drop-shadow-lg ${
     formData.is_done ? 'opacity-50' : ''
   }`;
   const taskDescriptionStyleDetails = `text-sm ${
@@ -247,7 +247,7 @@ function TaskElement({ task }: TaskElementProps) {
           <div className="task-instructions flex flex-col w-[70%]">
             <p className={taskDescriptionStyleDetails}>{task.description}</p>
             <p className="text-xs">
-              Avant le : {format(new Date(task.due_date), 'dd/MM/yyyy')}
+              Avant le&nbsp;: {format(new Date(task.due_date), 'dd/MM/yyyy')}
             </p>
           </div>
           <div className="avatar-container flex w-[20%] items-center justify-center ">
@@ -271,7 +271,7 @@ function TaskElement({ task }: TaskElementProps) {
                 <SquarePenIcon size={16} />
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] bg-jet-50">
+            <DialogContent className="sm:max-w-[425px] bg-jet-50 border-jet-200">
               <DialogHeader>
                 <DialogTitle>Modifier une tâche</DialogTitle>
                 <DialogDescription>
@@ -360,11 +360,11 @@ function TaskElement({ task }: TaskElementProps) {
           </Dialog>
           <Dialog>
             <DialogTrigger disabled={isTaskComplete}>
-              <Button className="p-2" variant="ghost" disabled={isTaskComplete}>
+              <Button className="p-2" variant="ghost">
                 <Trash2 size={16} />
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-jet-100">
+            <DialogContent className="bg-jet-50 border-jet-200">
               <DialogHeader>
                 <DialogTitle>
                   Voulez-vous vraiment supprimer cette tâche ?

@@ -126,11 +126,12 @@ function ColocationManagement() {
     return <Navigate to="/acces-coloc" replace />;
   }
   return (
-    <main className="px-6 flex grow pb-5">
+    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
+      <h2 className=" title text-3xl text-center">Ma coloc&rsquo;</h2>
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <div className="flex flex-col p-6 space-y-9 ">
           <div>
-            <h1>Gestion de la coloc : {nameColoc}</h1>
+            <p className="text-lg">Nom de la coloc&rsquo;&nbsp;: {nameColoc}</p>
             <form
               className="horizontal gap-3 relative"
               onSubmit={handleSubmitName}
@@ -149,7 +150,7 @@ function ColocationManagement() {
                     type="text"
                     placeholder={nameColoc}
                     disabled
-                    className=" placeholder-jet-900 flex-auto"
+                    className=" placeholder-jet-900 flex-auto bg-jet-50"
                   />
                   <Button onClick={toggleName}>
                     <SquarePenIcon size={15} />
@@ -162,7 +163,7 @@ function ColocationManagement() {
                     type="text"
                     value={nameColoc}
                     onChange={handleNewName}
-                    className=" placeholder-jet-900 flex-auto"
+                    className=" placeholder-jet-900 flex-auto bg-jet-50"
                   />
                   <Button type="submit">
                     <Check size={15} />
@@ -173,7 +174,7 @@ function ColocationManagement() {
           </div>
           <div className="secret-code-container justify-center flex flex-col items-center w-4/5 h-2/4 mx-auto space-y-6">
             <p className="flex text-3xl text-eden-800">
-              Code secret de la coloc
+              Code secret de la coloc&rsquo;
             </p>
             <p className="code flex text-2xl tracking-widest">{secretCode}</p>
             <div className="button-container flex">
@@ -200,7 +201,7 @@ function ColocationManagement() {
                   <p>Quitter la colocation</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="flex flex-col border-none bg-jet-100">
+              <DialogContent className="flex flex-col border-none bg-jet-50 border-jet-200">
                 <DialogHeader>
                   <DialogTitle>
                     Voulez-vous vraiment quitter la colocation ?
@@ -212,7 +213,7 @@ function ColocationManagement() {
                     <span className="confirmation-word text-cardinal-600">
                       CONFIRMER
                     </span>{' '}
-                    dans le champ ci-dessous
+                    dans le champ ci-dessous.
                   </DialogDescription>
                 </DialogHeader>
                 <form
@@ -244,7 +245,7 @@ function ColocationManagement() {
           </div>
         </div>
         <div className="flex flex-col box-right space-y-6 place-items-center">
-          <Card className="flex flex-col w-4/5 mx-auto  h-3/5">
+          <Card className="flex flex-col w-4/5 mx-auto  h-3/5 bg-jet-50">
             <CardHeader>
               <CardTitle className="text-center text-3xl">
                 Dans ma coloc&rsquo;

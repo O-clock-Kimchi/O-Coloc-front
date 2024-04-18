@@ -21,7 +21,7 @@ function Colocation() {
   };
 
   return (
-    <main className="flex flex-col px-6 grow h-full">
+    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
       <h2 className="text-center text-4xl">Ma colocation</h2>
       <p className="text-center text-lg">
         Vous ne faites actuellement partie d&rsquo;aucune colocation.
@@ -31,7 +31,7 @@ function Colocation() {
           {isCreationFormOpen ? (
             <CreationForm />
           ) : (
-            <Card className="flex flex-col mx-auto max-w-sm h-64 w-full justify-center">
+            <Card className="flex flex-col mx-auto max-w-sm h-64 w-full justify-center bg-jet-50">
               <CardHeader>
                 <CardTitle className="text-2xl">Créer une colocation</CardTitle>
               </CardHeader>
@@ -48,7 +48,7 @@ function Colocation() {
             {isJoinFormOpen ? (
               <JoinForm />
             ) : (
-              <Card className="flex flex-col mx-auto max-w-sm h-64 w-full justify-center">
+              <Card className="flex flex-col mx-auto max-w-sm h-64 w-full justify-center bg-jet-50">
                 <CardHeader>
                   <CardTitle className="text-2xl">
                     Rejoindre une colocation

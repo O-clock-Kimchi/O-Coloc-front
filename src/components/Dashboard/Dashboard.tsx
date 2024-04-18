@@ -40,7 +40,9 @@ function Dashboard() {
   return (
     <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
       <h2 className=" title text-3xl text-center">
-        Bienvenue sur le dashboard de la coloc {nameColoc}!{' '}
+        Bienvenue sur le dashboard de la coloc&rsquo;{' '}
+        <span className="text-eden-700">{nameColoc}</span>
+        &nbsp;!{' '}
       </h2>
       <div className="grid grid-rows-1 grid-cols-1 p-12 lg:p-0 lg:grid-cols-3 gap-8 w-full grow">
         <ColocationManagementWidget />

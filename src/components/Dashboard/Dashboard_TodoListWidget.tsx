@@ -175,7 +175,7 @@ function TodoListWidget() {
   };
 
   return (
-    <Card className="flex flex-col w-full mx-auto h-full grow bg-jet-200/70 hover:drop-shadow-lg content-between ">
+    <Card className="flex flex-col w-full mx-auto h-full grow bg-jet-50 content-between ">
       <CardHeader>
         <CardTitle className="text-center text-2xl">To-do list</CardTitle>
       </CardHeader>
@@ -194,10 +194,7 @@ function TodoListWidget() {
             </Label>
           </div>
         </div>
-        <div className="tasks-list flex flex-col w-full space-y-3 h-[70%] max-h-[70%] overflow-y-scroll">
-          {filteredTasksList.map((task) => (
-            <TaskElement key={task.tasks_id} task={task} />
-          ))}
+        <div className="tasks-list flex flex-col w-full space-y-3 h-[70%] max-h-[70%] overflow-y-scroll pt-6 bg-cardinal-50">
           {displayUserTasksOnly
             ? filteredTasksList.map((task) => (
                 <TaskElement key={task.tasks_id} task={task} />
@@ -207,94 +204,96 @@ function TodoListWidget() {
               ))}
         </div>
         {/* handling opening/closing on submission with: https://github.com/shadcn-ui/ui/issues/2839 */}
-        <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
-          <SheetTrigger className="button-container flex flex-col h-[35%] w-full justify-end items-center bg-jet-300">
-            <Button className="flex space-x-3" variant="default">
-              <CirclePlus color="#FFFCF1" />
-              <p>Ajouter une tâche</p>
-            </Button>
-          </SheetTrigger>
-          <SheetContent className="w-[400px] sm:w-[540px] bg-jet-50">
-            <SheetHeader className="space-y-10">
-              <SheetTitle>Ajouter une tâche</SheetTitle>
-              {formSubmitError && (
-                <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
-              )}
-              <SheetDescription>
-                <form
-                  className="space-y-6"
-                  onSubmit={handleCreateTaskFormSubmit}
-                >
-                  <div className="grid gap-2">
-                    <Label htmlFor="description">Intitulé de la tâche</Label>
-                    <Input
-                      id="description"
-                      name="description"
-                      type="text"
-                      placeholder="Acheter des oeufs"
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  {errors.descriptionError && (
-                    <p className="text-cardinal-600 text-xs">
-                      {errors.descriptionError}
-                    </p>
-                  )}
-                  <div className="grid gap-2">
-                    <Label htmlFor="frequency">Délai (en jours)</Label>
-                    <Input
-                      id="frequency"
-                      name="frequency"
-                      type="number"
-                      value={data.frequency}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  {errors.frequencyError && (
-                    <p className="text-cardinal-600 text-xs">
-                      {errors.frequencyError}
-                    </p>
-                  )}
-                  <div className="grid gap-2">
-                    <Label htmlFor="user_id">Assigner la tâche à</Label>
-                    <Select onValueChange={handleAssigneeIdChange}>
-                      <SelectTrigger className="w-full bg-jet-50 ">
-                        <SelectValue
-                          placeholder="Choisissez..."
-                          className="bg-jet-50 "
-                        />
-                      </SelectTrigger>
-                      <SelectContent className="bg-jet-50 ">
-                        <SelectGroup>
-                          <SelectLabel>Choisir...</SelectLabel>
-                          {flatmatesList.map((flatmate) => (
-                            <SelectItem
-                              key={flatmate.user_id}
-                              value={flatmate.user_id.toString()}
-                            >
-                              {flatmate.firstname}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  {errors.assigneeError && (
-                    <p className="text-cardinal-600 text-xs">
-                      {errors.assigneeError}
-                    </p>
-                  )}
+        <div className="flex flex-col-reverse grow items-center content-end">
+          <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
+            <SheetTrigger className="button-container w-[50%] flex flex-col">
+              <Button className="flex space-x-3" variant="default">
+                <CirclePlus color="#FFFCF1" />
+                <p>Ajouter une tâche</p>
+              </Button>
+            </SheetTrigger>
+            <SheetContent className="w-[400px] sm:w-[540px] bg-jet-50">
+              <SheetHeader className="space-y-10">
+                <SheetTitle>Ajouter une tâche</SheetTitle>
+                {formSubmitError && (
+                  <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
+                )}
+                <SheetDescription>
+                  <form
+                    className="space-y-6"
+                    onSubmit={handleCreateTaskFormSubmit}
+                  >
+                    <div className="grid gap-2">
+                      <Label htmlFor="description">Intitulé de la tâche</Label>
+                      <Input
+                        id="description"
+                        name="description"
+                        type="text"
+                        placeholder="Acheter des oeufs"
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+                    {errors.descriptionError && (
+                      <p className="text-cardinal-600 text-xs">
+                        {errors.descriptionError}
+                      </p>
+                    )}
+                    <div className="grid gap-2">
+                      <Label htmlFor="frequency">Délai (en jours)</Label>
+                      <Input
+                        id="frequency"
+                        name="frequency"
+                        type="number"
+                        value={data.frequency}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+                    {errors.frequencyError && (
+                      <p className="text-cardinal-600 text-xs">
+                        {errors.frequencyError}
+                      </p>
+                    )}
+                    <div className="grid gap-2">
+                      <Label htmlFor="user_id">Assigner la tâche à</Label>
+                      <Select onValueChange={handleAssigneeIdChange}>
+                        <SelectTrigger className="w-full bg-jet-50 ">
+                          <SelectValue
+                            placeholder="Choisissez..."
+                            className="bg-jet-50 "
+                          />
+                        </SelectTrigger>
+                        <SelectContent className="bg-jet-50 ">
+                          <SelectGroup>
+                            <SelectLabel>Choisir...</SelectLabel>
+                            {flatmatesList.map((flatmate) => (
+                              <SelectItem
+                                key={flatmate.user_id}
+                                value={flatmate.user_id.toString()}
+                              >
+                                {flatmate.firstname}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    {errors.assigneeError && (
+                      <p className="text-cardinal-600 text-xs">
+                        {errors.assigneeError}
+                      </p>
+                    )}
 
-                  <div className="">
-                    <Button className="bg-eden-800">Créer la tâche</Button>
-                  </div>
-                </form>
-              </SheetDescription>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
+                    <div className="">
+                      <Button className="bg-eden-800">Créer la tâche</Button>
+                    </div>
+                  </form>
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
+        </div>
       </CardContent>
     </Card>
   );
