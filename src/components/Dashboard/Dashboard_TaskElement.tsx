@@ -182,7 +182,7 @@ function TaskElement({ task }: TaskElementProps) {
       if (response.payload?.status === 200) {
         console.log('Request successful:', response);
         toast({
-          description: 'Tâche mise à jour avec succès.',
+          description: 'La tâche a bien été mise à jour.',
           className: 'bg-jet-50 text-eden-600',
         });
       } else if (response.payload?.status === 401) {
@@ -199,13 +199,38 @@ function TaskElement({ task }: TaskElementProps) {
   };
 
   const handleDeleteTask = async () => {
+    setFormSubmitError(null);
+
+    const formIsValid =
+      errors.descriptionError === '' &&
+      errors.frequencyError === '' &&
+      errors.assigneeError === '';
+    if (!formIsValid) {
+      setFormSubmitError('Veuillez vérifier votre saisie.');
+      return;
+    }
     const taskId = task.tasks_id;
     if (taskId) {
-      dispatch(deleteTask(taskId));
-      toast({
-        description: 'La tâche a bien été supprimée.',
-        className: 'bg-jet-50 text-eden-600',
-      });
+      try {
+        const response = await dispatch(deleteTask(taskId));
+        console.log('Response status: ', response.payload?.status);
+        if (response.payload?.status === 200) {
+          console.log('Request successful:', response);
+          toast({
+            description: 'La tâche a bien été supprimée.',
+            className: 'bg-jet-50 text-eden-600',
+          });
+        } else if (response.payload?.status === 401) {
+          console.log('Request failed:', response);
+          toast({
+            description: 'Une erreur est survenue, veuillez réessayer.',
+            className: 'bg-jet-50 text-cardinal-600',
+          });
+        }
+      } catch (error: any) {
+        console.error('Error:', error);
+        setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
+      }
     }
   };
 
