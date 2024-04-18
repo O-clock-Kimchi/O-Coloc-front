@@ -19,6 +19,7 @@ function Dashboard() {
     (state) => state.colocReducer.coloc.nameColoc
   );
   const isLoading = useAppSelector((state) => state.colocReducer.isLoading);
+  const tasksList = useAppSelector((state) => state.tasksReducer.tasksList);
 
   useEffect(() => {
     if (colocId) {
@@ -32,7 +33,7 @@ function Dashboard() {
   if (isLogged && !colocId) {
     return <Navigate to="/acces-coloc" replace />;
   }
-  if (isLoading) {
+  if (isLoading || tasksList === undefined) {
     return <SkeletonDashboard />;
   }
 
