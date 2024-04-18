@@ -568,7 +568,7 @@ export const updateTask = createAsyncThunk<
     console.log('Erreur lors de la mise à jour de la tâche');
     return rejectWithValue({
       message: 'Une erreur est survenue lors de la mise à jour de la tâche',
-      status: 500,
+      status: error.response.status,
     });
   }
 });
