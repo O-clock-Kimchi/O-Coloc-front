@@ -19,7 +19,7 @@ function Header() {
           <NavLink to="/">
             <img
               className="w-14 md:w-28 lg:w-40"
-              src="/logo_cropped.png"
+              src="/logo_final.png"
               alt="Logo de CoHabit"
             />
           </NavLink>
@@ -44,7 +44,7 @@ function Header() {
         <NavLink to="/">
           <img
             className="w-14 md:w-28 lg:w-40"
-            src="/logo_cropped.png"
+            src="/logo_final.png"
             alt="Logo de CoHabit"
           />
         </NavLink>
