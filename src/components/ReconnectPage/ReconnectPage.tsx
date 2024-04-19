@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { DoorClosed, DoorOpen, LogOut } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { DoorClosed, DoorOpen } from 'lucide-react';
 import {
   CardDescription,
   CardHeader,
@@ -9,7 +9,7 @@ import {
 } from '../ui/card';
 import { Button } from '../ui/button';
 import { useAppDispatch } from '../../hooks/redux';
-import { logout, refreshToken } from '../../store/action/actions';
+import { logout } from '../../store/action/actions';
 
 interface ReconnectProps {
   setReconnect: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +18,7 @@ interface ReconnectProps {
 function ReconnectPage({ setReconnect }: ReconnectProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { colocId } = useParams();
 
   const handleLogoutReconnect = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -30,11 +31,8 @@ function ReconnectPage({ setReconnect }: ReconnectProps) {
 
   const handleReconnectAndRefresh = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
-    dispatch(refreshToken());
-
     setReconnect(false);
-    navigate('/mon-profil');
+    navigate(`/dashboard/${colocId}`);
   };
 
   return (
@@ -53,6 +51,7 @@ function ReconnectPage({ setReconnect }: ReconnectProps) {
         </Button>
         <Button onClick={handleReconnectAndRefresh}>
           <DoorOpen />
+          Se reconnecter
         </Button>
       </CardFooter>
     </Card>

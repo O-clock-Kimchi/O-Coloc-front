@@ -562,12 +562,12 @@ export const updateTask = createAsyncThunk<
   }
 });
 
-// Refresh Token
+// Refresh Token -- trying something else
 
 const REFRESH_TOKEN = 'REFRESH_TOKEN';
 
 interface RefreshTokenData {
-  refreshToken: string;
+  accessToken: string;
   message: string;
 }
 
@@ -575,7 +575,7 @@ export const refreshToken = createAsyncThunk<RefreshTokenData>(
   REFRESH_TOKEN,
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance('/refresh-token');
+      const response = await axiosInstance.post('/refresh-token');
       console.log(response.data);
       return response.data;
     } catch (error) {

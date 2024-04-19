@@ -64,6 +64,8 @@ const userReducer = createReducer(initialState, (builder) => {
 
       localStorage.setItem('accessToken', action.payload.accessToken);
       localStorage.setItem('userData', JSON.stringify(userDataState));
+
+      console.log(localStorage.getItem('accessToken'));
     })
     .addCase(login.rejected, (state) => {
       state.isLogged = false;
@@ -148,7 +150,16 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isLogged = true;
       state.isRefresh = false;
 
-      localStorage.setItem('accessToken', action.payload.refreshToken);
+      localStorage.setItem('accessToken', action.payload.accessToken);
+      console.log(localStorage.getItem('accessToken'));
+    })
+    .addCase(refreshToken.rejected, (state) => {
+      state.isRefresh = false;
+      state.isLogged = false;
+
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('colocData');
     });
 });
 
