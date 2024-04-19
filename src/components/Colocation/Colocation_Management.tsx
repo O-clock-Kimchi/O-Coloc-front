@@ -126,7 +126,7 @@ function ColocationManagement() {
     return <Navigate to="/acces-coloc" replace />;
   }
   return (
-    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
+    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-screen grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
       <h2 className=" title text-3xl text-center">Ma coloc&rsquo;</h2>
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <div className="flex flex-col p-6 space-y-9 ">

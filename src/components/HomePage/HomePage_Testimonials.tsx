@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 function Testimonials() {
   return (
-    <ScrollArea id="about-menu" className="w-100 whitespace-nowrap">
+    <ScrollArea id="about-menu" className="w-full whitespace-nowrap">
       <section className="flex w-max space-x-4 py-4 overflow-hidden rounded-md">
         <Card className="w-[300px] h-[300px]">
           <CardHeader className="flex-row">
