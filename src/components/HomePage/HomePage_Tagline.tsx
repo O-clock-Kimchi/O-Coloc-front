@@ -4,7 +4,7 @@ import Testimonials from './HomePage_Testimonials';
 
 function Tagline() {
   return (
-    <section className="pb-10 min-h-screen">
+    <section className="min-h-screen px-6">
       <div className="grid grid-rows-1 grid-cols-1 lg:grid-cols-2">
         <div className="box-left flex flex-col gap-y-4 justify-between text-center lg:text-left lg:py-12">
           <div>

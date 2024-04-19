@@ -41,7 +41,7 @@ function App() {
   // Logout User after one hour
 
   return (
-    <div className="container mx-auto mb-auto flex flex-col bg-white">
+    <div className="container mb-auto flex flex-col bg-white">
       <Header />
       <Outlet />
       <ScreenSize />

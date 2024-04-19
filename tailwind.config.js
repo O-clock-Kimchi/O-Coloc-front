@@ -9,11 +9,6 @@ module.exports = {
   ],
   prefix: '',
   theme: {
-    extend: {
-      backgroundImage: {
-        'faq-test': "url('/public/Backgrounds/wave-haikei.png')",
-      },
-    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -73,9 +68,7 @@ module.exports = {
     },
     container: {
       center: true,
-      screens: {
-        '2xl': '1400px',
-      },
+      screens: {},
     },
     extend: {
       keyframes: {
