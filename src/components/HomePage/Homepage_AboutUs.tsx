@@ -1,6 +1,6 @@
 function AboutUs() {
   return (
-    <section id="about-menu">
+    <section id="about-menu" className="min-h-screen">
       <h2 className="section-title text-center text-4xl mt-12 mb-6 text-eden-800">
         Qui somme-nous&nbsp;?
       </h2>
@@ -10,7 +10,7 @@ function AboutUs() {
       <div className="grid grid-cols-1 grid-rows-1 gap-5 md:grid-cols-5 content-center place-items-center">
         <div className="team-member-card shrink-0">
           <img
-            src="https://picsum.photos/200"
+            src="../../../public/Profils/Aude.webp"
             alt=""
             className="profile-picture aspect-[3/4] h-fit w-fit object-cover"
           />
@@ -24,7 +24,7 @@ function AboutUs() {
 
         <div className="team-member-card shrink-0">
           <img
-            src="https://picsum.photos/200"
+            src="../../../public/Profils/Caitlyne.webp"
             alt=""
             className="profile-picture aspect-[3/4] h-fit w-fit object-cover"
           />
@@ -37,7 +37,7 @@ function AboutUs() {
         </div>
         <div className="team-member-card shrink-0">
           <img
-            src="https://picsum.photos/200"
+            src="../../../public/Profils/Florian.webp"
             alt=""
             className="profile-picture aspect-[3/4] h-fit w-fit object-cover"
           />
@@ -50,7 +50,7 @@ function AboutUs() {
         </div>
         <div className="team-member-card shrink-0">
           <img
-            src="https://picsum.photos/200"
+            src="../../../public/Profils/Mickael.webp"
             alt=""
             className="profile-picture aspect-[3/4] h-fit w-fit object-cover"
           />
@@ -63,7 +63,7 @@ function AboutUs() {
         </div>
         <div className="team-member-card shrink-0">
           <img
-            src="https://picsum.photos/200"
+            src="../../../public/Profils/Noellie.webp"
             alt=""
             className="profile-picture aspect-[3/4] h-fit w-fit object-cover"
           />

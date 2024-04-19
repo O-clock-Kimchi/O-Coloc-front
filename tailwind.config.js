@@ -9,6 +9,11 @@ module.exports = {
   ],
   prefix: '',
   theme: {
+    extend: {
+      backgroundImage: {
+        'faq-test': "url('/public/Backgrounds/wave-haikei.png')",
+      },
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',

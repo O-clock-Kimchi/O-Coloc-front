@@ -9,7 +9,7 @@ import questionsList from '../../../data/faq.json';
 
 function QuestionsSection() {
   return (
-    <section>
+    <section className="bg-faq-test bg-cover bg-center">
       <h2
         id="faq-menu"
         className="section-title text-center text-4xl mt-12 mb-6 text-eden-800"

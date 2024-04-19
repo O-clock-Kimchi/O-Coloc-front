@@ -14,11 +14,11 @@ function Header() {
 
   if (pathname === '/connexion' || pathname === '/inscription') {
     return (
-      <header className="flex items-center flex-wrap justify-between py-4 mb-4 px-6 w-full">
+      <header className="flex items-center flex-wrap justify-between py-3 md:py-0 lg:py-0 xl:py-0 mb-4 px-6 w-full bg-floral-white">
         <div>
           <NavLink to="/">
             <img
-              className="w-14 md:w-28 lg:w-40"
+              className="w-14 md:w-28 lg:w-30"
               src="/logo_final.png"
               alt="Logo de CoHabit"
             />
@@ -39,11 +39,11 @@ function Header() {
   }
 
   return (
-    <header className="flex items-center flex-wrap justify-between py-4 mb-4 px-6 w-full">
+    <header className="flex items-center flex-wrap justify-between py-3 md:py-0 lg:py-0 xl:py-0 mb-4 px-6 w-full fixed top-0 bg-floral-white z-50">
       <div>
         <NavLink to="/">
           <img
-            className="w-14 md:w-28 lg:w-40"
+            className="w-14 md:w-28 lg:w-30"
             src="/logo_final.png"
             alt="Logo de CoHabit"
           />
