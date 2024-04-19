@@ -359,7 +359,7 @@ function TaskElement({ task }: TaskElementProps) {
             </DialogContent>
           </Dialog>
           <Dialog>
-            <DialogTrigger disabled={isTaskComplete}>
+            <DialogTrigger>
               <Button className="p-2" variant="ghost">
                 <Trash2 size={16} />
               </Button>
