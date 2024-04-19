@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 function MyProfileWidget() {
   return (
-    <Card className="flex flex-col w-full mx-auto h-full  bg-jet-50">
+    <Card className="flex flex-col w-full mx-auto h-full bg-jet-50 dark:bg-jet-700">
       <CardHeader>
         <CardTitle className="text-center text-2xl">Votre profil</CardTitle>
       </CardHeader>

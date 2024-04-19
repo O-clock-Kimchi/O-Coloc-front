@@ -175,7 +175,7 @@ function TodoListWidget() {
   };
 
   return (
-    <Card className="flex flex-col w-full mx-auto h-full grow bg-jet-50 content-between ">
+    <Card className="flex flex-col w-full mx-auto h-full grow bg-jet-50 content-between  dark:bg-jet-700">
       <CardHeader>
         <CardTitle className="text-center text-2xl">To-do list</CardTitle>
       </CardHeader>
@@ -212,7 +212,7 @@ function TodoListWidget() {
                 <p>Ajouter une tâche</p>
               </Button>
             </SheetTrigger>
-            <SheetContent className="w-[400px] sm:w-[540px] bg-jet-50">
+            <SheetContent className="w-[400px] sm:w-[540px] bg-jet-50 dark:text-jet-50">
               <SheetHeader className="space-y-10">
                 <SheetTitle>Ajouter une tâche</SheetTitle>
                 {formSubmitError && (

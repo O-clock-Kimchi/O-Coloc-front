@@ -18,7 +18,7 @@ function NavMobile() {
             <Menu />
           </Button>
         </SheetTrigger>
-        <SheetContent className=" w-[100vw] sm:w-[400px] text-3xl">
+        <SheetContent className=" w-[100vw] sm:w-[400px] text-3xl dark:text-jet-50">
           <SheetHeader>Menu</SheetHeader>
           <Separator className=" mt-5" />
           {!isLogged ? (

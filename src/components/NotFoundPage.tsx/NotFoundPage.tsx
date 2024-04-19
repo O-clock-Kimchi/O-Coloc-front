@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 
 function NotFoundPage() {
   return (
-    <main className="px-6 flex grow">
+    <main className="px-6 flex grow dark:text-jet-50">
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-12">
         <div className="flex flex-col justify-center space-y-10 p-10">
           <p className="flex 404-message text-8xl self-center text-eden-800">

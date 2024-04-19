@@ -7,7 +7,7 @@ import ToTopButton from './HomePage_ToTopButton';
 
 function HomePage() {
   return (
-    <main className="flex flex-col px-6 grow">
+    <main className="flex flex-col px-6 grow dark:text-jet-50">
       {/* Tagline section with CTA and illustration */}
       <Tagline />
 

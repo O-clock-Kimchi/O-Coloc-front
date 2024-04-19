@@ -126,7 +126,7 @@ function ColocationManagement() {
     return <Navigate to="/acces-coloc" replace />;
   }
   return (
-    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
+    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl h-full grow dark:text-jet-50">
       <h2 className=" title text-3xl text-center">Ma coloc&rsquo;</h2>
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <div className="flex flex-col p-6 space-y-9 ">
@@ -193,7 +193,7 @@ function ColocationManagement() {
             <Dialog>
               <DialogTrigger asChild>
                 <Button
-                  className="flex space-x-3 w-auto bg-cardinal-600 hover:bg-cardinal-400"
+                  className="flex space-x-3 w-auto bg-cardinal-600 hover:bg-cardinal-400   dark:bg-cardinal-800 dark:hover:bg-cardinal-600 dark:text-jet-50 self-center"
                   variant="default"
                   onClick={() => setIsModalOpen(false)}
                 >
@@ -201,7 +201,7 @@ function ColocationManagement() {
                   <p>Quitter la colocation</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="flex flex-col border-none bg-jet-50 border-jet-200">
+              <DialogContent className="flex flex-col border-none bg-jet-50 border-jet-200 dark:bg-jet-500 dark:text-jet-50">
                 <DialogHeader>
                   <DialogTitle>
                     Voulez-vous vraiment quitter la colocation ?
@@ -232,7 +232,7 @@ function ColocationManagement() {
                   />
                   <div className="button-container flex w-full justify-center">
                     <Button
-                      className="flex space-x-3 w-40 bg-cardinal-600 hover:bg-cardinal-400 self-center"
+                      className="flex space-x-3 w-40 bg-cardinal-600 hover:bg-cardinal-400  dark:bg-cardinal-800 dark:hover:bg-cardinal-600 dark:text-jet-50 self-center"
                       variant="default"
                       type="submit"
                     >
@@ -244,8 +244,8 @@ function ColocationManagement() {
             </Dialog>
           </div>
         </div>
-        <div className="flex flex-col box-right space-y-6 place-items-center">
-          <Card className="flex flex-col w-4/5 mx-auto  h-3/5 bg-jet-50">
+        <div className="flex flex-col box-right space-y-6 place-items-center ">
+          <Card className="flex flex-col w-4/5 mx-auto  h-3/5 bg-jet-50 dark:bg-jet-700">
             <CardHeader>
               <CardTitle className="text-center text-3xl">
                 Dans ma coloc&rsquo;

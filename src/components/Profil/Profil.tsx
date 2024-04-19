@@ -131,11 +131,11 @@ function Profil() {
   };
 
   return (
-    <div className="h-screen py-4 mb-4 px-6 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
+    <div className="h-screen py-4 mb-4 px-6  dark:text-jet-50">
       <h2 className=" text-center p-4 mb-10 text-3xl">Mon profil</h2>
       <div className="grid content-center sm:grid-cols-2 grid-rows-1 gap-10">
         <div className="flex flex-col gap-5 items-center text-center sm:text-left justify-center">
-          <Card className="w-[350px] border border-jet-100 p-5 bg-jet-50">
+          <Card className="w-[350px] border border-jet-100 p-5 bg-jet-50 dark:bg-jet-700">
             <CardHeader>
               <CardTitle>Votre profil</CardTitle>
               <CardDescription>
@@ -316,6 +316,7 @@ function Profil() {
           <img
             src="/SitReadingDoodle.svg"
             alt="Doodle showing a man sitting on a chair and reading"
+            className="dark:fill-jet-50"
           />
         </div>
       </div>

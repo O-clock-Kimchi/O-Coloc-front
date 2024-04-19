@@ -16,8 +16,8 @@ function Testimonials() {
         ... et ne le feront jamais ;)
       </p>
       <ScrollArea id="about-menu" className="w-100 whitespace-nowrap">
-        <section className="flex w-max space-x-4 p-4 overflow-hidden rounded-md">
-          <Card className="w-[300px] h-[300px]">
+        <section className="flex w-max space-x-9 p-4 overflow-hidden rounded-md">
+          <Card className="w-[300px] h-[300px] dark:bg-jet-400">
             <CardHeader className="flex-row">
               <Avatar className="mr-3">
                 <AvatarImage src="https://picsum.photos/200" alt="" />
@@ -39,7 +39,7 @@ function Testimonials() {
               <Quote className="mt-3" size={35} color="#026d65" />
             </CardContent>
           </Card>
-          <Card className="w-[300px] h-[300px]">
+          <Card className="w-[300px] h-[300px] dark:bg-jet-400">
             <CardHeader className="flex-row">
               <Avatar className="mr-3">
                 <AvatarImage src="https://picsum.photos/200" alt="" />
@@ -61,7 +61,7 @@ function Testimonials() {
               <Quote className="mt-3" size={35} color="#026d65" />
             </CardContent>
           </Card>
-          <Card className="w-[300px] h-[300px]">
+          <Card className="w-[300px] h-[300px]  dark:bg-jet-400">
             <CardHeader className="flex-row">
               <Avatar className="mr-3">
                 <AvatarImage src="https://picsum.photos/200" alt="" />
@@ -83,7 +83,7 @@ function Testimonials() {
               <Quote className="mt-3" size={35} color="#026d65" />
             </CardContent>
           </Card>
-          <Card className="w-[300px] h-[300px]">
+          <Card className="w-[300px] h-[300px] dark:bg-jet-400">
             <CardHeader className="flex-row">
               <Avatar className="mr-3">
                 <AvatarImage src="https://picsum.photos/200" alt="" />
@@ -104,7 +104,7 @@ function Testimonials() {
               <Quote className="mt-3" size={35} color="#026d65" />
             </CardContent>
           </Card>
-          <Card className="w-[300px] h-[300px] ">
+          <Card className="w-[300px] h-[300px] dark:bg-jet-400">
             <CardHeader className="flex-row">
               <Avatar className="mr-3">
                 <AvatarImage src="https://picsum.photos/200" alt="" />
@@ -127,7 +127,7 @@ function Testimonials() {
               <Quote className="mt-3" size={35} color="#026d65" />
             </CardContent>
           </Card>
-          <Card className="w-[300px] h-[300px]">
+          <Card className="w-[300px] h-[300px]  dark:bg-jet-400">
             <CardHeader className="flex-row">
               <Avatar className="mr-3">
                 <AvatarImage src="https://picsum.photos/200" alt="" />
