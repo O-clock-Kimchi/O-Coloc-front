@@ -39,7 +39,7 @@ function Header() {
   }
 
   return (
-    <header className="flex items-center flex-wrap justify-between py-3 md:py-0 lg:py-0 xl:py-0 mb-4 px-6 w-full fixed top-0 bg-floral-white z-50">
+    <header className="flex items-center flex-wrap justify-between py-3 md:py-0 lg:py-0 xl:py-0 mb-4 px-6 w-full fixed top-0 start-0 bg-floral-white z-50 shadow-md">
       <div>
         <NavLink to="/">
           <img

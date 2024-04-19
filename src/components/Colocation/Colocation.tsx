@@ -21,7 +21,7 @@ function Colocation() {
   };
 
   return (
-    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
+    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
       <h2 className="text-center text-4xl">Ma colocation</h2>
       <p className="text-center text-lg">
         Vous ne faites actuellement partie d&rsquo;aucune colocation.

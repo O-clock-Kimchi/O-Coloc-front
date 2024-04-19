@@ -1,6 +1,6 @@
 function ContactSection() {
   return (
-    <section id="contact-menu">
+    <section id="contact-menu min-h-screen">
       <h2 className="section-title text-center text-4xl mt-12 mb-6 text-eden-800">
         Contact
       </h2>
