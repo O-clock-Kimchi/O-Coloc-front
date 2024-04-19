@@ -34,23 +34,15 @@ axiosInstance.interceptors.response.use(
     if (error.response && error.response.status === 403) {
       try {
         console.log('Attempting to refresh the token...');
-
-        await localStorage.getItem('accessToken');
-
-        axiosInstance.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-
-        const originalRequest = error.config;
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
-        return axiosInstance(originalRequest);
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('userData');
+        localStorage.removeItem('colocData');
+        window.location.reload();
       } catch (removeTokenError) {
         console.log(
           'An error occurred while removing the token:',
           removeTokenError
         );
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('userData');
-        localStorage.removeItem('colocData');
       }
     }
     return Promise.reject(error);

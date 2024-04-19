@@ -18,34 +18,40 @@ function App() {
   // Decode function find here : "https://stackoverflow.com/questions/72584332/how-to-convert-token-jwt-to-object-in-reactjs"
   // At expiration time, logout the user and redirect on the login page
 
-  // useEffect(() => {
-  //   if (isLogged && token) {
-  //     const decodedToken = JSON.parse(atob(token.split('.')[1]));
-  //     const expirationTime = decodedToken.exp * 1000;
-  //     const currentTime = Date.now();
+  useEffect(() => {
+    if (isLogged && token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      const expirationTime = decodedToken.exp * 1000;
+      const currentTime = Date.now();
 
-  //     if (currentTime < expirationTime) {
-  //       // To trigger the logout just before the token expire
-  //       const timeout = expirationTime - currentTime - 30000;
-  //       const logoutTimer = setTimeout(() => {
-  //         setReconnect(true);
-  //       }, timeout);
+      if (currentTime < expirationTime) {
+        // To trigger the logout just before the token expire
+        const timeout = expirationTime - currentTime - 30000;
+        const logoutTimer = setTimeout(() => {
+          setReconnect(true);
+        }, timeout);
 
-  //       // To clear the time afterwards
-  //       return () => clearTimeout(logoutTimer);
-  //     }
-  //   }
+        // To clear the time afterwards
+        return () => clearTimeout(logoutTimer);
+      }
+    }
 
-  //   return undefined;
-  // }, [dispatch, isLogged, navigate, token, setReconnect]);
+    return undefined;
+  }, [dispatch, isLogged, navigate, token, setReconnect]);
 
   // Logout User after one hour
 
   return (
     <div className=" container mx-auto  min-h-screen flex flex-col">
       <Header />
-      <Outlet />
-      <ScreenSize />
+      {reconnect ? (
+        <ReconnectPage setReconnect={setReconnect} />
+      ) : (
+        <>
+          <Outlet />
+          <ScreenSize />
+        </>
+      )}
       <Footer />
     </div>
   );

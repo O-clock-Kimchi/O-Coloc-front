@@ -11,6 +11,7 @@ import {
   signup,
   updateUser,
 } from '../action/actions';
+import axiosInstance from '../axiosconfig';
 
 const storedToken = localStorage.getItem('accessToken');
 const storedUserData = localStorage.getItem('userData');
@@ -64,8 +65,6 @@ const userReducer = createReducer(initialState, (builder) => {
 
       localStorage.setItem('accessToken', action.payload.accessToken);
       localStorage.setItem('userData', JSON.stringify(userDataState));
-
-      console.log(localStorage.getItem('accessToken'));
     })
     .addCase(login.rejected, (state) => {
       state.isLogged = false;
@@ -152,6 +151,10 @@ const userReducer = createReducer(initialState, (builder) => {
 
       localStorage.setItem('accessToken', action.payload.accessToken);
       console.log(localStorage.getItem('accessToken'));
+
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
+        'accessToken'
+      )}`;
     })
     .addCase(refreshToken.rejected, (state) => {
       state.isRefresh = false;
