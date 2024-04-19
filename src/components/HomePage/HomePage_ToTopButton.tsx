@@ -45,7 +45,7 @@ function ToTopButton() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              className="flex flex-col w-15 bg-tainoi-300 hover:bg-tainoi-100"
+              className="flex flex-col w-15 bg-tainoi-300 hover:bg-tainoi-100 dark:bg-tainoi-300"
               onClick={scrollBackToTop}
             >
               <MoveUp />

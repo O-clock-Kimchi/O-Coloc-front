@@ -180,7 +180,7 @@ function Signup() {
   }, [registrationIsSuccessful]);
 
   return (
-    <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
+    <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6 dark:text-jet-50">
       <div className="flex items-center justify-center">
         {registrationIsSuccessful ? (
           <RegistrationSuccessful />
@@ -328,7 +328,7 @@ function Signup() {
           alt="A group of flatmates sitting at a table"
           width="1920"
           height="1080"
-          className=" max-h-screen w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className=" max-h-screen w-full object-cover dark:brightness-[0.8]"
         />
       </div>
     </div>

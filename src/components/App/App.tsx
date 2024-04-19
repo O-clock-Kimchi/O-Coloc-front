@@ -6,6 +6,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/action/actions';
 import ScreenSize from '../DevComponent/ScreenSize';
 import ReconnectPage from '../ReconnectPage/ReconnectPage';
+import ModeToggle from '../_ThemeProvider/ToggleTheme';
+import { ThemeProvider } from '../_ThemeProvider/theme-provider';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -42,17 +44,19 @@ function App() {
   // Logout User after one hour
 
   return (
-    <div className=" container mx-auto  min-h-screen flex flex-col">
-      <Header />
-      {reconnect ? (
-        <ReconnectPage setReconnect={setReconnect} />
-      ) : (
-        <>
-          <Outlet />
-          <ScreenSize />
-        </>
-      )}
-      <Footer />
+    <div className=" container mx-auto  min-h-screen flex flex-col dark:bg-jet-950">
+      <ThemeProvider>
+        <Header />
+        {reconnect ? (
+          <ReconnectPage setReconnect={setReconnect} />
+        ) : (
+          <>
+            <Outlet />
+            <ScreenSize />
+          </>
+        )}
+        <Footer />
+      </ThemeProvider>
     </div>
   );
 }

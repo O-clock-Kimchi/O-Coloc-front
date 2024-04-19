@@ -15,7 +15,7 @@ function NavDesktop() {
   const colocId = useAppSelector((state) => state.userReducer.user.colocId);
 
   return (
-    <NavigationMenu>
+    <NavigationMenu className="dark:text-jet-50">
       <NavigationMenuList>
         {!isLogged ? (
           <>

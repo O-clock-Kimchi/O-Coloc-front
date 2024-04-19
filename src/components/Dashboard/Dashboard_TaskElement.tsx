@@ -155,7 +155,7 @@ function TaskElement({ task }: TaskElementProps) {
   };
 
   // define specific conditional classes to update syle and layout according to task status
-  const cardStyleDetails = `flex flex-col items-center justify-center w-full mx-auto p-2 content-center min-h-24 border-solid[1px] ${
+  const cardStyleDetails = `flex flex-col items-center justify-center w-full mx-auto p-2 content-center min-h-24 border-solid[1px] dark:text-jet-600 dark:brightness-[0.6] ${
     formData.is_done ? 'opacity-50' : ''
   }`;
   const taskDescriptionStyleDetails = `text-sm ${
@@ -274,7 +274,7 @@ function TaskElement({ task }: TaskElementProps) {
                   <SquarePenIcon size={16} />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] bg-jet-50">
+              <DialogContent className="sm:max-w-[425px] bg-jet-50 dark:bg-jet-700 dark:text-jet-50">
                 <DialogHeader>
                   <DialogTitle>Modifier une tâche</DialogTitle>
                   <DialogDescription>
@@ -356,7 +356,7 @@ function TaskElement({ task }: TaskElementProps) {
                     )}
                   </div>
                   <div className="flex btns-container w-full justify-center">
-                    <Button className="bg-eden-800 hover:bg-eden-600">
+                    <Button className="bg-eden-800 hover:bg-eden-600 dark:bg-eden-800 dark:hover:bg-eden-600">
                       <Check size={16} />
                     </Button>
                   </div>
@@ -375,7 +375,7 @@ function TaskElement({ task }: TaskElementProps) {
                   <Trash2 size={16} />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-jet-100">
+              <DialogContent className="bg-jet-100 dark:bg-jet-500 dark:text-jet-50">
                 <DialogHeader>
                   <DialogTitle>
                     Voulez-vous vraiment supprimer cette tâche ?
@@ -383,9 +383,9 @@ function TaskElement({ task }: TaskElementProps) {
                   <DialogDescription className="flex flex-col space-y-6 items-center">
                     <p>Cette action est irréversible.</p>
                     <DialogFooter>
-                      <div className="flex btns-container w-full space-x-3 bg-cardinal-200 justify-center">
+                      <div className="flex btns-container w-full space-x-3 justify-center">
                         <Button
-                          className="bg-cardinal-600 hover:bg-cardinal-400"
+                          className="bg-cardinal-600 hover:bg-cardinal-400 dark:bg-cardinal-800 dark:hover:bg-cardinal-600 dark:text-jet-50"
                           onClick={handleDeleteTask}
                         >
                           Supprimer

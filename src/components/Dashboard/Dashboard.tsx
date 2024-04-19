@@ -38,7 +38,7 @@ function Dashboard() {
   }
 
   return (
-    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
+    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow  dark:text-jet-50">
       <h2 className=" title text-3xl text-center">
         Bienvenue sur le dashboard de la coloc&rsquo;{' '}
         <span className="text-eden-700">{nameColoc}</span>

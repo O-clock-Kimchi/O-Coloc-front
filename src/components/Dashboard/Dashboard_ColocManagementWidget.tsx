@@ -76,7 +76,7 @@ function ColocationManagementWidget() {
     return <Navigate to="/acces-coloc" replace />;
   }
   return (
-    <Card className="coloc-management flex flex-col w-full mx-auto h-full max-h-full bg-jet-50">
+    <Card className="coloc-management flex flex-col w-full mx-auto h-full max-h-full bg-jet-50 dark:bg-jet-700">
       <CardHeader>
         <CardTitle className="text-center text-2xl">Colocation</CardTitle>
       </CardHeader>
@@ -101,7 +101,7 @@ function ColocationManagementWidget() {
             <div
               className={`${
                 isDrawerOpen ? 'animate-slide' : ''
-              } drawer flex flex-col p-2 space-y-3 bg-jet-100 rounded-r-lg drop-shadow-lg animate-slide`}
+              } drawer flex flex-col p-2 space-y-3 bg-jet-100 rounded-r-lg drop-shadow-lg animate-slide dark:bg-jet-400`}
             >
               <div className="drawer-title flex space-x-4">
                 <p>
@@ -138,7 +138,7 @@ function ColocationManagementWidget() {
             </div>
           ) : (
             <Button
-              className="h-20 w-10 p-0 rounded-none rounded-r-lg transition-all duration-300 ease-in-out hover:w-12"
+              className="h-20 w-10 p-0 rounded-none rounded-r-lg transition-all duration-300 ease-in-out hover:w-12 dark:bg-jet-300"
               onClick={openDrawer}
             >
               <KeyRound className="animate-ping" />
@@ -153,7 +153,7 @@ function ColocationManagementWidget() {
             <DialogTrigger asChild>
               <div className="button-container flex flex-col  w-full justify-end  items-center">
                 <Button
-                  className="flex space-x-3 w-auto bg-cardinal-600 hover:bg-cardinal-400"
+                  className="flex space-x-3 w-auto bg-cardinal-600 hover:bg-cardinal-400 dark:bg-cardinal-800 dark:hover:bg-cardinal-600 dark:text-jet-50"
                   variant="default"
                 >
                   <DoorOpen />
@@ -161,7 +161,7 @@ function ColocationManagementWidget() {
                 </Button>
               </div>
             </DialogTrigger>
-            <DialogContent className="flex flex-col border-none bg-jet-100">
+            <DialogContent className="flex flex-col border-none bg-jet-100 dark:bg-jet-500 dark:text-jet-50">
               <DialogHeader>
                 <DialogTitle>
                   Voulez-vous vraiment quitter la colocation ?
@@ -190,7 +190,7 @@ function ColocationManagementWidget() {
                 />
                 <div className="button-container flex w-full justify-center">
                   <Button
-                    className="flex space-x-3 w-40 bg-cardinal-600 hover:bg-cardinal-400 self-center"
+                    className="flex space-x-3 w-40 bg-cardinal-600 hover:bg-cardinal-400  dark:bg-cardinal-800 dark:hover:bg-cardinal-600 dark:text-jet-50 self-center"
                     variant="default"
                     type="submit"
                   >
