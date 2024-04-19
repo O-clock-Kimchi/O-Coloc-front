@@ -51,7 +51,7 @@ function ToTopButton() {
               <MoveUp />
             </Button>
           </TooltipTrigger>
-          <TooltipContent className="border-none bg-jet-50">
+          <TooltipContent className="border-none bg-jet-50 dark:text-jet-500">
             <p>Retour en haut</p>
           </TooltipContent>
         </Tooltip>
