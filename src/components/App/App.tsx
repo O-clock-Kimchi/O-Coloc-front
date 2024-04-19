@@ -1,17 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/action/actions';
 import ScreenSize from '../DevComponent/ScreenSize';
+import ReconnectPage from '../ReconnectPage/ReconnectPage';
 
 function App() {
   const dispatch = useAppDispatch();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const userId = useAppSelector((state) => state.userReducer.user.userId);
   const navigate = useNavigate();
+  const [reconnect, setReconnect] = useState<boolean>(false);
 
   // Decode function find here : "https://stackoverflow.com/questions/72584332/how-to-convert-token-jwt-to-object-in-reactjs"
   // At expiration time, logout the user and redirect on the login page
@@ -24,10 +26,9 @@ function App() {
 
       if (currentTime < expirationTime) {
         // To trigger the logout just before the token expire
-        const timeout = expirationTime - currentTime - 1000;
+        const timeout = expirationTime - currentTime - 30000;
         const logoutTimer = setTimeout(() => {
-          dispatch(logout());
-          navigate('/connexion', { replace: true });
+          setReconnect(true);
         }, timeout);
 
         // To clear the time afterwards
@@ -36,15 +37,21 @@ function App() {
     }
 
     return undefined;
-  }, [dispatch, isLogged, navigate, token]);
+  }, [dispatch, isLogged, navigate, token, setReconnect]);
 
   // Logout User after one hour
 
   return (
     <div className=" container mx-auto  min-h-screen flex flex-col">
       <Header />
-      <Outlet />
-      <ScreenSize />
+      {reconnect ? (
+        <ReconnectPage setReconnect={setReconnect} />
+      ) : (
+        <>
+          <Outlet />
+          <ScreenSize />
+        </>
+      )}
       <Footer />
     </div>
   );

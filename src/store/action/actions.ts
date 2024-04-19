@@ -14,7 +14,7 @@ interface LoginFormData {
 
 interface LoginResponseData {
   message: string;
-  token: string;
+  accessToken: string;
   status: number;
   user: {
     userId: number;
@@ -40,7 +40,7 @@ export const login = createAsyncThunk<
       user: response.data.user,
       status: response.status,
       message: response.statusText,
-      token: response.data.token,
+      accessToken: response.data.accessToken,
     };
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -559,3 +559,25 @@ export const updateTask = createAsyncThunk<
     });
   }
 });
+
+// Refresh Token -- trying something else
+
+const REFRESH_TOKEN = 'REFRESH_TOKEN';
+
+interface RefreshTokenData {
+  accessToken: string;
+  message: string;
+}
+
+export const refreshToken = createAsyncThunk<RefreshTokenData>(
+  REFRESH_TOKEN,
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post('/refresh-token');
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
+  }
+);

@@ -22,7 +22,7 @@ function Login() {
   const [emailError, setEmailError] = useState<null | string>('');
   const [formSubmitError, setFormSubmitError] = useState<null | string>(null);
   const [redirect, setRedirect] = useState<boolean>(false);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
 
   const [loginData, setLoginData] = useState({
     email: '',
