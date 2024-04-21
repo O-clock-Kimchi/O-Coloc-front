@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
+// import UI components
 import {
   CirclePlus,
   RefreshCcw,
@@ -8,7 +9,6 @@ import {
   SquarePenIcon,
   Check,
 } from 'lucide-react';
-
 import { Button } from '../ui/button';
 import { Card, CardContent, CardTitle, CardHeader } from '../ui/card';
 import { Separator } from '../ui/separator';
@@ -21,19 +21,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
+import { toast } from '../ui/use-toast';
+import { Label } from '../ui/label';
+import { Toaster } from '../ui/toaster';
 
+// import custom components
 import FlatmatesListElement from './Colocation_FlatmatesListElement';
 import AddFlatmateModal from './Colocation_AddFlatmateModal';
+
+// import custom elements
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   changeName,
   generateNewCode,
   leaveColoc,
   updateNameColoc,
-} from '../../store/action/actions';
-import { toast } from '../ui/use-toast';
-import { Label } from '../ui/label';
-import { Toaster } from '../ui/toaster';
+} from '../../store/actions/colocActions';
 
 function ColocationManagement() {
   const dispatch = useAppDispatch();

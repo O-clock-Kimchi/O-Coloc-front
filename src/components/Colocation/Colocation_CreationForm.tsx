@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
+// import UI components
 import { Button } from '../ui/button';
 import {
   Card,
@@ -10,10 +12,12 @@ import {
 } from '../ui/card';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { createColoc } from '../../store/action/actions';
 import { toast } from '../ui/use-toast';
 import { Toaster } from '../ui/toaster';
+
+// import custom elements
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { createColoc } from '../../store/actions/colocActions';
 
 function CreationForm() {
   const dispatch = useAppDispatch();

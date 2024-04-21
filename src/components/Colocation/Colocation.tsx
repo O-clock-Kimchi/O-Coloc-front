@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
+// import UI components
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
+// import custom components
 import CreationForm from './Colocation_CreationForm';
 import JoinForm from './Colocation_JoinForm';
 

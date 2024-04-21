@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
+// import UI components
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-
 import { X, Copy } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-
 import { Toaster } from '../ui/toaster';
 import { useToast } from '../ui/use-toast';
-
 import {
   Card,
   CardContent,
@@ -16,6 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
+
+// import custom elements
 import { useAppSelector } from '../../hooks/redux';
 
 interface AddFlatmateModalProps {

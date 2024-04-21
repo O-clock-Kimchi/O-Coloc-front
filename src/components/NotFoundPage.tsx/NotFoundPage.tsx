@@ -1,5 +1,5 @@
+// import UI components
 import { NavLink } from 'react-router-dom';
-
 import { Button } from '../ui/button';
 
 function NotFoundPage() {

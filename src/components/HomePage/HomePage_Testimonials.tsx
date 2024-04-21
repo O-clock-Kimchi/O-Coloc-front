@@ -1,9 +1,7 @@
+// import UI components
 import { Quote } from 'lucide-react';
 import { ScrollArea, ScrollBar } from '../ui/scroll-area';
-
 import { Card, CardContent, CardTitle, CardHeader } from '../ui/card';
-
-// AvatarFallback in case the image isn't loading
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 function Testimonials() {

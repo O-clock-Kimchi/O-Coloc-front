@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
+// import UI components
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -9,6 +9,9 @@ import {
   navigationMenuTriggerStyle,
 } from '../ui/navigation-menu';
 import { Button } from '../ui/button';
+
+// import custom elements
+import { useAppSelector } from '../../hooks/redux';
 
 function NavDesktop() {
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);

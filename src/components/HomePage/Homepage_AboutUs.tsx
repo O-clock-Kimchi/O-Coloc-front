@@ -1,3 +1,4 @@
+// import UI components
 import { Github, Linkedin } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
@@ -172,7 +173,7 @@ function AboutUs() {
               <Button variant="secondary" className="flex-1">
                 <Linkedin size={15} className=" mr-3" />
                 <a
-                  href="https://www.linkedin.com/in/florian-rumigny/"
+                  href="https://fr.linkedin.com/in/no%C3%ABllie-chatain-six"
                   target="_blank"
                   rel="noreferrer"
                 >

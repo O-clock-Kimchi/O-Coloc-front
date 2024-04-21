@@ -5,7 +5,6 @@ import { CirclePlus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
-import TaskElement from './Dashboard_TaskElement';
 import {
   Sheet,
   SheetContent,
@@ -23,14 +22,16 @@ import {
   SelectLabel,
   SelectGroup,
 } from '../ui/select';
-
 import { Input } from '../ui/input';
 import { useToast } from '../ui/use-toast';
 import { Switch } from '../ui/switch';
 
 // import custom components
+import TaskElement from './Dashboard_TaskElement';
+
+// import custom elements
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { createTask } from '../../store/action/tasks';
+import { createTask } from '../../store/actions/tasksActions';
 
 function TodoListWidget() {
   const dispatch = useAppDispatch();

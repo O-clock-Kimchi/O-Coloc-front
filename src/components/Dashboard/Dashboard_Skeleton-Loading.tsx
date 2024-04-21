@@ -1,7 +1,5 @@
+// import UI components
 import { Skeleton } from '../ui/skeleton';
-import ColocationManagementWidget from './Dashboard_ColocManagementWidget';
-import MyProfileWidget from './Dashboard_MyProfileWidget';
-import TodoListWidget from './Dashboard_TodoListWidget';
 
 function SkeletonDashboard() {
   return (

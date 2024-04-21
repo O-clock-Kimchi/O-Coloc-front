@@ -1,5 +1,5 @@
+// import custom components
 import Tagline from './HomePage_Tagline';
-import Testimonials from './HomePage_Testimonials';
 import QuestionsSection from './HomePage_Questions';
 import AboutUs from './Homepage_AboutUs';
 import Contact from './HomePage_Contact';

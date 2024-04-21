@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
+
+// import UI components
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { askResetPassword } from '../../store/action/actions';
+
+// import custom elements
+import askResetPassword from '../../store/actions/newPasswordActions';
 
 function AskReset() {
   const dispatch = useAppDispatch();

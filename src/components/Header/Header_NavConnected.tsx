@@ -1,3 +1,4 @@
+// import UI components
 import { ChevronDown, SquareArrowRight } from 'lucide-react';
 import { NavLink, Navigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -9,16 +10,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { logout } from '../../store/action/actions';
+
+// import custom components
 import ModeToggle from '../_ThemeProvider/ToggleTheme';
 
-// display first two letters of username with capital letter
-const getFormattedFallback = (string: string) => {
-  const firstLetter = string.charAt(0).toUpperCase();
-  const secondLetter = string.charAt(1);
-  return firstLetter + secondLetter;
-};
+// import custom elements
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { logout } from '../../store/actions/userActions';
+import getFormattedFallback from '../../utils/getFormattedFallback';
 
 function NavConnected() {
   const userFirstname = useAppSelector(

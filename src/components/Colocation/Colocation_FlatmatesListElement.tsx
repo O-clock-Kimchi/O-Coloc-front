@@ -1,4 +1,7 @@
+// import UI components
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+
+// import custom elements
 import { IFlatmate } from '../../@types/coloc';
 import getFormattedFallback from '../../utils/getFormattedFallback';
 

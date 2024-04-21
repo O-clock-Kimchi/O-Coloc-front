@@ -1,5 +1,8 @@
+// import UI components
 import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
+
+// import custom components
 import Testimonials from './HomePage_Testimonials';
 
 function Tagline() {

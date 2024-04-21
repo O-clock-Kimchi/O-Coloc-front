@@ -20,8 +20,10 @@ import { useToast } from '../ui/use-toast';
 
 // import custom components
 import FlatmatesListElement from './Dashboard_FlatmatesListElement';
+
+// import custom elements
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { leaveColoc } from '../../store/action/actions';
+import { leaveColoc } from '../../store/actions/colocActions';
 
 function ColocationManagementWidget() {
   const dispatch = useAppDispatch();

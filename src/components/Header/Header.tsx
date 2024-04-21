@@ -1,19 +1,20 @@
-import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
+// import UI components
 import { Button } from '../ui/button';
 
+// import custom components
 import NavDesktop from './Header_NavDesktop';
 import NavMobile from './Header_NavMobile';
 import NavConnected from './Header_NavConnected';
-
 import ModeToggle from '../_ThemeProvider/ToggleTheme';
+
+// import custom elements
+import { useAppSelector } from '../../hooks/redux';
 
 function Header() {
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
   const { pathname } = useLocation();
-
   if (pathname === '/connexion' || pathname === '/inscription') {
     return (
       <header className="flex items-center flex-wrap justify-between py-3 md:py-0 lg:py-0 xl:py-0 mb-4 px-6 w-full bg-floral-white ">
@@ -42,7 +43,6 @@ function Header() {
       </header>
     );
   }
-
   return (
     <header
       className={
@@ -60,13 +60,11 @@ function Header() {
           />
         </NavLink>
       </div>
-
       {!isLogged ? (
         <>
           <div className="hidden lg:block">
             <NavDesktop />
           </div>
-
           <div className="flex gap-4">
             <ModeToggle />
             <NavLink to="/connexion">

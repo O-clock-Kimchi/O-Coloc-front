@@ -29,11 +29,11 @@ import {
 } from '../ui/dialog';
 import { useToast } from '../ui/use-toast';
 
-// import custom components
+// import custom elements
 import { ITask } from '../../@types/coloc';
 import getFormattedFallback from '../../utils/getFormattedFallback';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { deleteTask, updateTask } from '../../store/action/tasks';
+import { deleteTask, updateTask } from '../../store/actions/tasksActions';
 import getLighterColor from '../../utils/getLighterShade';
 
 interface TaskElementProps {

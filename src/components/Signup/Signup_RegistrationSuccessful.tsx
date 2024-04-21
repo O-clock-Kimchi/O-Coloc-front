@@ -1,4 +1,6 @@
 import { NavLink } from 'react-router-dom';
+
+// import UI components
 import { Button } from '../ui/button';
 
 function RegistrationSuccessful() {

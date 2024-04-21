@@ -1,12 +1,6 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
+// import UI components
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { LoadingSpinner } from '../ui/loading';
-import { Separator } from '../ui/separator';
 
 function Loader() {
   return (

@@ -1,5 +1,7 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
+
+// import UI components
 import { Button } from '../ui/button';
 import {
   Card,
@@ -14,10 +16,12 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '../ui/input-otp';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { joinColoc } from '../../store/action/actions';
 import { toast } from '../ui/use-toast';
 import { Toaster } from '../ui/toaster';
+
+// import custom elements
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { joinColoc } from '../../store/actions/colocActions';
 
 function JoinForm() {
   const dispatch = useAppDispatch();

@@ -1,4 +1,6 @@
 import { FormEvent, useState } from 'react';
+
+// import UI components
 import {
   Check,
   UserRoundX,
@@ -8,10 +10,8 @@ import {
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
-
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   Card,
   CardContent,
@@ -23,7 +23,7 @@ import {
   changeField,
   destroyUser,
   updateUser,
-} from '../../store/action/actions';
+} from '../../store/actions/userActions';
 import {
   Dialog,
   DialogContent,
@@ -33,9 +33,12 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Avatar, AvatarFallback } from '../ui/avatar';
-import randomHexColor from '../../utils/randomHex';
 import { useToast } from '../ui/use-toast';
 import { Toaster } from '../ui/toaster';
+
+// import custom elements
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import randomHexColor from '../../utils/randomHex';
 
 function Profil() {
   const dispatch = useAppDispatch();

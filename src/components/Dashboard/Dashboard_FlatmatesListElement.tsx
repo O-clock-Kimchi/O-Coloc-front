@@ -1,6 +1,8 @@
+// import UI components
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
-import { IFlatmate, IUser } from '../../@types/coloc';
+// import custom elements
+import { IFlatmate } from '../../@types/coloc';
 import getFormattedFallback from '../../utils/getFormattedFallback';
 
 interface FlatmatesListElementProps {

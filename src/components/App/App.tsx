@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+
+// import custom components
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { logout } from '../../store/action/actions';
 import ScreenSize from '../DevComponent/ScreenSize';
 import ReconnectPage from '../ReconnectPage/ReconnectPage';
-import ModeToggle from '../_ThemeProvider/ToggleTheme';
 import { ThemeProvider } from '../_ThemeProvider/theme-provider';
 
 function App() {
   const dispatch = useAppDispatch();
   const token = localStorage.getItem('accessToken');
   const isLogged = useAppSelector((state) => state.userReducer.isLogged);
-  const userId = useAppSelector((state) => state.userReducer.user.userId);
   const navigate = useNavigate();
   const [reconnect, setReconnect] = useState<boolean>(false);
 

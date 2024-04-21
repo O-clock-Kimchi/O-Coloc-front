@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
-import { checkTokenReset } from '../../store/action/actions';
+import { checkTokenReset } from '../../store/actions/tokenActions';
 
 function VerifyToken() {
   const { token } = useParams();

@@ -1,4 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+
+// import custom elements
 import { useAppSelector } from '../../hooks/redux';
 
 function PrivatesRoutes() {

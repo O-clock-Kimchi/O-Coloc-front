@@ -1,10 +1,12 @@
+// import UI components
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../ui/sheet';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
+
+// import custom elements
+import { useAppSelector } from '../../hooks/redux';
 
 function NavMobile() {
   const colocId = useAppSelector((state) => state.userReducer.user.colocId);

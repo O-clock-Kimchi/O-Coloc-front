@@ -1,8 +1,8 @@
 import { useState, useEffect, FormEvent } from 'react';
 
+// import UI components
 import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import { NavLink } from 'react-router-dom';
-
 import { RefreshCcw } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -13,14 +13,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../ui/tooltip';
+
+// import custom components
 import RegistrationSuccessful from './Signup_RegistrationSuccessful';
 
+// import custom elements
 import randomHexColor from '../../utils/randomHex';
 import passwordIsValid from '../../utils/checkPasswordValidity';
 import emailFormatIsValid from '../../utils/checkEmailFormat';
-
 import { useAppDispatch } from '../../hooks/redux';
-import { signup } from '../../store/action/actions';
+import { signup } from '../../store/actions/userActions';
 
 function Signup() {
   const [data, setData] = useState({

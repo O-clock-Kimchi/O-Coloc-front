@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+
+// import custom components
 import ColocationManagementWidget from './Dashboard_ColocManagementWidget';
 import TodoListWidget from './Dashboard_TodoListWidget';
 import MyProfileWidget from './Dashboard_MyProfileWidget';
-import { getColoc, getFlatmates } from '../../store/action/actions';
-import { getAllTasks } from '../../store/action/tasks';
 import SkeletonDashboard from './Dashboard_Skeleton-Loading';
+
+// import custom elements
+import { getColoc, getFlatmates } from '../../store/actions/colocActions';
+import { getAllTasks } from '../../store/actions/tasksActions';
 
 function Dashboard() {
   const dispatch = useAppDispatch();

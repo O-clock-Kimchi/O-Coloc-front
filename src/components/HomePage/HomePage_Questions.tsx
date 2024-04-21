@@ -1,3 +1,4 @@
+// import UI components
 import {
   Accordion,
   AccordionContent,
@@ -5,6 +6,7 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 
+// import custom elements
 import questionsList from '../../../data/faq.json';
 
 function QuestionsSection() {

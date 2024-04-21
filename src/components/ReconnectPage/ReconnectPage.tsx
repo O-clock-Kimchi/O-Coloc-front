@@ -1,4 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
+
+// import UI components
 import { DoorClosed, DoorOpen } from 'lucide-react';
 import {
   CardDescription,
@@ -8,8 +10,11 @@ import {
   CardFooter,
 } from '../ui/card';
 import { Button } from '../ui/button';
+
+// import custom elements
 import { useAppDispatch } from '../../hooks/redux';
-import { logout, refreshToken } from '../../store/action/actions';
+import { refreshToken } from '../../store/actions/tokenActions';
+import { logout } from '../../store/actions/userActions';
 
 interface ReconnectProps {
   setReconnect: React.Dispatch<React.SetStateAction<boolean>>;

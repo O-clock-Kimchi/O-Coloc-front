@@ -10,7 +10,7 @@ import { useToast } from '../ui/use-toast';
 
 // Function de redux pour utiliser action et state
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { login } from '../../store/action/actions';
+import { login } from '../../store/actions/userActions';
 
 // import custom components
 import emailFormatIsValid from '../../utils/checkEmailFormat';
