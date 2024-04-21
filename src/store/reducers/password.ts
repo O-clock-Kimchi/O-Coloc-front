@@ -1,5 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { askResetPassword, checkTokenReset } from '../action/actions';
+
+import askResetPassword from '../actions/newPasswordActions';
+import { checkTokenReset } from '../actions/tokenActions';
 
 interface PasswordState {
   tokenPassword: string;

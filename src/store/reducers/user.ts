@@ -1,16 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
+
 import {
   changeField,
-  createColoc,
   destroyUser,
-  joinColoc,
-  leaveColoc,
   login,
   logout,
-  refreshToken,
   signup,
   updateUser,
-} from '../action/actions';
+} from '../actions/userActions';
+import { createColoc, joinColoc, leaveColoc } from '../actions/colocActions';
+import { refreshToken } from '../actions/tokenActions';
+
 import axiosInstance from '../axiosconfig';
 
 const storedToken = localStorage.getItem('accessToken');

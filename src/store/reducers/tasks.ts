@@ -1,10 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
+
 import {
   createTask,
   getAllTasks,
   deleteTask,
   updateTask,
-} from '../action/tasks';
+} from '../actions/tasksActions';
 
 import { ITask } from '../../@types/coloc';
 
