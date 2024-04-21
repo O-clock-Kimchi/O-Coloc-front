@@ -63,15 +63,12 @@ function Login() {
 
     try {
       const response = await dispatch(login(loginData));
-      console.log('Response status:', response.payload?.status);
       if (response.payload?.status === 201) {
-        console.log('Request successful:', response);
         setLoginData({
           email: '',
           password: '',
         });
       } else {
-        console.log('Request failed:', response);
         setFormSubmitError('Veuillez vérifier votre saisie');
         setLoginData({
           email: '',
@@ -81,7 +78,6 @@ function Login() {
       }
       return;
     } catch (error: any) {
-      console.error('Error:', error.message);
       setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
     }
   };

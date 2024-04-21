@@ -130,9 +130,7 @@ function TodoListWidget() {
 
     try {
       const response = await dispatch(createTask(data));
-      console.log('Response status:', response.payload?.status);
       if (response.payload?.status === 201) {
-        console.log('Request successful:', response);
         setData({
           description: '',
           frequency: 0,
@@ -150,7 +148,6 @@ function TodoListWidget() {
         });
         setSheetIsOpen(false);
       } else if (response.payload?.status === 401) {
-        console.log('Request failed:', response);
         setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
         setData({
           description: '',

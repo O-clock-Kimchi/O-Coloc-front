@@ -127,9 +127,7 @@ function Signup() {
 
     try {
       const response = await dispatch(signup(data));
-      console.log('Response status:', response.payload?.status);
       if (response.payload?.status === 201) {
-        console.log('Request successful:', response);
         setRegistrationIsSuccessful(true);
         setData({
           firstname: '',
@@ -144,7 +142,6 @@ function Signup() {
           confirmPasswordError: '',
         });
       } else {
-        console.log('Request failed', response);
         setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
         setData({
           firstname: '',

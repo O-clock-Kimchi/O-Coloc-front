@@ -27,17 +27,11 @@ const tokenInterceptors = () => {
 
       if (error.response && error.response.status === 403) {
         try {
-          console.log('Attempting to refresh the token...');
           localStorage.removeItem('accessToken');
           localStorage.removeItem('userData');
           localStorage.removeItem('colocData');
           window.location.reload();
-        } catch (removeTokenError) {
-          console.log(
-            'An error occurred while removing the token:',
-            removeTokenError
-          );
-        }
+        } catch (removeTokenError) {}
       }
       return Promise.reject(error);
     }

@@ -35,7 +35,6 @@ export const login = createAsyncThunk<
   try {
     const response = await axiosInstance.post('/login', loginFormData);
 
-    console.log(response.data);
     return {
       user: response.data.user,
       status: response.status,
@@ -60,7 +59,6 @@ export const logout = createAsyncThunk<LogoutData>(
     try {
       const response = await axiosInstance.post('/logout');
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -110,7 +108,6 @@ export const updateUser = createAsyncThunk(
   async (updateDataUser: UpdateDataUser, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.put(`/profile`, updateDataUser);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -136,7 +133,6 @@ export const destroyUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.delete(`/delete`);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -168,7 +164,6 @@ export const createColoc = createAsyncThunk<GetColocData, CreateFormData>(
         createFormData
       );
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue("Votre nom de coloc n'est pas correct");
@@ -194,7 +189,6 @@ export const joinColoc = createAsyncThunk<GetJoinData, PostFormData>(
   async (postFormData, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(`/colocs/join`, postFormData);
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -219,8 +213,6 @@ export const getColoc = createAsyncThunk<GetDataFromColoc, number>(
     try {
       const response = await axiosInstance.get(`/colocs/${colocId}`);
 
-      console.log(response.data);
-
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -238,8 +230,6 @@ export const leaveColoc = createAsyncThunk(
   async (colocId: number, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(`colocs/${colocId}/leave`);
-
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -269,11 +259,8 @@ export const updateNameColoc = createAsyncThunk<HandleMessage, UpdateColocName>(
         name,
       });
 
-      console.log(response.data);
-
       return response.data;
     } catch (error: any) {
-      console.log(error);
       return rejectWithValue(error.response.data.message);
     }
   }
@@ -319,7 +306,6 @@ export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
   async (colocId, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.patch(`/colocs/${colocId}/code`);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -345,8 +331,6 @@ export const askResetPassword = createAsyncThunk(
         '/request-reset',
         resetPasswordData
       );
-
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -389,8 +373,6 @@ export const renewPassword = createAsyncThunk(
         '/reset-password',
         renewFormData
       );
-
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -479,14 +461,12 @@ export const getAllTasks = createAsyncThunk<
       }
       return dateA.getTime() - dateB.getTime();
     });
-    console.log('Loading successful:', response);
     return {
       message: response.statusText,
       status: response.status,
       tasks: sortedTasksList,
     };
   } catch (error: any) {
-    console.log('An error occurred while loading tasks:', error);
     return rejectWithValue({
       message: error.response.message,
       status: error.response.status,
@@ -510,7 +490,6 @@ export const deleteTask = createAsyncThunk<
 >(DELETE_TASK, async (taskId: number, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.delete(`/tasks/${taskId}`);
-    // console.log('Deleted task:', taskId);
     return { taskId, status: response.status };
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -574,7 +553,6 @@ export const refreshToken = createAsyncThunk<RefreshTokenData>(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post('/refresh-token');
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');

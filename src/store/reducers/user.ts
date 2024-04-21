@@ -150,7 +150,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isRefresh = false;
 
       localStorage.setItem('accessToken', action.payload.accessToken);
-      console.log(localStorage.getItem('accessToken'));
 
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
         'accessToken'
