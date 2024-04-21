@@ -39,7 +39,7 @@ function Dashboard() {
   }
 
   return (
-    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow  dark:text-jet-50">
+    <main className="px-6 flex flex-col p-12 space-y-6  h-full grow  dark:text-jet-50 bg-[url('/Backgrounds/layered-waves.svg')] bg-cover bg-no-repeat bg-center">
       <h2 className=" title text-3xl text-center">
         Bienvenue sur le dashboard de la coloc&rsquo;{' '}
         <span className="text-eden-700">{nameColoc}</span>

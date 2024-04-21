@@ -134,7 +134,7 @@ function Profil() {
   };
 
   return (
-    <div className="h-screen py-4 mb-4 px-6  dark:text-jet-50">
+    <div className="h-screen py-4 mb-4 px-6  dark:text-jet-50 bg-[url('/Backgrounds/layered-waves.svg')] bg-cover bg-no-repeat bg-center">
       <h2 className=" text-center p-4 mb-10 text-3xl">Mon profil</h2>
       <div className="grid content-center sm:grid-cols-2 grid-rows-1 gap-10">
         <div className="flex flex-col gap-5 items-center text-center sm:text-left justify-center">

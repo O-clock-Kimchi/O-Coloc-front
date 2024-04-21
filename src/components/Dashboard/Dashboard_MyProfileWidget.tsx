@@ -3,12 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 function MyProfileWidget() {
   return (
-    <Card className="flex flex-col w-full mx-auto h-full bg-jet-50 dark:bg-jet-700">
+    <Card className="flex flex-col w-full mx-auto h-full bg-jet-50 dark:bg-jet-700 bg-[url('/Backgrounds/polygon-scatter.svg')] bg-cover bg-no-repeat bg-center">
       <CardHeader>
         <CardTitle className="text-center text-2xl">Votre profil</CardTitle>
       </CardHeader>
       <CardContent className=" grid grid-cols-1 grid-rows-2 gap-4 grow">
-        <div className="flex flex-col min-h-3/5">Profile Elements</div>
+        <div className="flex flex-col min-h-3/5">Coming Soon!</div>
         <div className="flex flex-col min-h-2/5">
           <img
             src="../../../public/RollerSkatingDoodle.svg"

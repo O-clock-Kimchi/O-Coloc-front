@@ -129,7 +129,7 @@ function ColocationManagement() {
     return <Navigate to="/acces-coloc" replace />;
   }
   return (
-    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl h-screen grow dark:text-jet-50">
+    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl h-screen grow dark:text-jet-50 bg-[url('/Backgrounds/layered-waves.svg')] bg-cover bg-no-repeat bg-center">
       <h2 className=" title text-3xl text-center">Ma coloc&rsquo;</h2>
       <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-8 w-full">
         <div className="flex flex-col p-6 space-y-9 ">

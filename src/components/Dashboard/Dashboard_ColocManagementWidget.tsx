@@ -83,7 +83,7 @@ function ColocationManagementWidget() {
         <CardTitle className="text-center text-2xl">Colocation</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col h-full ">
-        <div className="flex flex-col h-3/6 overflow-y-auto bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
+        <div className="flex flex-col h-3/6 overflow-y-auto ">
           <div className="list flex flex-col max-h-[95%] overflow-y-scroll space-y-3 p-3 ">
             {isLoading ? (
               <p>Loading...</p>

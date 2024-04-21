@@ -362,7 +362,7 @@ function TaskElement({ task }: TaskElementProps) {
                   <Trash2 size={16} />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-jet-100 dark:bg-jet-500 dark:text-jet-50">
+              <DialogContent className="bg-jet-100 dark:bg-jet-500 dark:text-jet-50 border-none  ">
                 <DialogHeader>
                   <DialogTitle>
                     Voulez-vous vraiment supprimer cette tâche ?
