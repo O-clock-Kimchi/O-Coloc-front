@@ -38,7 +38,7 @@ function AboutUs() {
               <Button variant="outline" className="flex-1">
                 <Github size={15} className=" mr-3" />
                 <a
-                  href="https://github.com/florianrumigny"
+                  href="https://github.com/audeangelo"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -120,7 +120,7 @@ function AboutUs() {
               <Button variant="outline" className="flex-1">
                 <Github size={15} className=" mr-3" />
                 <a
-                  href="https://github.com/florianrumigny"
+                  href="https://github.com/CaitlyneBertrandias"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -161,7 +161,7 @@ function AboutUs() {
               <Button variant="outline" className="flex-1">
                 <Github size={15} className=" mr-3" />
                 <a
-                  href="https://github.com/florianrumigny"
+                  href="https://github.com/NollieChtn6"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -202,7 +202,7 @@ function AboutUs() {
               <Button variant="outline" className="flex-1">
                 <Github size={15} className=" mr-3" />
                 <a
-                  href="https://github.com/florianrumigny"
+                  href="https://github.com/MickaelSanches"
                   target="_blank"
                   rel="noreferrer"
                 >
