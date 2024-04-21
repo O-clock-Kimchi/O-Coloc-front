@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../axiosconfig';
 import { ITask } from '../../@types/coloc';
 
-// Create task action
+// Create task
 const CREATE_TASK = 'CREATE_TASK';
 
 interface CreateTaskResponseData {
@@ -49,6 +49,7 @@ export const createTask = createAsyncThunk<
 });
 
 // Get list of tasks (all flatmates included)
+
 const GET_TASKS_LIST = 'GET_TASKS_LIST';
 
 interface TasksListResponse {
@@ -92,7 +93,7 @@ export const getAllTasks = createAsyncThunk<
   }
 });
 
-// Delete task action
+// Delete task
 
 const DELETE_TASK = 'DELETE_TASK';
 
@@ -114,7 +115,8 @@ export const deleteTask = createAsyncThunk<
   }
 });
 
-// Update task action
+// Update task
+
 const UPDATE_TASK = 'UPDATE_TASK';
 
 interface UpdateTaskResponseData {
