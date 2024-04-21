@@ -1,6 +1,6 @@
 import { Github, Linkedin } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
+import { Card, CardContent, CardHeader } from '../ui/card';
 
 function AboutUs() {
   return (
@@ -14,7 +14,7 @@ function AboutUs() {
             <p className=" text-sm md:text-xl lg:text-xl text-jet-800">
               Découvrez l&apos;équipe qui a pensé et développé notre
               application. Ce site a été développé pour un projet de fin
-              d'études.
+              d&apos;études.
             </p>
           </CardContent>
         </Card>
@@ -49,7 +49,7 @@ function AboutUs() {
               <Button variant="secondary" className="flex-1">
                 <Linkedin size={15} className=" mr-3" />
                 <a
-                  href="https://www.linkedin.com/in/florian-rumigny/"
+                  href="https://www.linkedin.com/in/audeangelo/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -213,7 +213,7 @@ function AboutUs() {
               <Button variant="secondary" className="flex-1">
                 <Linkedin size={15} className=" mr-3" />
                 <a
-                  href="https://www.linkedin.com/in/florian-rumigny/"
+                  href="https://www.linkedin.com/in/mickael-sanches-loureiro/"
                   target="_blank"
                   rel="noreferrer"
                 >
