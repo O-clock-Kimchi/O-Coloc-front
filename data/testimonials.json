@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "firstName": "Maxime",
+    "age": 29,
+    "city": "Paris",
+    "testimonial": "Cette appli m\u2019a changé la vie. Je vous la recommande les yeux fermés."
+  },
+  {
+    "id": 2,
+    "firstName": "Pauline",
+    "age": 29,
+    "city": "Paris",
+    "testimonial": "Finie la galère des postits partagés\u00a0! On gère tout au même endroit, ça nous fait gagner tellement de temps\u00a0!"
+  },
+  {
+    "id": 3,
+    "firstName": "Josette",
+    "age": 75,
+    "city": "Paris",
+    "testimonial": "À mon âge, c\u2019est difficile de se souvenir de tout. Heureusement que CoHabit est là pour m\u2019aider\u00a0!"
+  },
+  {
+    "id": 4,
+    "firstName": "Adrien",
+    "age": 23,
+    "city": "Paris",
+    "testimonial": "C\u2019est simple et efficace\u00a0!"
+  },
+  {
+    "id": 5,
+    "firstName": "Julie",
+    "age": 32,
+    "city": "Paris",
+    "testimonial": "Ça a créé une super ambiance notre petite coloc\u2019. On pouvait difficilement rêver mieux\u00a0! Je recommande à 200 %\u00a0!"
+  },
+  {
+    "id": 6,
+    "firstName": "Patate (le chat)",
+    "age": 6,
+    "city": "Paris",
+    "testimonial": "Trop cool\u00a0!"
+  },
+  {
+    "id": 7,
+    "firstName": "Sian (le chat)",
+    "age": 3,
+    "city": "Paris",
+    "testimonial": "Je suis la star de la colocation\u00a0!"
+  }
+]
