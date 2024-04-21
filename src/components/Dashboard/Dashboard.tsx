@@ -4,11 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import ColocationManagementWidget from './Dashboard_ColocManagementWidget';
 import TodoListWidget from './Dashboard_TodoListWidget';
 import MyProfileWidget from './Dashboard_MyProfileWidget';
-import {
-  getColoc,
-  getFlatmates,
-  getAllTasks,
-} from '../../store/action/actions';
+import { getColoc, getFlatmates } from '../../store/action/actions';
+import { getAllTasks } from '../../store/action/tasks';
 import SkeletonDashboard from './Dashboard_Skeleton-Loading';
 
 function Dashboard() {
@@ -38,9 +35,11 @@ function Dashboard() {
   }
 
   return (
-    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] ">
+    <main className="px-6 flex flex-col p-12 space-y-6 rounded-xl  h-full grow  dark:text-jet-50">
       <h2 className=" title text-3xl text-center">
-        Bienvenue sur le dashboard de la coloc {nameColoc}!{' '}
+        Bienvenue sur le dashboard de la coloc&rsquo;{' '}
+        <span className="text-eden-700">{nameColoc}</span>
+        &nbsp;!{' '}
       </h2>
       <div className="grid grid-rows-1 grid-cols-1 p-12 lg:p-0 lg:grid-cols-3 gap-8 w-full grow">
         <ColocationManagementWidget />

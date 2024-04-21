@@ -4,7 +4,7 @@ import {
   getAllTasks,
   deleteTask,
   updateTask,
-} from '../action/actions';
+} from '../action/tasks';
 
 import { ITask } from '../../@types/coloc';
 
@@ -28,12 +28,12 @@ const tasksReducer = createReducer(initialState, (builder) => {
     })
     .addCase(createTask.fulfilled, (state, action) => {
       state.loading = false;
-      state.tasksList = [...state.tasksList, action.payload.task];
-      state.tasksList.sort(
+      const updatedTasksList = [...state.tasksList, action.payload.task];
+      updatedTasksList.sort(
         (a, b) =>
           new Date(a.due_date).getTime() - new Date(b.due_date).getTime()
       );
-      state.error = null;
+      state.tasksList = updatedTasksList;
       state.error = null;
     })
     .addCase(createTask.rejected, (state, action) => {

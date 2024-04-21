@@ -38,7 +38,7 @@ function CreationForm() {
   }
 
   return (
-    <Card className="flex flex-col mx-auto max-w-sm h-64 w-full justify-center">
+    <Card className="flex flex-col mx-auto max-w-sm h-64 w-full justify-center bg-jet-50">
       <CardHeader>
         <CardTitle className="text-2xl">Créer une colocation</CardTitle>
         <CardDescription>Saisissez le nom de votre colocation</CardDescription>

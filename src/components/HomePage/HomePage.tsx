@@ -7,12 +7,9 @@ import ToTopButton from './HomePage_ToTopButton';
 
 function HomePage() {
   return (
-    <main className="flex flex-col px-6 grow">
+    <main className="flex flex-col grow min-h-screen py-36 max-w-full dark:text-jet-50">
       {/* Tagline section with CTA and illustration */}
       <Tagline />
-
-      {/* Fake testimonials */}
-      <Testimonials />
 
       {/* FAQ */}
       <QuestionsSection />

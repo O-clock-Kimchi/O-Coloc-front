@@ -14,7 +14,7 @@ interface LoginFormData {
 
 interface LoginResponseData {
   message: string;
-  token: string;
+  accessToken: string;
   status: number;
   user: {
     userId: number;
@@ -35,12 +35,11 @@ export const login = createAsyncThunk<
   try {
     const response = await axiosInstance.post('/login', loginFormData);
 
-    console.log(response.data);
     return {
       user: response.data.user,
       status: response.status,
       message: response.statusText,
-      token: response.data.token,
+      accessToken: response.data.accessToken,
     };
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -60,7 +59,6 @@ export const logout = createAsyncThunk<LogoutData>(
     try {
       const response = await axiosInstance.post('/logout');
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -110,7 +108,6 @@ export const updateUser = createAsyncThunk(
   async (updateDataUser: UpdateDataUser, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.put(`/profile`, updateDataUser);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -136,7 +133,6 @@ export const destroyUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.delete(`/delete`);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -168,7 +164,6 @@ export const createColoc = createAsyncThunk<GetColocData, CreateFormData>(
         createFormData
       );
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue("Votre nom de coloc n'est pas correct");
@@ -194,7 +189,6 @@ export const joinColoc = createAsyncThunk<GetJoinData, PostFormData>(
   async (postFormData, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(`/colocs/join`, postFormData);
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -219,8 +213,6 @@ export const getColoc = createAsyncThunk<GetDataFromColoc, number>(
     try {
       const response = await axiosInstance.get(`/colocs/${colocId}`);
 
-      console.log(response.data);
-
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -238,8 +230,6 @@ export const leaveColoc = createAsyncThunk(
   async (colocId: number, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(`colocs/${colocId}/leave`);
-
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -269,11 +259,8 @@ export const updateNameColoc = createAsyncThunk<HandleMessage, UpdateColocName>(
         name,
       });
 
-      console.log(response.data);
-
       return response.data;
     } catch (error: any) {
-      console.log(error);
       return rejectWithValue(error.response.data.message);
     }
   }
@@ -319,7 +306,6 @@ export const generateNewCode = createAsyncThunk<{ newCode: string }, number>(
   async (colocId, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.patch(`/colocs/${colocId}/code`);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -345,8 +331,6 @@ export const askResetPassword = createAsyncThunk(
         '/request-reset',
         resetPasswordData
       );
-
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -390,8 +374,6 @@ export const renewPassword = createAsyncThunk(
         renewFormData
       );
 
-      console.log(response.data);
-
       return response.data;
     } catch (error) {
       return rejectWithValue('Une erreur est survenue');
@@ -399,163 +381,23 @@ export const renewPassword = createAsyncThunk(
   }
 );
 
-// TASKS RELATED ACTIONS
+// Refresh Token -- trying something else
 
-// Create task action
-const CREATE_TASK = 'CREATE_TASK';
+const REFRESH_TOKEN = 'REFRESH_TOKEN';
 
-interface CreateTaskResponseData {
+interface RefreshTokenData {
+  accessToken: string;
   message: string;
-  status: number;
-  task: {
-    // request update to task_id!!!
-    tasks_id: number;
-    description: string;
-    is_done: boolean;
-    frequency: number;
-    created_at: string;
-    due_date: string;
-    user_id: number;
-  };
 }
 
-interface CreateTaskFormData {
-  description: string;
-  frequency: number;
-  user_id: number;
-  is_done: boolean;
-}
-
-export const createTask = createAsyncThunk<
-  CreateTaskResponseData,
-  CreateTaskFormData,
-  {
-    rejectValue: { message: string; status: number };
+export const refreshToken = createAsyncThunk<RefreshTokenData>(
+  REFRESH_TOKEN,
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post('/refresh-token');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Une erreur est survenue');
+    }
   }
->(CREATE_TASK, async (taskData, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.post('/tasks', taskData);
-    return {
-      status: response.status,
-      message: response.data.message,
-      task: response.data.task,
-    };
-  } catch (error: any) {
-    return rejectWithValue({
-      message: 'Une erreur est survenue',
-      status: error.response.status,
-    });
-  }
-});
-
-// Get tasks' list
-const GET_TASKS_LIST = 'GET_TASKS_LIST';
-
-interface TasksListResponse {
-  message: string | null;
-  status: number;
-  tasks: ITask[];
-}
-
-export const getAllTasks = createAsyncThunk<
-  TasksListResponse,
-  number,
-  {
-    rejectValue: { message: string; status: number };
-  }
->(GET_TASKS_LIST, async (colocId: number, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.get<ITask[]>(
-      `/colocs/${colocId}/tasks`
-    );
-    // sorting tasksList by date (code snippet from: https://www.geeksforgeeks.org/sort-an-object-array-by-date-in-javascript/)
-    const sortedTasksList = response.data.sort((a, b) => {
-      // // convert due dates from string to date object
-      const dateA = new Date(a.due_date);
-      const dateB = new Date(b.due_date);
-      // check dates validity
-      if (Number.isNaN(dateA.getTime()) || Number.isNaN(dateB.getTime())) {
-        return 0;
-      }
-      return dateA.getTime() - dateB.getTime();
-    });
-    console.log('Loading successful:', response);
-    return {
-      message: response.statusText,
-      status: response.status,
-      tasks: sortedTasksList,
-    };
-  } catch (error: any) {
-    console.log('An error occurred while loading tasks:', error);
-    return rejectWithValue({
-      message: error.response.message,
-      status: error.response.status,
-    });
-  }
-});
-
-// Delete task
-
-const DELETE_TASK = 'DELETE_TASK';
-
-interface DeleteTaskResponse {
-  taskId: number;
-  status: number;
-}
-
-export const deleteTask = createAsyncThunk<
-  DeleteTaskResponse,
-  number,
-  { rejectValue: { status: number } }
->(DELETE_TASK, async (taskId: number, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.delete(`/tasks/${taskId}`);
-    // console.log('Deleted task:', taskId);
-    return { taskId, status: response.status };
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
-  }
-});
-
-// Update task
-const UPDATE_TASK = 'UPDATE_TASK';
-
-interface UpdateTaskResponseData {
-  message: string;
-  status: number;
-  updatedTask: ITask;
-}
-
-interface UpdateTaskFormData {
-  // request update
-  tasks_id: number;
-  description: string;
-  frequency: number;
-  user_id: number;
-  is_done: boolean;
-}
-
-export const updateTask = createAsyncThunk<
-  UpdateTaskResponseData,
-  UpdateTaskFormData,
-  {
-    rejectValue: { message: string; status: number };
-  }
->(UPDATE_TASK, async (taskData, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.put(
-      `/tasks/${taskData.tasks_id}`,
-      taskData
-    );
-    return {
-      status: response.status,
-      message: 'Task updated successfully',
-      updatedTask: response.data.updatedTask,
-    };
-  } catch (error: any) {
-    return rejectWithValue({
-      message: error.response.data.message,
-      status: error.response.status,
-    });
-  }
-});
+);

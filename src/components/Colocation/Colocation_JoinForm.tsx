@@ -45,7 +45,7 @@ function JoinForm() {
   }
 
   return (
-    <Card className="flex flex-col mx-auto max-w-sm h-64 justify-center">
+    <Card className="flex flex-col mx-auto max-w-sm h-64 justify-center bg-jet-50">
       <CardHeader>
         <CardTitle className="text-2xl">Rejoindre une colocation</CardTitle>
         <CardDescription>Saisissez le code d&rsquo;accès</CardDescription>

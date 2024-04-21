@@ -11,6 +11,7 @@ import {
 } from '../ui/dropdown-menu';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../store/action/actions';
+import ModeToggle from '../_ThemeProvider/ToggleTheme';
 
 // display first two letters of username with capital letter
 const getFormattedFallback = (string: string) => {
@@ -37,34 +38,34 @@ function NavConnected() {
   }
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-4 items-center dark:text-jet-50">
       <p>
         Bonjour,{' '}
         <span className=" text-tainoi-200 capitalize">{userFirstname}</span>
       </p>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button variant="outline" className="p-2">
+          <Button variant="outline" className="p-2 dark:bg-jet-300">
             <ChevronDown />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className=" text-center vertical items-center gap-2">
+        <DropdownMenuContent className=" text-center vertical items-center gap-2 dark:bg-jet-500">
           <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
+          <DropdownMenuItem>
+            {colocId ? (
+              <NavLink to="/gestion-coloc">Gérer ma coloc&rsquo;</NavLink>
+            ) : (
+              <NavLink to="/acces-coloc">Créer ma coloc&rsquo;</NavLink>
+            )}
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <NavLink to="/mon-profil">Mon profil</NavLink>
           </DropdownMenuItem>
           {colocId && (
             <DropdownMenuItem>
-              <NavLink to={`/dashboard/${colocId}`}>Ma coloc</NavLink>
+              <NavLink to={`/dashboard/${colocId}`}>Dashboard</NavLink>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem>
-            {colocId ? (
-              <NavLink to="/gestion-coloc">Gérer ma coloc</NavLink>
-            ) : (
-              <NavLink to="/acces-coloc">Créer ma coloc</NavLink>
-            )}
-          </DropdownMenuItem>
           <DropdownMenuItem>
             <Button className=" bg-tainoi-200" onClick={handleLogout}>
               <SquareArrowRight className=" pr-2" />
@@ -73,6 +74,7 @@ function NavConnected() {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <ModeToggle />
       <Avatar
         className="flex sm:flex align rounded-3xl
                   justify-center items-center"

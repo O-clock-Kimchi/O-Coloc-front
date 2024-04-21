@@ -7,11 +7,13 @@ import {
   leaveColoc,
   login,
   logout,
+  refreshToken,
   signup,
   updateUser,
 } from '../action/actions';
+import axiosInstance from '../axiosconfig';
 
-const storedToken = localStorage.getItem('token');
+const storedToken = localStorage.getItem('accessToken');
 const storedUserData = localStorage.getItem('userData');
 
 interface UserState {
@@ -24,6 +26,7 @@ interface UserState {
     email: string;
   };
   isUpdated: boolean;
+  isRefresh: boolean;
 }
 const defaultUser = {
   userId: null,
@@ -36,6 +39,7 @@ const defaultUser = {
 export const initialState: UserState = {
   isLogged: !!storedToken,
   isUpdated: false,
+  isRefresh: false,
   user: storedUserData ? JSON.parse(storedUserData) : defaultUser,
 };
 
@@ -59,7 +63,7 @@ const userReducer = createReducer(initialState, (builder) => {
         ...state.user,
       };
 
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('accessToken', action.payload.accessToken);
       localStorage.setItem('userData', JSON.stringify(userDataState));
     })
     .addCase(login.rejected, (state) => {
@@ -78,8 +82,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.color = '';
       state.user.email = '';
 
-      localStorage.removeItem('token');
-      localStorage.removeItem('userData');
+      localStorage.clear();
     })
     .addCase(signup.fulfilled, (state) => {
       state.isLogged = false;
@@ -108,7 +111,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user.color = '';
       state.user.email = '';
 
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
       localStorage.removeItem('userData');
     })
     .addCase(createColoc.fulfilled, (state, action) => {
@@ -138,6 +141,27 @@ const userReducer = createReducer(initialState, (builder) => {
       };
 
       localStorage.setItem('userData', JSON.stringify(userDataState));
+    })
+    .addCase(refreshToken.pending, (state) => {
+      state.isRefresh = true;
+    })
+    .addCase(refreshToken.fulfilled, (state, action) => {
+      state.isLogged = true;
+      state.isRefresh = false;
+
+      localStorage.setItem('accessToken', action.payload.accessToken);
+
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem(
+        'accessToken'
+      )}`;
+    })
+    .addCase(refreshToken.rejected, (state) => {
+      state.isRefresh = false;
+      state.isLogged = false;
+
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('colocData');
     });
 });
 

@@ -14,9 +14,7 @@ function VerifyToken() {
         .then(() => {
           navigate('/reinitialisation');
         })
-        .catch((error) => {
-          console.log('Une erreur est survenue');
-        });
+        .catch((error) => {});
     }
   }, [dispatch, navigate, token]);
 

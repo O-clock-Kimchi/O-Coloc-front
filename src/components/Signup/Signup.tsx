@@ -127,9 +127,7 @@ function Signup() {
 
     try {
       const response = await dispatch(signup(data));
-      console.log('Response status:', response.payload?.status);
       if (response.payload?.status === 201) {
-        console.log('Request successful:', response);
         setRegistrationIsSuccessful(true);
         setData({
           firstname: '',
@@ -144,7 +142,6 @@ function Signup() {
           confirmPasswordError: '',
         });
       } else {
-        console.log('Request failed', response);
         setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
         setData({
           firstname: '',
@@ -180,17 +177,17 @@ function Signup() {
   }, [registrationIsSuccessful]);
 
   return (
-    <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
+    <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6 dark:text-jet-50">
       <div className="flex items-center justify-center">
         {registrationIsSuccessful ? (
           <RegistrationSuccessful />
         ) : (
           <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
-              <h1 className="text-3xl font-bold">S&apos;inscrire</h1>
+              <h1 className="text-3xl font-bold">S&rsquo;inscrire</h1>
               <p className="text-balance text-muted-foreground">
-                Inscrivez-vous maintenant pour créer ou rejoindre votre future
-                colocation.
+                Inscrivez-vous dès maintenant <br />
+                pour créer ou rejoindre votre future colocation.
               </p>
               {formSubmitError && (
                 <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
@@ -288,7 +285,7 @@ function Signup() {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="confirmPassword">
-                    Confirmation de mot de passe
+                    Confirmation du mot de passe
                   </Label>
                 </div>
                 <Input
@@ -314,7 +311,7 @@ function Signup() {
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">
-              Vous avez déjà un compte ?{' '}
+              Vous avez déjà un compte&nbsp;?{' '}
               <NavLink to="/connexion" className="underline">
                 Connectez-vous
               </NavLink>
@@ -325,10 +322,10 @@ function Signup() {
       <div className="hidden bg-muted lg:block place-items-center">
         <img
           src="/pexels-coloc-register-cohabit.jpg"
-          alt=""
+          alt="A group of flatmates sitting at a table"
           width="1920"
           height="1080"
-          className=" max-h-screen w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className=" max-h-screen w-full object-cover dark:brightness-[0.8]"
         />
       </div>
     </div>

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "question": "Qu\u2019est-ce que CoHabit\u00a0?",
+    "response": "Vivre en colocation, c\u2019est beaucoup d\u2019organisation au quotidien. Cohabit vous propose une boîte à outils efficaces pour gérer la vie en colocation."
+  },
+  {
+    "id": 2,
+    "question": "À qui s\u2019adresse CoHabit\u00a0?",
+    "response": "Vivre en colocation, c\u2019est beaucoup d\u2019organisation au quotidien. Cohabit vous propose une boîte à outils efficaces pour gérer la vie en colocation."
+  },
+  {
+    "id": 3,
+    "question": "En quoi CoHabit est-elle différente des autres applications\u00a0?",
+    "response": "Chez CoHabit, nous ne prétendons pas réinventer la roue, mais simplement vous simplifier la vie. Nous regroupons tout ce dont vous avez besoin pour profiter sereinement de votre colocation... dans une seule application !"
+  },
+  {
+    "id": 4,
+    "question": "Comment l\u2019application fonctionne-telle\u00a0?",
+    "response": "C\u2019est très simple. Il vous suffit de vous inscrire"
+  },
+  {
+    "id": 5,
+    "question": "J\u2019ai moins de 18 ans, puis-je m\u2019inscrire\u00a0?",
+    "response": ""
+  },
+  {
+    "id": 6,
+    "question": "Quelles fonctionnalités envisagez-vous de développer\u00a0?",
+    "response": ""
+  }
+]

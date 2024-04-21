@@ -27,9 +27,7 @@ function FlatmatesListElement({
       </Avatar>
       <div className="grid gap-1">
         <p className="text-lg font-small leading-none">{displayName}</p>
-        <p className="text-sm text-muted-foreground">
-          Membre depuis le 01.04.2024
-        </p>
+        {/* <p className="text-sm text-muted-foreground">Joined on DD.MM.YYYY</p> */}
       </div>
     </div>
   );

@@ -22,11 +22,11 @@ function Login() {
   const [emailError, setEmailError] = useState<null | string>('');
   const [formSubmitError, setFormSubmitError] = useState<null | string>(null);
   const [redirect, setRedirect] = useState<boolean>(false);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
 
   const [loginData, setLoginData] = useState({
-    email: 'sian@ocoloc.com',
-    password: 'Sian123456',
+    email: '',
+    password: '',
   });
 
   const dispatch = useAppDispatch();
@@ -63,15 +63,12 @@ function Login() {
 
     try {
       const response = await dispatch(login(loginData));
-      console.log('Response status:', response.payload?.status);
       if (response.payload?.status === 201) {
-        console.log('Request successful:', response);
         setLoginData({
           email: '',
           password: '',
         });
       } else {
-        console.log('Request failed:', response);
         setFormSubmitError('Veuillez vérifier votre saisie');
         setLoginData({
           email: '',
@@ -81,14 +78,13 @@ function Login() {
       }
       return;
     } catch (error: any) {
-      console.error('Error:', error.message);
       setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
     }
   };
 
   // UseEffect to handle toast display if login success
   useEffect(() => {
-    if (isLogged && colocId !== null && token) {
+    if (isLogged && token) {
       toast({
         description: 'Connexion réussie !',
         className: 'bg-jet-100 text-eden-600',
@@ -102,8 +98,6 @@ function Login() {
   // Handle redirection if user has a coloc or not
 
   if (redirect && colocId) {
-    // dispatch(getColoc({ colocId }));
-
     return <Navigate to={`/dashboard/${colocId}`} replace />;
   }
 
@@ -112,13 +106,15 @@ function Login() {
   }
 
   return (
-    <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6">
+    <div className="w-full h-screen lg:grid lg:min-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6 dark:text-jet-50">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Se connecter</h1>
             <p className="text-balance text-muted-foreground">
-              Entrez votre e-mail pour vous connecter dès maintenant.
+              Saisissez votre e-mail
+              <br />
+              pour vous connecter dès maintenant.
             </p>
             {formSubmitError && (
               <p className="text-cardinal-600 text-xs">{formSubmitError}</p>
@@ -133,7 +129,7 @@ function Login() {
                 type="email"
                 value={loginData.email}
                 onChange={handleInputChange}
-                placeholder="E-mail (obligatoire)"
+                placeholder="email@example.com"
                 required
               />
             </div>
@@ -178,7 +174,7 @@ function Login() {
           alt=""
           width="1920"
           height="1080"
-          className=" max-h-screen w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className=" max-h-screen w-full object-cover dark:brightness-[0.8]"
         />
       </div>
       <Toaster />

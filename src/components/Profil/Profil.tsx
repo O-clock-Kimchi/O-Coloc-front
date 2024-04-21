@@ -108,7 +108,7 @@ function Profil() {
       setIsUpdatingEmail(false);
 
       toast({
-        description: 'Mise à jour réussie',
+        description: 'Mise à jour réussie !',
         className: 'bg-jet-50 text-eden-800',
         duration: 1000,
       });
@@ -131,23 +131,20 @@ function Profil() {
   };
 
   return (
-    <div className="h-screen py-4 mb-4 px-6">
-      <h1 className=" text-center p-4 mb-10 text-2xl bg-jet-100 rounded">
-        Mon profil
-      </h1>
-
+    <div className="h-screen py-4 mb-4 px-6  dark:text-jet-50">
+      <h2 className=" text-center p-4 mb-10 text-3xl">Mon profil</h2>
       <div className="grid content-center sm:grid-cols-2 grid-rows-1 gap-10">
         <div className="flex flex-col gap-5 items-center text-center sm:text-left justify-center">
-          <Card className="w-[350px] border border-jet-100 p-5">
+          <Card className="w-[350px] border border-jet-100 p-5 bg-jet-50 dark:bg-jet-700">
             <CardHeader>
               <CardTitle>Votre profil</CardTitle>
               <CardDescription>
                 Vous pouvez mettre à jour votre profil ou le consulter.
               </CardDescription>
             </CardHeader>
-            <CardContent className="vertical gap-5">
+            <CardContent className="vertical gap-5 ">
               <div>
-                <Label htmlFor="prenom" className=" text-xl">
+                <Label htmlFor="firstname" className=" text-xl">
                   Prénom
                 </Label>
                 <form
@@ -158,7 +155,7 @@ function Profil() {
                   {!isUpdatingFirstname ? (
                     <>
                       <Input
-                        id="prenom"
+                        id="firstname"
                         type="text"
                         placeholder={firstname}
                         disabled
@@ -171,7 +168,7 @@ function Profil() {
                   ) : (
                     <>
                       <Input
-                        id="prenom"
+                        id="firstname"
                         type="text"
                         value={firstname}
                         onChange={(e) =>
@@ -316,7 +313,11 @@ function Profil() {
         </div>
 
         <div className=" hidden sm:block self-center">
-          <img src="/SitReadingDoodle.svg" alt="" />
+          <img
+            src="/SitReadingDoodle.svg"
+            alt="Doodle showing a man sitting on a chair and reading"
+            className="dark:fill-jet-50"
+          />
         </div>
       </div>
       {isUpdated && <Toaster />}
