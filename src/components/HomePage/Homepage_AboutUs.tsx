@@ -7,12 +7,12 @@ function AboutUs() {
   return (
     <section id="about-menu" className="min-h-screen px-6">
       <div className="grid grid-cols-2 grid-flow-row lg:grid-cols-3 gap-5 ">
-        <Card className=" bg-tainoi-300 vertical justify-center items-center w-[100%] overflow-hidden sm:w-[90%]">
+        <Card className=" bg-tainoi-300 vertical justify-center items-center w-[100%] overflow-hidden sm:w-[90%] dark:bg-tainoi-500">
           <CardContent>
             <h2 className=" text-2xl md:text-5xl lg:text-5xl pb-6">
               La team CoHabit
             </h2>
-            <p className=" text-sm md:text-xl lg:text-xl text-jet-800">
+            <p className=" text-sm md:text-xl lg:text-xl text-jet-800 dark:text-jet-50">
               Découvrez l&apos;équipe qui a pensé et développé notre
               application. Ce site a été développé pour un projet de fin
               d&apos;études.
@@ -20,7 +20,7 @@ function AboutUs() {
           </CardContent>
         </Card>
 
-        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
+        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%] bg-jet-50 dark:bg-jet-600">
           <CardHeader className="h-auto w-full">
             <img
               src="/Profils/Aude.webp"
@@ -33,7 +33,9 @@ function AboutUs() {
               <h2 className="team-firstname pt-2 text-xl text-muted-foreground text-left">
                 Aude{' '}
               </h2>
-              <p className="text-jet-500 text-lg">Développeuse back-end</p>
+              <p className="text-jet-500 text-lg dark:text-jet-50">
+                Développeuse back-end
+              </p>
             </div>
             <div className="flex gap-3 flex-wrap">
               <Button variant="outline" className="flex-1">
@@ -61,7 +63,7 @@ function AboutUs() {
           </CardContent>
         </Card>
 
-        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
+        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%] bg-jet-50 dark:bg-jet-600">
           <CardHeader className="h-auto w-full">
             <img
               src="/Profils/Florian.webp"
@@ -74,7 +76,9 @@ function AboutUs() {
               <h2 className="team-firstname pt-2 text-xl text-muted-foreground text-left">
                 Florian{' '}
               </h2>
-              <p className="text-jet-500 text-lg">Développeur front-end</p>
+              <p className="text-jet-500 text-lg dark:text-jet-50">
+                Développeur front-end
+              </p>
             </div>
             <div className="flex gap-3 flex-wrap">
               <Button variant="outline" className="flex-1">
@@ -102,7 +106,7 @@ function AboutUs() {
           </CardContent>
         </Card>
 
-        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
+        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%] bg-jet-50 dark:bg-jet-600">
           <CardHeader className="h-auto w-full">
             <img
               src="/Profils/Caitlyne.webp"
@@ -115,7 +119,9 @@ function AboutUs() {
               <h2 className="team-firstname pt-2 text-xl text-muted-foreground text-left">
                 Caitlyne{' '}
               </h2>
-              <p className="text-jet-500 text-lg">Développeuse back-end</p>
+              <p className="text-jet-500 text-lg dark:text-jet-50">
+                Développeuse back-end
+              </p>
             </div>
             <div className="flex gap-3 flex-wrap">
               <Button variant="outline" className="flex-1">
@@ -143,7 +149,7 @@ function AboutUs() {
           </CardContent>
         </Card>
 
-        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
+        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%] bg-jet-50 dark:bg-jet-600">
           <CardHeader className="h-auto w-full">
             <img
               src="/Profils/Noellie.webp"
@@ -156,7 +162,9 @@ function AboutUs() {
               <h2 className="team-firstname pt-2 text-xl text-muted-foreground text-left">
                 Noëllie{' '}
               </h2>
-              <p className="text-jet-500 text-lg">Développeuse front-end</p>
+              <p className="text-jet-500 text-lg dark:text-jet-50">
+                Développeuse front-end
+              </p>
             </div>
             <div className="flex gap-3 flex-wrap">
               <Button variant="outline" className="flex-1">
@@ -184,7 +192,7 @@ function AboutUs() {
           </CardContent>
         </Card>
 
-        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
+        <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%] bg-jet-50 dark:bg-jet-600">
           <CardHeader className="h-auto w-full">
             <img
               src="/Profils/Mickael.webp"
@@ -197,7 +205,9 @@ function AboutUs() {
               <h2 className="team-firstname pt-2 text-xl text-muted-foreground text-left">
                 Mickael{' '}
               </h2>
-              <p className="text-jet-500 text-lg">Développeur back-end</p>
+              <p className="text-jet-500 text-lg dark:text-jet-50">
+                Développeur back-end
+              </p>
             </div>
             <div className="flex gap-3 flex-wrap">
               <Button variant="outline" className="flex-1">
