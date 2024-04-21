@@ -253,7 +253,7 @@ function TaskElement({ task }: TaskElementProps) {
             </p>
           </div>
           <div className="flex btns-container w-full space-x-3 justify-end">
-            <Dialog>
+            <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
               <DialogTrigger asChild>
                 <Button
                   className="p-2"
