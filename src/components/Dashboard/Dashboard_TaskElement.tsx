@@ -133,20 +133,17 @@ function TaskElement({ task }: TaskElementProps) {
         updateTask({ tasks_id: task.tasks_id, ...updatedTaskStatus })
       );
       if (response.payload?.status === 200) {
-        console.log('Request successful:', response);
         toast({
           description: 'Tâche mise à jour avec succès.',
           className: 'bg-jet-50 text-eden-600',
         });
       } else if (response.payload?.status === 401) {
-        console.log('Request failed:', response);
         toast({
           description: 'Une erreur est survenue, veuillez réessayer.',
           className: 'bg-jet-50 text-cardinal-600',
         });
       }
     } catch (error: any) {
-      console.error('Error:', error);
       toast({
         description: 'Une erreur est survenue, veuillez réessayer.',
         className: 'bg-jet-50 text-cardinal-600',
@@ -179,23 +176,19 @@ function TaskElement({ task }: TaskElementProps) {
       const response = await dispatch(
         updateTask({ tasks_id: task.tasks_id, ...formData, is_done: false })
       );
-      console.log('Response status: ', response.payload?.status);
       if (response.payload?.status === 200) {
-        console.log('Request successful:', response);
         toast({
           description: 'La tâche a bien été mise à jour.',
           className: 'bg-jet-50 text-eden-600',
         });
+        setDialogIsOpen(false);
       } else if (response.payload?.status === 401) {
-        console.log('Request failed:', response);
         toast({
           description: 'Une erreur est survenue, veuillez réessayer.',
           className: 'bg-jet-50 text-cardinal-600',
         });
       }
-      setDialogIsOpen(false);
     } catch (error: any) {
-      console.error('Error:', error);
       setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
     }
   };
@@ -205,22 +198,18 @@ function TaskElement({ task }: TaskElementProps) {
     if (taskId) {
       try {
         const response = await dispatch(deleteTask(taskId));
-        console.log('Response status: ', response.payload?.status);
         if (response.payload?.status === 200) {
-          console.log('Request successful:', response);
           toast({
             description: 'La tâche a bien été supprimée.',
             className: 'bg-jet-50 text-eden-600',
           });
         } else if (response.payload?.status === 401) {
-          console.log('Request failed:', response);
           toast({
             description: 'Une erreur est survenue, veuillez réessayer.',
             className: 'bg-jet-50 text-cardinal-600',
           });
         }
       } catch (error: any) {
-        console.error('Error:', error);
         setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
       }
     }
@@ -361,8 +350,6 @@ function TaskElement({ task }: TaskElementProps) {
                     </Button>
                   </div>
                 </form>
-
-                {/* <DialogFooter></DialogFooter> */}
               </DialogContent>
             </Dialog>
             <Dialog>
