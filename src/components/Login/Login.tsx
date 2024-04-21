@@ -110,7 +110,7 @@ function Login() {
   }
 
   return (
-    <div className="w-full h-screen lg:grid lg:max-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6 dark:text-jet-50">
+    <div className="w-full h-screen lg:grid lg:min-h-screen lg:grid-cols-2 xl:max-h-[800px] mb-4 px-6 dark:text-jet-50">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">

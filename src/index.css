@@ -23,7 +23,7 @@ h2 {
 
 @layer components {
   .debug {
-    @apply border border-red-500;
+    @apply border border-tainoi-500;
   }
 
   .horizontal {

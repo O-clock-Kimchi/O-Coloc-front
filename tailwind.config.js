@@ -68,9 +68,7 @@ module.exports = {
     },
     container: {
       center: true,
-      screens: {
-        '2xl': '1400px',
-      },
+      screens: {},
     },
     extend: {
       keyframes: {

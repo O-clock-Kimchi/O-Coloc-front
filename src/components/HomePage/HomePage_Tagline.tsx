@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { Button } from '../ui/button';
+import Testimonials from './HomePage_Testimonials';
 
 function Tagline() {
   return (
-    <section className=" lg:max-h-screen pb-10">
+    <section className="min-h-screen px-6 mb-5">
       <div className="grid grid-rows-1 grid-cols-1 lg:grid-cols-2">
         <div className="box-left flex flex-col gap-y-4 justify-between text-center lg:text-left lg:py-12">
           <div>
@@ -36,6 +37,8 @@ function Tagline() {
           />
         </div>
       </div>
+      {/* Fake testimonials */}
+      <Testimonials />
     </section>
   );
 }
