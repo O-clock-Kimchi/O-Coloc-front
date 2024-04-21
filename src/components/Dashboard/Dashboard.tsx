@@ -4,11 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import ColocationManagementWidget from './Dashboard_ColocManagementWidget';
 import TodoListWidget from './Dashboard_TodoListWidget';
 import MyProfileWidget from './Dashboard_MyProfileWidget';
-import {
-  getColoc,
-  getFlatmates,
-  getAllTasks,
-} from '../../store/action/actions';
+import { getColoc, getFlatmates } from '../../store/action/actions';
+import { getAllTasks } from '../../store/action/tasks';
 import SkeletonDashboard from './Dashboard_Skeleton-Loading';
 
 function Dashboard() {

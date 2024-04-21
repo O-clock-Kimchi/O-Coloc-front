@@ -30,7 +30,7 @@ import { Switch } from '../ui/switch';
 
 // import custom components
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { createTask } from '../../store/action/actions';
+import { createTask } from '../../store/action/tasks';
 
 function TodoListWidget() {
   const dispatch = useAppDispatch();

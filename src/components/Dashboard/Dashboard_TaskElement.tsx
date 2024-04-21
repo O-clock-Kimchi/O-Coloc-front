@@ -33,7 +33,7 @@ import { useToast } from '../ui/use-toast';
 import { ITask } from '../../@types/coloc';
 import getFormattedFallback from '../../utils/getFormattedFallback';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { deleteTask, updateTask } from '../../store/action/actions';
+import { deleteTask, updateTask } from '../../store/action/tasks';
 import getLighterColor from '../../utils/getLighterShade';
 
 interface TaskElementProps {
