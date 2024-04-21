@@ -12,7 +12,10 @@ function Testimonials() {
     <ScrollArea id="about-menu" className="w-full whitespace-nowrap">
       <section className="flex w-max space-x-4 py-4 overflow-hidden rounded-md">
         {testomonials.map((testimonial) => (
-          <Card className="w-[300px] h-[300px]" key={testimonial.id}>
+          <Card
+            className="w-[300px] h-[300px] dark:bg-jet-600"
+            key={testimonial.id}
+          >
             <CardHeader className="flex-row">
               <Avatar className="mr-3">
                 <AvatarImage src="https://picsum.photos/200" alt="" />
