@@ -22,7 +22,7 @@ function AboutUs() {
         <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
           <CardHeader className="h-auto w-full">
             <img
-              src="../../../public/Profils/Aude.webp"
+              src="/Profils/Aude.webp"
               alt=""
               className="profile-picture aspect-[3/4] h-fit w-fit object-cover rounded"
             />
@@ -63,7 +63,7 @@ function AboutUs() {
         <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
           <CardHeader className="h-auto w-full">
             <img
-              src="../../../public/Profils/Florian.webp"
+              src="/Profils/Florian.webp"
               alt=""
               className="profile-picture aspect-[3/4] h-fit w-fit object-cover rounded"
             />
@@ -104,7 +104,7 @@ function AboutUs() {
         <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
           <CardHeader className="h-auto w-full">
             <img
-              src="../../../public/Profils/Caitlyne.webp"
+              src="/Profils/Caitlyne.webp"
               alt=""
               className="profile-picture aspect-[3/4] h-fit w-fit object-cover rounded"
             />
@@ -145,7 +145,7 @@ function AboutUs() {
         <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
           <CardHeader className="h-auto w-full">
             <img
-              src="../../../public/Profils/Noellie.webp"
+              src="/Profils/Noellie.webp"
               alt=""
               className="profile-picture aspect-[3/4] h-fit w-fit object-cover rounded"
             />
@@ -186,7 +186,7 @@ function AboutUs() {
         <Card className="team-member-card shrink-0 w-[100%] sm:w-[90%]">
           <CardHeader className="h-auto w-full">
             <img
-              src="../../../public/Profils/Mickael.webp"
+              src="/Profils/Mickael.webp"
               alt=""
               className="profile-picture aspect-[3/4] h-fit w-fit object-cover rounded"
             />
