@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+
 import { logout } from '../actions/userActions';
 import {
   changeName,
@@ -10,6 +11,7 @@ import {
   getFlatmates,
   updateNameColoc,
 } from '../actions/colocActions';
+
 import { IFlatmate } from '../../@types/coloc';
 
 const storedColocData = localStorage.getItem('colocData');
