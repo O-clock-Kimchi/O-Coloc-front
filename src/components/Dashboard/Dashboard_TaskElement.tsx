@@ -33,7 +33,7 @@ import { useToast } from '../ui/use-toast';
 import { ITask } from '../../@types/coloc';
 import getFormattedFallback from '../../utils/getFormattedFallback';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { deleteTask, updateTask } from '../../store/action/actions';
+import { deleteTask, updateTask } from '../../store/action/tasks';
 import getLighterColor from '../../utils/getLighterShade';
 
 interface TaskElementProps {
@@ -181,13 +181,13 @@ function TaskElement({ task }: TaskElementProps) {
           description: 'La tâche a bien été mise à jour.',
           className: 'bg-jet-50 text-eden-600',
         });
+        setDialogIsOpen(false);
       } else if (response.payload?.status === 401) {
         toast({
           description: 'Une erreur est survenue, veuillez réessayer.',
           className: 'bg-jet-50 text-cardinal-600',
         });
       }
-      setDialogIsOpen(false);
     } catch (error: any) {
       setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
     }
@@ -253,7 +253,7 @@ function TaskElement({ task }: TaskElementProps) {
             </p>
           </div>
           <div className="flex btns-container w-full space-x-3 justify-end">
-            <Dialog>
+            <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
               <DialogTrigger asChild>
                 <Button
                   className="p-2"
@@ -350,8 +350,6 @@ function TaskElement({ task }: TaskElementProps) {
                     </Button>
                   </div>
                 </form>
-
-                {/* <DialogFooter></DialogFooter> */}
               </DialogContent>
             </Dialog>
             <Dialog>

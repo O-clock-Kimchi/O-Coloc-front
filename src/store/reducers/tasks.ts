@@ -4,7 +4,7 @@ import {
   getAllTasks,
   deleteTask,
   updateTask,
-} from '../action/actions';
+} from '../action/tasks';
 
 import { ITask } from '../../@types/coloc';
 

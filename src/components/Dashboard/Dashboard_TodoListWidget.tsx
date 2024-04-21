@@ -30,7 +30,7 @@ import { Switch } from '../ui/switch';
 
 // import custom components
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { createTask } from '../../store/action/actions';
+import { createTask } from '../../store/action/tasks';
 
 function TodoListWidget() {
   const dispatch = useAppDispatch();
@@ -166,7 +166,6 @@ function TodoListWidget() {
         });
       }
     } catch (error: any) {
-      console.error('Error:', error);
       setFormSubmitError('Une erreur est survenue. Veuillez réessayer.');
     }
   };
