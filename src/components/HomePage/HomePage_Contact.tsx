@@ -1,6 +1,6 @@
 function ContactSection() {
   return (
-    <section id="contact-menu min-h-screen">
+    <section id="contact-menu" className="">
       <h2 className="section-title text-center text-4xl mt-12 mb-6 text-eden-800">
         Contact
       </h2>
@@ -9,7 +9,7 @@ function ContactSection() {
         vite&nbsp;!
       </p>
       <p className="text-center font-regular">
-        Contatez-nous à{' '}
+        Contactez-nous à{' '}
         <a
           className="hover:text-eden-600"
           href="mailto:app.cohabit@gmail.com"
