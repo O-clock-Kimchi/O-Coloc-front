@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 // import custom components
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import ScreenSize from '../DevComponent/ScreenSize';
 import ReconnectPage from '../ReconnectPage/ReconnectPage';
 import { ThemeProvider } from '../_ThemeProvider/theme-provider';
 
@@ -46,14 +45,7 @@ function App() {
     <div className=" container mx-auto  min-h-screen flex flex-col dark:bg-jet-950">
       <ThemeProvider>
         <Header />
-        {reconnect ? (
-          <ReconnectPage setReconnect={setReconnect} />
-        ) : (
-          <>
-            <Outlet />
-            <ScreenSize />
-          </>
-        )}
+        {reconnect ? <ReconnectPage setReconnect={setReconnect} /> : <Outlet />}
         <Footer />
       </ThemeProvider>
     </div>
