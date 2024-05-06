@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_API = import.meta.env.VITE_BASE_API;
+const BASE_API = 'https://o-coloc-back.onrender.com/';
 
 const axiosInstance = axios.create({
   baseURL: BASE_API,
