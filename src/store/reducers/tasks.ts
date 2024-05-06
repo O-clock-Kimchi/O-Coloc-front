@@ -66,9 +66,9 @@ const tasksReducer = createReducer(initialState, (builder) => {
     })
     .addCase(deleteTask.rejected, (state, action) => {
       state.loading = false;
-      state.error =
-        action.payload?.message ??
-        'Une erreur est survenue lors de la suppression de la tâche.';
+      // state.error =
+      // action.payload?.message ??
+      // 'Une erreur est survenue lors de la suppression de la tâche.';
     })
     .addCase(updateTask.pending, (state) => {
       state.loading = true;
